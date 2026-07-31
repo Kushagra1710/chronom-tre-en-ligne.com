@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --wearlivo-canvas: #f5f1ea;
+  --wearlivo-surface: #fffcf7;
+  --wearlivo-ink: #191919;
+  --wearlivo-ink-muted: #625c57;
+  --wearlivo-taupe: #b8a89a;
+  --wearlivo-border: #ded4cb;
+  --wearlivo-burgundy: #7a263a;
+  --wearlivo-burgundy-dark: #591b2a;
+  --wearlivo-gold: #b9975b;
+  --wearlivo-white: #ffffff;
+}
+
+@theme inline {
+  --color-canvas: var(--wearlivo-canvas);
+  --color-surface: var(--wearlivo-surface);
+  --color-ink: var(--wearlivo-ink);
+  --color-ink-muted: var(--wearlivo-ink-muted);
+  --color-taupe: var(--wearlivo-taupe);
+  --color-border: var(--wearlivo-border);
+  --color-accent: var(--wearlivo-burgundy);
+  --color-accent-dark: var(--wearlivo-burgundy-dark);
+  --color-gold: var(--wearlivo-gold);
+  --color-white: var(--wearlivo-white);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-bodoni-moda);
+  --text-display: clamp(3.5rem, 10vw, 7rem);
+  --text-display--line-height: 0.9;
+  --text-title: clamp(3rem, 8vw, 5.25rem);
+  --text-title--line-height: 0.95;
+  --text-section: clamp(2.25rem, 5vw, 4rem);
+  --text-section--line-height: 1;
+  --container-site: 75rem;
+  --container-article: 72ch;
+  --shadow-editorial: 0 24px 60px rgb(25 25 25 / 0.12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--wearlivo-canvas);
+  color: var(--wearlivo-ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--wearlivo-canvas);
+  color: var(--wearlivo-ink);
+  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-bodoni-moda), Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--wearlivo-burgundy);
+  color: var(--wearlivo-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--wearlivo-burgundy);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

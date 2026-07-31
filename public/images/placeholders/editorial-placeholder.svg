@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title description">
+  <title id="title">Neutral Wearlivo editorial placeholder</title>
+  <desc id="description">An abstract composition in ivory, taupe, charcoal, and burgundy.</desc>
+  <rect width="800" height="1000" fill="#F5F1EA"/>
+  <rect x="72" y="72" width="656" height="856" fill="#FFFCF7" stroke="#DED4CB" stroke-width="2"/>
+  <path d="M72 720 360 388l368 420v120H72Z" fill="#B8A89A" opacity=".55"/>
+  <circle cx="568" cy="320" r="136" fill="#7A263A" opacity=".9"/>
+  <path d="M176 176h256M176 216h168" stroke="#191919" stroke-width="8"/>
+  <text x="176" y="850" fill="#191919" font-family="Georgia, serif" font-size="42" letter-spacing="8">WEARLIVO</text>
+</svg>
