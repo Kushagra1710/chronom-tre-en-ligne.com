@@ -2,17 +2,11 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button-link";
-import { demonstrationArticles } from "@/data/homepage";
+import type { EditorialArticle } from "@/data/homepage";
 
 import { ResponsiveImage } from "./responsive-image";
 
-export function FeaturedStyleGuide() {
-  const guide = demonstrationArticles[1];
-
-  if (!guide) {
-    return null;
-  }
-
+export function FeaturedStyleGuide({ guide }: { guide: EditorialArticle }) {
   return (
     <section className="bg-accent py-16 text-white sm:py-20 lg:py-28">
       <Container>

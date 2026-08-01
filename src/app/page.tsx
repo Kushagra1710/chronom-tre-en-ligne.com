@@ -9,14 +9,42 @@ import { SectionHeading } from "@/components/editorial/section-heading";
 import { TrendTicker } from "@/components/editorial/trend-ticker";
 import { Container } from "@/components/layout/container";
 import {
-  demonstrationArticles,
+  type EditorialArticle,
   editorialCategories,
 } from "@/data/homepage";
+import {
+  type ContentCategory,
+  getAllPublishedPosts,
+  type PostMetadata,
+} from "@/lib/content";
 
-export default function Home() {
-  const featuredArticle = demonstrationArticles[0];
-  const secondaryArticles = demonstrationArticles.slice(1, 3);
-  const latestArticles = demonstrationArticles.slice(3);
+const categoryLabels: Record<ContentCategory, EditorialArticle["category"]> = {
+  "fashion-trends": "Fashion Trends",
+  "outfit-ideas": "Outfit Ideas",
+  "style-guides": "Style Guides",
+};
+
+function toEditorialArticle(post: PostMetadata): EditorialArticle {
+  return {
+    category: categoryLabels[post.category],
+    coverImage: post.coverImage,
+    description: post.description,
+    href: `/blog/${post.slug}`,
+    imageAlt: post.imageAlt,
+    publishedAt: post.publishedAt,
+    readingTime: post.readingTime,
+    title: post.title,
+  };
+}
+
+export default async function Home() {
+  const publishedArticles = (await getAllPublishedPosts()).map(toEditorialArticle);
+  const featuredArticle = publishedArticles[0];
+  const secondaryArticles = publishedArticles.slice(1, 3);
+  const featuredGuide =
+    publishedArticles.find((article) =>
+      article.href.includes("capsule-wardrobe"),
+    ) ?? publishedArticles[0];
 
   return (
     <main className="flex-1" id="main-content">
@@ -70,14 +98,10 @@ export default function Home() {
             title="Latest on Wearlivo"
           />
           <div className="grid gap-x-5 gap-y-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-20">
-            {latestArticles.map((article, index) => (
+            {publishedArticles.map((article) => (
               <ArticleCard
                 article={article}
-                className={
-                  index < 2
-                    ? "lg:col-span-6"
-                    : "lg:col-span-4 lg:border-t lg:border-border lg:pt-6"
-                }
+                className="lg:col-span-4 lg:border-t lg:border-border lg:pt-6"
                 key={article.title}
               />
             ))}
@@ -85,7 +109,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <FeaturedStyleGuide />
+      {featuredGuide ? <FeaturedStyleGuide guide={featuredGuide} /> : null}
       <FashionMoodboard />
       <NewsletterPlaceholder />
       <PinterestSection />
