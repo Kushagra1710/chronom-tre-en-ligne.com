@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#191919"/>
+  <circle cx="400" cy="392" r="250" fill="#B9975B"/>
+  <path d="M182 780 400 276l218 504H182Z" fill="#F5F1EA"/>
+  <path d="M400 276v504M290 530h220" stroke="#7A263A" stroke-width="8"/>
+  <text x="126" y="894" fill="#F5F1EA" font-family="Georgia, serif" font-size="27" letter-spacing="9">SUMMER / 03</text>
+</svg>

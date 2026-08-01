@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Manrope } from "next/font/google";
 
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/config/site";
 
 import "./globals.css";
@@ -33,11 +35,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={siteConfig.language} className="h-full">
+    <html id="top" lang={siteConfig.language} className="h-full">
       <body
-        className={`${manrope.variable} ${bodoniModa.variable} min-h-full antialiased`}
+        className={`${manrope.variable} ${bodoniModa.variable} flex min-h-full flex-col antialiased`}
       >
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

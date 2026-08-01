@@ -1,4 +1,22 @@
-export const siteConfig = {
+export type SiteConfig = {
+  name: string;
+  tagline: string;
+  description: string;
+  url: string;
+  language: string;
+  locale: string;
+  social: {
+    pinterest: string | null;
+  };
+  features: {
+    ads: boolean;
+    contactForm: boolean;
+    newsletter: boolean;
+    search: boolean;
+  };
+};
+
+export const siteConfig: SiteConfig = {
   name: "Wearlivo",
   tagline: "Wear What’s Next",
   description:
@@ -15,6 +33,4 @@ export const siteConfig = {
     newsletter: false,
     search: false,
   },
-} as const;
-
-export type SiteConfig = typeof siteConfig;
+};

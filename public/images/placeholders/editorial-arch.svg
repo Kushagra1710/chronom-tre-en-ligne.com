@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#FFFCF7"/>
+  <path d="M142 854V436c0-143 116-259 258-259s258 116 258 259v418H142Z" fill="#191919"/>
+  <path d="M258 854V480c0-78 63-142 142-142s142 64 142 142v374H258Z" fill="#B8A89A"/>
+  <circle cx="400" cy="528" r="72" fill="#7A263A"/>
+  <path d="M112 104h224M112 140h132" stroke="#B9975B" stroke-width="6"/>
+  <text x="112" y="922" fill="#191919" font-family="Arial, sans-serif" font-size="20" letter-spacing="8">SHAPE / DAILY</text>
+</svg>

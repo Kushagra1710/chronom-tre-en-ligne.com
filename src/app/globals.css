@@ -47,6 +47,7 @@ html {
   min-height: 100%;
   background: var(--wearlivo-canvas);
   color: var(--wearlivo-ink);
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -99,6 +100,56 @@ svg {
   outline-offset: 3px;
 }
 
+@keyframes editorial-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-editorial-reveal {
+  animation: editorial-reveal 700ms ease-out both;
+}
+
+.animate-editorial-reveal-delayed {
+  animation: editorial-reveal 800ms 140ms ease-out both;
+}
+
+.animate-menu-in {
+  animation: menu-in 220ms ease-out both;
+}
+
+.ticker-track {
+  animation: ticker-scroll 42s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -111,5 +162,13 @@ svg {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .animate-editorial-reveal,
+  .animate-editorial-reveal-delayed,
+  .animate-menu-in,
+  .ticker-track {
+    animation: none !important;
+    transform: none !important;
   }
 }

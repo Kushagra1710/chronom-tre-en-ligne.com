@@ -2,7 +2,10 @@
 
 Wearlivo is a mobile-first fashion editorial publication for affordable outfit inspiration, practical style guides, and wearable fashion trends.
 
-The repository currently contains the Phase 1 application and design foundation. Editorial pages, reusable site components, and the MDX publishing system will be added in later approved phases.
+The repository currently contains the Phase 2 application foundation, shared
+site layout, responsive navigation, reusable editorial components, and the
+complete visual homepage. The MDX publishing system and supporting routes will
+be added in later approved phases.
 
 ## Technology
 
@@ -14,6 +17,17 @@ The repository currently contains the Phase 1 application and design foundation.
 - Repository-managed MDX content
 
 ## Local development
+
+Wearlivo uses Node.js 24 LTS. The repository includes `.nvmrc` and
+`.node-version` files, and npm enforces the `24.x` engine declared in
+`package.json`.
+
+With `nvm`, activate the supported runtime first:
+
+```bash
+nvm install
+nvm use
+```
 
 Install dependencies and start the development server:
 
