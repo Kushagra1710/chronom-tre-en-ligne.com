@@ -23,7 +23,7 @@ export function SiteFooter() {
                 <a
                   className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] transition-colors hover:text-gold"
                   href={siteConfig.social.pinterest}
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <PinterestIcon className="size-5" />
@@ -33,8 +33,6 @@ export function SiteFooter() {
                 <span
                   aria-disabled="true"
                   className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-white/45"
-                  role="link"
-                  tabIndex={0}
                 >
                   <PinterestIcon className="size-5" />
                   Pinterest coming soon
@@ -52,13 +50,23 @@ export function SiteFooter() {
                 <ul className="mt-6 space-y-4">
                   {items.map((item) => (
                     <li key={item.href}>
-                      <Link
-                        className="text-sm text-white/70 transition-colors hover:text-white"
-                        href={item.href}
-                        prefetch={false}
-                      >
-                        {item.label}
-                      </Link>
+                      {item.available === false ? (
+                        <span
+                          aria-disabled="true"
+                          className="text-sm text-white/35"
+                          title={`${item.label} coming in a later phase`}
+                        >
+                          {item.label}
+                        </span>
+                      ) : (
+                        <Link
+                          className="text-sm text-white/70 transition-colors hover:text-white"
+                          href={item.href}
+                          prefetch={false}
+                        >
+                          {item.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

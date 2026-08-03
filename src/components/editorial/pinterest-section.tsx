@@ -24,6 +24,7 @@ export function PinterestSection() {
               {siteConfig.social.pinterest ? (
                 <ButtonLink
                   href={siteConfig.social.pinterest}
+                  rel="noopener noreferrer"
                   target="_blank"
                   variant="primary"
                 >

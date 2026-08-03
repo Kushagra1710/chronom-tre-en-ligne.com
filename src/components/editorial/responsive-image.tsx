@@ -24,8 +24,9 @@ export function ResponsiveImage({
       <Image
         alt={alt}
         className={cn("object-cover", imageClassName)}
+        fetchPriority={priority ? "high" : undefined}
         fill
-        priority={priority}
+        loading={priority ? "eager" : undefined}
         sizes={sizes}
         src={src}
         unoptimized={src.endsWith(".svg")}

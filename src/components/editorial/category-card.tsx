@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import { ResponsiveImage } from "@/components/editorial/responsive-image";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
-import type { EditorialCategory } from "@/data/homepage";
+import type { CategoryDetails } from "@/config/categories";
 
 type CategoryCardProps = {
-  category: EditorialCategory;
+  category: CategoryDetails;
   index: number;
 };
 
@@ -30,7 +30,7 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
       <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <h3 className="text-4xl leading-none sm:text-5xl">{category.title}</h3>
+            <h3 className="text-4xl leading-none sm:text-5xl">{category.label}</h3>
             <p className="mt-4 max-w-sm text-sm leading-6 text-white/75">
               {category.description}
             </p>

@@ -28,7 +28,7 @@ export const mdxComponents = {
         {...props}
         className="font-semibold text-accent underline decoration-accent/35 underline-offset-4 transition-colors hover:text-accent-dark"
         href={href}
-        rel={isExternal ? "noreferrer" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         target={isExternal ? "_blank" : undefined}
       />
     );

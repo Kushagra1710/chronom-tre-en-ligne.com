@@ -2,11 +2,13 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button-link";
-import type { EditorialArticle } from "@/data/homepage";
+import type { PostMetadata } from "@/lib/content";
 
 import { ResponsiveImage } from "./responsive-image";
 
-export function FeaturedStyleGuide({ guide }: { guide: EditorialArticle }) {
+export function FeaturedStyleGuide({ guide }: { guide: PostMetadata }) {
+  const href = `/blog/${guide.slug}`;
+
   return (
     <section className="bg-accent py-16 text-white sm:py-20 lg:py-28">
       <Container>
@@ -25,7 +27,7 @@ export function FeaturedStyleGuide({ guide }: { guide: EditorialArticle }) {
             <h2 className="mt-6 text-4xl leading-[1.02] sm:text-5xl lg:text-6xl">
               <Link
                 className="transition-colors hover:text-canvas"
-                href={guide.href}
+                href={href}
                 prefetch={false}
               >
                 {guide.title}
@@ -35,7 +37,7 @@ export function FeaturedStyleGuide({ guide }: { guide: EditorialArticle }) {
               {guide.description}
             </p>
             <div className="mt-9">
-              <ButtonLink href={guide.href} prefetch={false} variant="light">
+              <ButtonLink href={href} prefetch={false} variant="light">
                 Read the guide
               </ButtonLink>
             </div>

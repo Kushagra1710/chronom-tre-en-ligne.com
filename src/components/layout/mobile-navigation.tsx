@@ -58,45 +58,57 @@ export function MobileNavigation() {
 
       {isOpen ? (
         <div
-          className="animate-menu-in absolute inset-x-0 top-full z-50 min-h-[calc(100vh-4.5rem)] border-t border-border bg-canvas px-5 py-8 sm:px-8"
+          className="animate-menu-in absolute inset-x-0 top-full z-50 min-h-[calc(100vh-5rem)] border-t border-border bg-canvas px-5 py-8 sm:min-h-[calc(100vh-6rem)] sm:px-8"
           id={menuId}
         >
           <nav aria-label="Mobile navigation">
             <ul className="divide-y divide-border border-y border-border">
               {primaryNavigation.map((item, index) => (
                 <li key={item.href}>
-                  <Link
-                    ref={index === 0 ? firstLinkRef : undefined}
-                    className="flex min-h-14 items-center justify-between py-4 font-display text-3xl text-ink transition-colors hover:text-accent"
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    prefetch={false}
-                  >
-                    {item.label}
-                    <span className="font-sans text-xs text-ink-muted">
-                      0{index + 1}
+                  {item.available === false ? (
+                    <span
+                      aria-disabled="true"
+                      className="flex min-h-14 items-center justify-between py-4 font-display text-3xl text-ink-muted/55"
+                    >
+                      {item.label}
+                      <span className="font-sans text-[0.65rem] font-bold uppercase tracking-[0.12em]">
+                        Soon
+                      </span>
                     </span>
-                  </Link>
+                  ) : (
+                    <Link
+                      ref={index === 0 ? firstLinkRef : undefined}
+                      className="flex min-h-14 items-center justify-between py-4 font-display text-3xl text-ink transition-colors hover:text-accent"
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      prefetch={false}
+                    >
+                      {item.label}
+                      <span className="font-sans text-xs text-ink-muted">
+                        0{index + 1}
+                      </span>
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className="mt-8 grid grid-cols-2 gap-3">
-            <span
-              aria-disabled="true"
+            <Link
               className="flex min-h-12 items-center justify-center gap-2 border border-border text-xs font-bold uppercase tracking-[0.14em] text-ink-muted"
-              role="link"
-              tabIndex={0}
+              href="/search"
+              onClick={() => setIsOpen(false)}
+              prefetch={false}
             >
               <SearchIcon className="size-4" />
-              Search soon
-            </span>
+              Search
+            </Link>
             {siteConfig.social.pinterest ? (
               <a
                 className="flex min-h-12 items-center justify-center gap-2 border border-border text-xs font-bold uppercase tracking-[0.14em]"
                 href={siteConfig.social.pinterest}
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <PinterestIcon className="size-4" />
@@ -106,8 +118,6 @@ export function MobileNavigation() {
               <span
                 aria-disabled="true"
                 className="flex min-h-12 items-center justify-center gap-2 border border-border text-xs font-bold uppercase tracking-[0.14em] text-ink-muted"
-                role="link"
-                tabIndex={0}
               >
                 <PinterestIcon className="size-4" />
                 Pinterest soon

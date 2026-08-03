@@ -17,6 +17,8 @@ export type {
   PreviousNextPosts,
 } from "./posts";
 export { renderPostMdx } from "./render-mdx";
+export { extractTableOfContents } from "./table-of-contents";
+export type { TableOfContentsItem } from "./table-of-contents";
 export {
   CONTENT_CATEGORIES,
   ContentValidationError,

@@ -1,6 +1,7 @@
 export type NavigationItem = {
   label: string;
   href: string;
+  available?: boolean;
 };
 
 export const primaryNavigation: NavigationItem[] = [
@@ -12,7 +13,7 @@ export const primaryNavigation: NavigationItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const footerNavigation = {
+export const footerNavigation: Record<string, NavigationItem[]> = {
   Explore: [
     { label: "Outfit Ideas", href: "/outfit-ideas" },
     { label: "Style Guides", href: "/style-guides" },
@@ -25,8 +26,14 @@ export const footerNavigation = {
   ],
   Legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms & Conditions", href: "/terms-and-conditions" },
-    { label: "Affiliate Disclosure", href: "/affiliate-disclosure" },
+    {
+      label: "Terms & Conditions",
+      href: "/terms-and-conditions",
+    },
+    {
+      label: "Affiliate Disclosure",
+      href: "/affiliate-disclosure",
+    },
     { label: "Disclaimer", href: "/disclaimer" },
   ],
-} satisfies Record<string, NavigationItem[]>;
+};

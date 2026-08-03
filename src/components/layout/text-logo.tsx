@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
@@ -13,23 +14,23 @@ export function TextLogo({ className, inverse = false }: TextLogoProps) {
     <Link
       aria-label={`${siteConfig.name} home`}
       className={cn(
-        "inline-flex flex-col leading-none focus-visible:outline-offset-4",
-        inverse ? "text-white" : "text-ink",
+        "inline-flex shrink-0 items-center focus-visible:outline-offset-4",
+        inverse && "bg-canvas px-3 py-2",
         className,
       )}
       href="/"
     >
-      <span className="font-display text-[1.65rem] font-semibold tracking-[0.08em] sm:text-[1.85rem]">
-        WEARLIVO
-      </span>
-      <span
+      <Image
+        alt=""
         className={cn(
-          "mt-1 text-[0.55rem] font-semibold uppercase tracking-[0.23em]",
-          inverse ? "text-white/60" : "text-ink-muted",
+          "h-14 w-auto sm:h-16",
+          inverse && "h-24 sm:h-28",
         )}
-      >
-        {siteConfig.tagline}
-      </span>
+        height={1108}
+        loading="eager"
+        src="/images/brand/wearlivo-logo.png"
+        width={1419}
+      />
     </Link>
   );
 }

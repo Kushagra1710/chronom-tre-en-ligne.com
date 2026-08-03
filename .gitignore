@@ -22,10 +22,14 @@
 
 # misc
 .DS_Store
+*.swp
+*.tmp
 *.pem
+/tmp/
 
 # debug
 npm-debug.log*
+*.log
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
