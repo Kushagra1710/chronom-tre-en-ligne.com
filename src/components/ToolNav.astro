@@ -1,0 +1,25 @@
+---
+import { tools } from "../lib/tools";
+interface Props {
+  type: "stopwatch" | "timer";
+}
+const { type } = Astro.props;
+---
+
+<nav
+  class="tool-nav wrap"
+  aria-label={type === "stopwatch" ? "Stopwatch types" : "Timer types"}
+>
+  <div>
+    {tools
+      .filter((tool) => tool.type === type)
+      .map((tool) => (
+        <a
+          href={tool.href}
+          aria-current={Astro.url.pathname === tool.href ? "page" : undefined}
+        >
+          {tool.label}
+        </a>
+      ))}
+  </div>
+</nav>

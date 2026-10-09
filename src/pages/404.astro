@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<Layout title="Page Not Found | Online Stopwatch" noindex>
+  <main id="main" class="wrap error-page">
+    <section class="error-card" aria-labelledby="error-title">
+      <div class="error-card-top">
+        <a href="/" class="error-brand">
+          <span class="error-brand-icon"><Icon name="watch" size={19} /></span>
+          <span>Online Stopwatch <em>by Wearlivo</em></span>
+        </a>
+        <span class="error-status">404 · NOT FOUND</span>
+      </div>
+      <div class="error-card-body">
+        <div class="error-code" aria-hidden="true">404</div>
+        <div class="error-copy">
+          <span class="eyebrow">A SMALL DETOUR</span>
+          <h1 id="error-title">This moment isn’t on the clock.</h1>
+          <p>
+            The page you requested does not exist or may have moved. Choose a
+            tool below and get back to what matters.
+          </p>
+          <div class="error-actions">
+            <a href="/" class="primary-button">
+              <Icon name="watch" size={17} /> Open stopwatch
+            </a>
+            <a href="/tools/" class="secondary-button">
+              Browse all tools <Icon name="arrow" size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="error-note">
+        <Icon name="shield" size={15} /> Your saved sessions stay in this browser.
+      </p>
+    </section>
+  </main>
+</Layout>

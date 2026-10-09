@@ -1,0 +1,46 @@
+---
+import Icon from "./Icon.astro";
+import { tools, toolCategories } from "../lib/tools";
+const current = Astro.url.pathname;
+---
+
+<section
+  class="site-toolbox wrap"
+  id="tool-menu"
+  aria-labelledby="toolbox-title"
+>
+  <div class="toolbox-heading">
+    <div>
+      <span class="eyebrow">THE TOOLBOX</span>
+      <h2 id="toolbox-title">Find your next tool.</h2>
+    </div>
+  </div>
+  <nav class="category-buttons" aria-label="Tool categories">
+    {toolCategories.map((category) => (
+      <a
+        href={category.href}
+        aria-current={current === category.href ? "page" : undefined}
+      >
+        <span class="category-symbol">
+          <Icon name={category.icon} size={21} />
+        </span>
+        <span>
+          <strong>{category.title}</strong>
+          <small>{category.description}</small>
+        </span>
+        <Icon name="arrow" size={14} />
+      </a>
+    ))}
+  </nav>
+  <nav class="tool-quick-links" aria-label="All timing tools">
+    {tools.map((tool) => (
+      <a
+        href={tool.href}
+        aria-current={current === tool.href ? "page" : undefined}
+      >
+        <span>{tool.title}</span>
+        <Icon name="arrow" size={13} />
+      </a>
+    ))}
+  </nav>
+</section>

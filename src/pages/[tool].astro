@@ -1,0 +1,194 @@
+---
+import Layout from "../layouts/Layout.astro";
+import StopwatchTool from "../components/StopwatchTool.astro";
+import ToolNav from "../components/ToolNav.astro";
+import TimerTool from "../components/TimerTool.astro";
+import type { StopwatchVariant, TimerMode } from "../lib/tools";
+export function getStaticPaths() {
+  return [
+    {
+      slug: "analog-stopwatch",
+      variant: "analog",
+      title: "Analog Stopwatch",
+      lead: "A classic face.",
+      accent: "A fresh perspective.",
+      description:
+        "Follow time on a classic analog dial, with a digital readout, lap records, and fullscreen mode.",
+      help: "Read the rhythm of your time.",
+      details:
+        "The long hand completes one turn every minute. The short hand completes one turn every hour. The digital readout below shows total elapsed time, including hours, so a full turn never loses your place.",
+    },
+    {
+      slug: "minimal-stopwatch",
+      variant: "minimal",
+      title: "Minimal Stopwatch",
+      lead: "Just you.",
+      accent: "And this moment.",
+      description:
+        "An uncluttered stopwatch for deep work. Big numbers, simple controls, and lap records when you want them.",
+      help: "Less on screen. More room to focus.",
+      details:
+        "The minimal stopwatch keeps lap records tucked away until you need them. Press Lap to mark your progress, then choose Show lap records to review or export your results. Fullscreen gives your clock the whole screen.",
+    },
+    {
+      slug: "custom-stopwatch",
+      variant: "custom",
+      title: "Custom Stopwatch",
+      lead: "Your time.",
+      accent: "Your way.",
+      description:
+        "Create your own stopwatch with a session title, digital or analog face, colors, fonts, display size, and lap options.",
+      help: "Make a space that feels like yours.",
+      details:
+        "Customize your clock above; changes appear immediately without interrupting a running session. Your setup stays in this browser. Copy a setup link to share the appearance and session title without sharing your recorded times.",
+    },
+    {
+      slug: "timer",
+      mode: "countdown",
+      title: "Online Countdown Timer",
+      lead: "Make a little time.",
+      accent: "For what matters.",
+      description:
+        "A free countdown timer with quick presets, custom durations, sound alerts, and fullscreen mode.",
+      heading: "One task. A little time. A clear finish.",
+      instructions:
+        "Choose a quick preset or enter hours, minutes, and seconds. Apply your duration, then press Start. Pause whenever you need to; Resume continues from the time remaining. At zero, the display shows completion and plays a short tone if sound is enabled.",
+    },
+    {
+      slug: "pomodoro",
+      mode: "pomodoro",
+      title: "Pomodoro Timer",
+      lead: "Find your focus.",
+      accent: "Then find your pause.",
+      description:
+        "Set your own focus sessions, short breaks, and long breaks with a free, automatic Pomodoro timer.",
+      heading: "A rhythm with room to breathe.",
+      instructions:
+        "Choose the length of your focus periods and breaks, then set how many focus sessions you want to complete. The timer advances automatically between phases. Every fourth completed focus session is followed by a long break if another session remains. The routine ends after the final focus session, without an extra break.",
+    },
+    {
+      slug: "interval-timer",
+      mode: "interval",
+      title: "Interval Timer",
+      lead: "A little effort.",
+      accent: "A little recovery.",
+      description:
+        "Build a custom interval timer with work, rest, and repeated rounds for practice, exercise, or daily routines.",
+      heading: "Your routine. One round at a time.",
+      instructions:
+        "Set work and rest durations in seconds, choose your number of rounds, and apply the routine. Work and rest alternate automatically, with no rest period after the final round. Set rest to zero for continuous work rounds. Pause or reset whenever you need to.",
+    },
+  ].map((config) => ({ params: { tool: config.slug }, props: config }));
+}
+interface Props {
+  variant?: StopwatchVariant;
+  mode?: TimerMode;
+  heading?: string;
+  instructions?: string;
+  title: string;
+  lead: string;
+  accent: string;
+  description: string;
+  help?: string;
+  details?: string;
+}
+const {
+  variant,
+  mode,
+  title,
+  lead,
+  accent,
+  description,
+  help,
+  details,
+  heading,
+  instructions,
+} = Astro.props;
+---
+
+<Layout title={`${title} | Online Stopwatch`} description={description}>
+  <main id="main">
+    {mode ? (
+      <>
+        <TimerTool mode={mode} />
+        <ToolNav type="timer" />
+        <section class="hero wrap">
+          <span class="eyebrow">{title.toUpperCase()}</span>
+          <h1>
+            {lead} <span>{accent}</span>
+          </h1>
+          <p>{description}</p>
+        </section>
+        <section class="tool-help wrap">
+          <h2>{heading}</h2>
+          <p>{instructions}</p>
+          <div class="help-grid">
+            <article>
+              <h3>Your setup, saved</h3>
+              <p>
+                Your routine and progress stay in this browser. After a refresh,
+                choose Restore timer. Time away is included for a previously
+                running timer; it then pauses for review.
+              </p>
+            </article>
+            <article>
+              <h3>Sound that respects your space</h3>
+              <p>
+                Use Test sound to check your volume before starting, or turn
+                alerts off for a silent session. Sounds require browser support
+                and may not play in a suspended tab.
+              </p>
+            </article>
+            <article>
+              <h3>A clock you can trust</h3>
+              <p>
+                Countdowns use a deadline, so delayed screen updates do not
+                extend a phase. Changing your device clock can affect time
+                remaining. Keep your browser active for important alerts.
+              </p>
+            </article>
+          </div>
+        </section>{" "}
+      </>
+    ) : (
+      <>
+        <StopwatchTool variant={variant} />
+        <section class="hero wrap variant-intro">
+          <span class="eyebrow">{title.toUpperCase()}</span>
+          <h1>
+            {lead} <span>{accent}</span>
+          </h1>
+          <p>{description}</p>
+        </section>
+        <section class="tool-help wrap">
+          <h2>{help}</h2>
+          <p>{details}</p>
+          <div class="help-grid">
+            <article>
+              <h3>Keep your place</h3>
+              <p>
+                Start, pause, and resume at your pace. Each stopwatch type saves
+                its own session locally; return to that type to restore it.
+              </p>
+            </article>
+            <article>
+              <h3>Capture a moment</h3>
+              <p>
+                Laps record the time since your last lap. Splits show total
+                elapsed time. Export your results before resetting a session.
+              </p>
+            </article>
+            <article>
+              <h3>Know the limits</h3>
+              <p>
+                Device sleep can affect timing. Restoring a running session uses
+                your device clock, then pauses it for review. No sign-up is
+                needed.
+              </p>
+            </article>
+          </div>
+        </section>{" "}
+      </>
+    )}
+  </main>
+</Layout>

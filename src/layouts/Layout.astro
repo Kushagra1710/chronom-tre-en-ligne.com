@@ -1,0 +1,209 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "../styles/global.css";
+import "../styles/tools.css";
+import Icon from "../components/Icon.astro";
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+const {
+  title = "Online Stopwatch by Wearlivo | Free Laps & Fullscreen",
+  description = "Use this free online stopwatch with laps, fullscreen mode, and session recovery. Start instantly in your browser with no sign-up needed.",
+  image = "/web-app-manifest-512x512.png",
+  noindex = false,
+} = Astro.props;
+const canonicalPath =
+  Astro.url.pathname === "/"
+    ? "/"
+    : `${Astro.url.pathname.replace(/\/+$/, "")}/`;
+const canonical = new URL(canonicalPath, "https://wearlivo.com");
+const socialImage = new URL(image, canonical).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ELDE46CSSG"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ELDE46CSSG');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafafa" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="StopWatch" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wearlivo" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="Online Stopwatch timer display" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Online Stopwatch timer display" />
+    <title>{title}</title>
+    <script is:inline>
+      try {
+        const choice = localStorage.getItem("rs-theme") || "system";
+        const dark =
+          choice === "dark" ||
+          (choice === "system" &&
+            matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.querySelector('meta[name="theme-color"]').content = dark
+          ? "#111111"
+          : "#fafafa";
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/" class="wordmark" aria-label="Online Stopwatch home">
+          <span class="brand-icon">
+            <Icon name="watch" size={22} />
+          </span>
+          <span translate="no">
+            online<span class="wordmark-secondary">stopwatch</span>
+            <span class="brand-period">.</span>
+          </span>
+        </a>
+        <nav aria-label="Main navigation" class="desktop-navigation">
+          <details class="tools-dropdown">
+            <summary>
+              All tools <Icon name="arrow" size={14} />
+            </summary>
+            <div class="tools-dropdown-panel">
+              <details>
+                <summary>Stopwatches <Icon name="arrow" size={13} /></summary>
+                <div class="tools-submenu">
+                  <a href="/">Digital stopwatch</a>
+                  <a href="/analog-stopwatch/">Analog stopwatch</a>
+                  <a href="/minimal-stopwatch/">Minimal stopwatch</a>
+                  <a href="/custom-stopwatch/">Custom stopwatch</a>
+                </div>
+              </details>
+              <details>
+                <summary>Timers <Icon name="arrow" size={13} /></summary>
+                <div class="tools-submenu">
+                  <a href="/timer/">Countdown timer</a>
+                  <a href="/pomodoro/">Pomodoro timer</a>
+                  <a href="/interval-timer/">Interval timer</a>
+                </div>
+              </details>
+            </div>
+          </details>
+          <a href="/about/" class="header-page-link">About</a>
+          <a href="/privacy/" class="header-page-link">Privacy</a>
+          <a href="/terms/" class="header-page-link">Terms</a>
+          <a href="/contact/" class="header-page-link">Contact</a>
+        </nav>
+        <button
+          class="icon-button theme-toggle"
+          aria-label="Switch color theme"
+          title="Switch color theme"
+        >
+          <Icon name="sun" />
+          <span class="sr-only">Switch color theme</span>
+        </button>
+      </div>
+    </header>
+    <slot />
+    <footer class="site-footer wrap">
+      <div>
+        <a href="/" class="wordmark footer-brand">
+          <Icon name="watch" size={20} />
+          <span translate="no">online stopwatch <span class="wordmark-secondary">by Wearlivo</span>.</span>
+        </a>
+        <p>A little space for your time.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/contact/">Contact</a>
+        <a href="/#questions">Help</a>
+      </nav>
+      <span class="footer-domain">
+        wearlivo.com <span aria-hidden="true">↗</span>
+      </span>
+    </footer>
+    <script>
+      const media = matchMedia("(prefers-color-scheme: dark)");
+      function applyTheme(choice: string) {
+        const dark =
+          choice === "dark" || (choice === "system" && media.matches);
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.querySelector<HTMLMetaElement>(
+          'meta[name="theme-color"]',
+        )!.content = dark ? "#111111" : "#fafafa";
+        document
+          .querySelector(".theme-toggle")
+          ?.setAttribute(
+            "aria-label",
+            `Switch to ${dark ? "light" : "dark"} theme`,
+          );
+        const select =
+          document.querySelector<HTMLSelectElement>("#theme-choice");
+        if (select) select.value = choice;
+      }
+      function choice() {
+        try {
+          return localStorage.getItem("rs-theme") || "system";
+        } catch {
+          return "system";
+        }
+      }
+      function setTheme(value: string) {
+        try {
+          localStorage.setItem("rs-theme", value);
+        } catch {}
+        applyTheme(value);
+      }
+      applyTheme(choice());
+      document
+        .querySelector(".theme-toggle")
+        ?.addEventListener("click", () =>
+          setTheme(
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark",
+          ),
+        );
+      document
+        .querySelector("#theme-choice")
+        ?.addEventListener("change", (event) =>
+          setTheme((event.target as HTMLSelectElement).value),
+        );
+      media.addEventListener("change", () => {
+        if (choice() === "system") applyTheme("system");
+      });
+    </script>
+  </body>
+</html>

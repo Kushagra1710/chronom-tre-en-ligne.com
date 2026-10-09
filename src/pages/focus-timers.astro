@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolCards from "../components/ToolCards.astro";
+---
+
+<Layout
+  title="Focus & Routine Timers | Pomodoro & Intervals | Online Stopwatch"
+  description="Build a repeatable routine with a Pomodoro focus timer or a custom work/rest interval timer. Choose your own session lengths and rounds."
+>
+  <main id="main">
+    <section class="hero wrap">
+      <span class="eyebrow">WORK. REST. REPEAT.</span>
+      <h1>
+        Find a rhythm.
+        <br />
+        <span>Make it your own.</span>
+      </h1>
+      <p>Two ways to bring a little intention to the time ahead.</p>
+    </section>
+    <ToolCards filter="focus" heading="Choose your rhythm." />
+    <section class="tool-help wrap">
+      <h2>Different routines, the same room to breathe.</h2>
+      <div class="help-grid">
+        <article>
+          <h3>Pomodoro for deep work</h3>
+          <p>
+            Set focus periods in minutes, pair them with short breaks, and
+            choose a longer break for extended sessions. A useful rhythm for
+            studying, writing, or desk work.
+          </p>
+        </article>
+        <article>
+          <h3>Intervals for repetition</h3>
+          <p>
+            Set work and rest in seconds for short drills, practice, or
+            movement. Choose up to 100 rounds and let the timer handle each
+            transition.
+          </p>
+        </article>
+        <article>
+          <h3>Pause when you need to</h3>
+          <p>
+            Both timers pause and resume without losing your place. Keep the
+            browser active for alerts and test the sound before starting your
+            routine.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolCards from "../components/ToolCards.astro";
+---
+
+<Layout
+  title="Online Timers | Countdown, Pomodoro & Intervals | Online Stopwatch"
+  description="Choose a countdown timer for one task, a Pomodoro timer for focus sessions, or an interval timer for repeating work and rest."
+>
+  <main id="main">
+    <section class="hero wrap">
+      <span class="eyebrow">SET YOUR PACE</span>
+      <h1>
+        A little structure.
+        <br />
+        <span>A lot of possibility.</span>
+      </h1>
+      <p>Choose a timer. Set your duration. Make the next moment yours.</p>
+    </section>
+    <ToolCards filter="timer" heading="Choose your timer." />
+    <section class="tool-help wrap">
+      <h2>One finish line, or a repeating rhythm?</h2>
+      <div class="help-grid">
+        <article>
+          <h3>For a single task</h3>
+          <p>
+            The countdown timer runs from your chosen duration to zero. Use
+            quick presets or enter hours, minutes, and seconds.
+          </p>
+        </article>
+        <article>
+          <h3>For focused work</h3>
+          <p>
+            Pomodoro moves between focus sessions and breaks automatically, with
+            a longer break after every fourth session when more work remains.
+          </p>
+        </article>
+        <article>
+          <h3>For repeated practice</h3>
+          <p>
+            The interval timer alternates work and rest for the number of rounds
+            you choose. Set rest to zero for continuous rounds.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

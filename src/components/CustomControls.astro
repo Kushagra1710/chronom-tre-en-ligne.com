@@ -1,0 +1,84 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section class="custom-controls panel" aria-labelledby="customize-title">
+  <div class="panel-heading">
+    <h2 id="customize-title">
+      <Icon name="settings" size={17} /> Make it yours
+    </h2>
+    <span class="settings-save-note" id="custom-save-note">
+      Saved on this device
+    </span>
+  </div>
+  <div class="custom-fields">
+    <label class="wide-field" for="custom-title">
+      Session title
+      <input
+        id="custom-title"
+        name="session-title"
+        type="text"
+        maxlength="60"
+        placeholder="e.g. Morning focus…"
+        autocomplete="off"
+      />
+    </label>
+    <label for="custom-face">
+      Clock face
+      <select id="custom-face" name="clock-face">
+        <option value="digital">Digital</option>
+        <option value="analog">Analog</option>
+      </select>
+    </label>
+    <label for="custom-palette">
+      Color
+      <select id="custom-palette" name="palette">
+        <option value="ink">Ink</option>
+        <option value="ocean">Ocean blue</option>
+        <option value="forest">Forest green</option>
+        <option value="plum">Plum</option>
+      </select>
+    </label>
+    <label for="custom-font">
+      Numbers
+      <select id="custom-font" name="font">
+        <option value="mono">Monospace</option>
+        <option value="sans">Clean sans</option>
+      </select>
+    </label>
+    <label for="custom-size">
+      Display size
+      <select id="custom-size" name="size">
+        <option value="standard">Standard</option>
+        <option value="large">Large</option>
+      </select>
+    </label>
+    <label for="custom-background">
+      Background
+      <select id="custom-background" name="background">
+        <option value="dots">Subtle dots</option>
+        <option value="plain">Plain</option>
+        <option value="glow">Soft glow</option>
+      </select>
+    </label>
+    <div class="custom-switches">
+      <label class="custom-check">
+        <input id="custom-fractions" name="fractions" type="checkbox" checked />{" "}
+        Show hundredths
+      </label>
+      <label class="custom-check">
+        <input id="custom-laps" name="laps" type="checkbox" checked /> Show lap
+        records
+      </label>
+    </div>
+  </div>
+  <div class="custom-footer">
+    <p>
+      A setup link shares your title and appearance, never your lap records.
+    </p>
+    <button id="share-custom" class="quiet-button">
+      <Icon name="copy" size={15} />
+      Copy setup link
+    </button>
+  </div>
+</section>

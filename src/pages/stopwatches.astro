@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolCards from "../components/ToolCards.astro";
+---
+
+<Layout
+  title="Online Stopwatches | Digital, Analog & Custom | Online Stopwatch"
+  description="Find your stopwatch: choose digital lap timing, a classic analog dial, a minimal display, or your own custom stopwatch."
+>
+  <main id="main">
+    <section class="hero wrap">
+      <span class="eyebrow">ONE SPACE. MANY WAYS TO FOCUS.</span>
+      <h1>
+        Count every moment.
+        <br />
+        <span>Your way.</span>
+      </h1>
+      <p>Four ways to count up. Find the stopwatch that fits your moment.</p>
+    </section>
+    <ToolCards filter="stopwatch" heading="Choose your stopwatch." />
+    <section class="tool-help wrap">
+      <h2>Find the right tool for your task.</h2>
+      <div class="help-grid">
+        <article>
+          <h3>Measure time</h3>
+          <p>
+            A stopwatch counts up. Choose digital for lap analysis, analog for a
+            visual rhythm, or minimal for an uncluttered screen.
+          </p>
+        </article>
+        <article>
+          <h3>Make it personal</h3>
+          <p>
+            The custom stopwatch lets you choose a title, clock face, colors,
+            font, and background without interrupting your session.
+          </p>
+        </article>
+        <article>
+          <h3>Keep your progress</h3>
+          <p>
+            Each stopwatch has its own saved session and lap records. Restore a
+            previous moment or export the results you want to keep.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,372 @@
+---
+import Icon from "./Icon.astro";
+import type { StopwatchVariant } from "../lib/tools";
+import CustomControls from "./CustomControls.astro";
+interface Props {
+  variant?: StopwatchVariant;
+}
+const { variant = "digital" } = Astro.props;
+const label = {
+  digital: "Stopwatch",
+  analog: "Analog stopwatch",
+  minimal: "Minimal stopwatch",
+  custom: "Custom stopwatch",
+}[variant];
+const stopwatchTypes = [
+  { variant: "digital", label: "Digital", href: "/" },
+  { variant: "analog", label: "Analog", href: "/analog-stopwatch/" },
+  { variant: "minimal", label: "Minimal", href: "/minimal-stopwatch/" },
+  { variant: "custom", label: "Custom", href: "/custom-stopwatch/" },
+] as const;
+---
+
+<div class="workspace wrap" data-stopwatch-variant={variant}>
+  {variant === "custom" && <CustomControls />}
+  <section
+    id="stopwatch"
+    class="stopwatch-card"
+    data-variant={variant}
+    data-face={variant === "analog" ? "analog" : "digital"}
+    aria-label="Online stopwatch"
+  >
+    <div class="tool-topbar">
+      <div class="tool-label">
+        <Icon name="watch" size={18} />
+        <h2>{label}</h2>
+        <span class="tool-badge">FREE</span>
+      </div>
+      <div class="tool-topbar-actions">
+        <nav class="stopwatch-switcher" aria-label="Stopwatch types">
+          {stopwatchTypes.map((type) => (
+            <a href={type.href} aria-current={type.variant === variant ? "page" : undefined}>
+              {type.label}
+            </a>
+          ))}
+        </nav>
+        <button id="settings-open" class="quiet-button" aria-haspopup="dialog">
+          <Icon name="settings" size={17} />
+          <span>Settings</span>
+        </button>
+      </div>
+    </div>
+    <noscript>
+      <p class="notice">
+        Enable JavaScript to use the stopwatch. The instructions below remain
+        available.
+      </p>
+    </noscript>
+    <div id="recovery" class="recovery notice" hidden>
+      <div>
+        <strong>Your time is still here.</strong>
+        <p id="recovery-detail">A previous session is ready to restore.</p>
+      </div>
+      <div class="recovery-actions">
+        <button id="restore" class="small-button">
+          Restore session
+        </button>
+        <button id="discard" class="quiet-button">
+          Discard
+        </button>
+      </div>
+    </div>
+    <div class="timer-stage">
+      <div class="session-status">
+        <span id="run-dot" class="status-dot neutral"></span>
+        <span id="run-status">Ready when you are</span>
+      </div>
+      <h3 id="custom-session-title" class="custom-session-title" hidden></h3>
+      <div class="analog-face" aria-hidden="true">
+        <svg viewBox="0 0 240 240">
+          <circle class="dial-rim" cx="120" cy="120" r="112" />
+          {Array.from({ length: 60 }, (_, i) => (
+            <line
+              class:list={["dial-tick", { major: i % 5 === 0 }]}
+              x1="120"
+              y1="17"
+              x2="120"
+              y2={i % 5 === 0 ? "29" : "22"}
+              transform={`rotate(${i * 6} 120 120)`}
+            />
+          ))}
+          <text x="120" y="49">
+            60
+          </text>
+          <text x="193" y="124">
+            15
+          </text>
+          <text x="120" y="203">
+            30
+          </text>
+          <text x="47" y="124">
+            45
+          </text>
+          <line
+            id="minute-hand"
+            class="minute-hand"
+            x1="120"
+            y1="120"
+            x2="120"
+            y2="64"
+          />
+          <line
+            id="second-hand"
+            class="second-hand"
+            x1="120"
+            y1="136"
+            x2="120"
+            y2="35"
+          />
+          <circle class="dial-center" cx="120" cy="120" r="4" />
+        </svg>
+      </div>
+      <div
+        id="timer-display"
+        class="timer-display"
+        role="timer"
+        aria-label="Elapsed time"
+        aria-live="off"
+      >
+        <span id="time-hours">00</span>
+        <span class="time-colon">:</span>
+        <span id="time-minutes">00</span>
+        <span class="time-colon">:</span>
+        <span id="time-seconds">00</span>
+        <span id="time-fraction" class="time-fraction">
+          .00
+        </span>
+      </div>
+      <div class="time-labels" aria-hidden="true">
+        <span>HOURS</span>
+        <span>MINUTES</span>
+        <span>SECONDS</span>
+      </div>
+      <div class="timer-actions">
+        <button id="toggle" class="primary-button" disabled>
+          <span id="play-icon">
+            <Icon name="play" size={18} />
+          </span>
+          <span id="pause-icon" hidden>
+            <Icon name="pause" size={18} />
+          </span>
+          <span id="toggle-label">Start</span>
+          <kbd aria-hidden="true">↵</kbd>
+        </button>
+        <button id="lap" class="secondary-button" disabled>
+          <Icon name="flag" size={18} />
+          <span>Lap</span>
+          <kbd aria-hidden="true">L</kbd>
+        </button>
+        <button
+          id="reset"
+          class="reset-button icon-button"
+          aria-label="Reset stopwatch"
+          title="Reset stopwatch"
+          disabled
+        >
+          <Icon name="reset" size={19} />
+        </button>
+      </div>
+      <p id="current-lap" class="current-lap">
+        One task. One moment. Your pace.
+      </p>
+    </div>
+    <div class="tool-bottom">
+      <span class="local-note">
+        <Icon name="shield" size={14} />
+        <span id="save-status">Your session stays on this device</span>
+      </span>
+      <button id="fullscreen" class="quiet-button">
+        <Icon name="expand" size={15} />
+        <span id="fullscreen-label">Fullscreen</span>
+        <kbd aria-hidden="true">F</kbd>
+      </button>
+    </div>
+  </section>
+  <div class="under-tool">
+    <span>
+      <Icon name="keyboard" size={15} /> <kbd>Space</kbd> start / pause{" "}
+      <span class="shortcut-separator">·</span> <kbd>L</kbd> lap{" "}
+      <span class="shortcut-separator">·</span> <kbd>R</kbd> reset
+    </span>
+    <span class="under-tool-right">
+      A clear mind starts with a little space.
+    </span>
+  </div>
+  {variant === "minimal" && (
+    <button
+      id="minimal-records"
+      class="quiet-button minimal-records"
+      aria-expanded="false"
+    >
+      Show lap records
+    </button>
+  )}
+  <div class="session-grid" hidden={variant === "minimal"}>
+    <section class="laps-card panel" aria-labelledby="laps-title">
+      <div class="panel-heading">
+        <h2 id="laps-title">
+          Lap times{" "}
+          <span id="lap-count" class="count-badge">
+            0
+          </span>
+        </h2>
+        <div class="export-actions">
+          <button
+            id="copy"
+            class="quiet-button icon-button"
+            aria-label="Copy lap times"
+            title="Copy lap times"
+            disabled
+          >
+            <Icon name="copy" size={16} />
+          </button>
+          <button id="export" class="quiet-button" disabled>
+            <Icon name="download" size={16} />
+            <span>Export CSV</span>
+          </button>
+        </div>
+      </div>
+      <div id="empty-laps" class="empty-laps">
+        <span class="empty-icon">
+          <Icon name="flag" size={23} />
+        </span>
+        <h3>Every lap tells a story.</h3>
+        <p>
+          Start your stopwatch and hit <kbd>L</kbd> to mark your first lap.
+        </p>
+      </div>
+      <div id="lap-records" hidden>
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">
+              Recorded laps, durations, and cumulative split times
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Lap / label</th>
+                <th scope="col">Lap time</th>
+                <th scope="col">Split time</th>
+              </tr>
+            </thead>
+            <tbody id="lap-body"></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="lap-page-status"></span>
+          <button id="previous-laps" class="quiet-button">
+            Previous
+          </button>
+          <button id="next-laps" class="quiet-button">
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="summary-card panel" aria-labelledby="summary-title">
+      <div class="panel-heading">
+        <h2 id="summary-title">At a glance</h2>
+        <Icon name="chart" size={17} />
+      </div>
+      <dl>
+        <div>
+          <dt>
+            <span class="stat-dot best"></span>Fastest lap
+          </dt>
+          <dd id="fastest">—</dd>
+        </div>
+        <div>
+          <dt>
+            <span class="stat-dot slow"></span>Slowest lap
+          </dt>
+          <dd id="slowest">—</dd>
+        </div>
+        <div>
+          <dt>
+            <span class="stat-dot"></span>Average lap
+          </dt>
+          <dd id="average">—</dd>
+        </div>
+      </dl>
+      <div class="summary-foot">
+        <span class="status-dot neutral"></span>
+        <span id="summary-note">Small moments. Meaningful progress.</span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <div class="dialog-heading">
+    <div>
+      <span class="eyebrow">MAKE IT YOURS</span>
+      <h2 id="settings-title">Stopwatch settings</h2>
+    </div>
+    <button class="icon-button" data-close-dialog aria-label="Close settings">
+      <Icon name="close" />
+    </button>
+  </div>
+  <div class="setting-row">
+    <label for="theme-choice">
+      Appearance<span>A comfortable space, day or night.</span>
+    </label>
+    <select id="theme-choice" name="theme">
+      <option value="system">System</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+  <div class="setting-row">
+    <label for="show-fractions">
+      Show hundredths<span>A little more detail on the clock.</span>
+    </label>
+    <input id="show-fractions" type="checkbox" name="fractions" checked />
+  </div>
+  <div class="setting-row">
+    <label for="enable-shortcuts">
+      Keyboard shortcuts<span>Space / Enter, L, R, and F.</span>
+    </label>
+    <input id="enable-shortcuts" type="checkbox" name="shortcuts" checked />
+  </div>
+  <div class="setting-row">
+    <label for="keep-awake">
+      Keep screen awake
+      <span id="wake-description">While the stopwatch is running.</span>
+    </label>
+    <input id="keep-awake" type="checkbox" name="wake" />
+  </div>
+  <div class="settings-privacy">
+    <Icon name="shield" size={19} />
+    <p>
+      Session data is saved only in this browser. Clearing it removes all saved
+      stopwatch and timer sessions and resets your preferences.
+    </p>
+  </div>
+  <button id="clear-data" class="danger-button">
+    Clear local data…
+  </button>
+</dialog>
+<dialog id="reset-dialog" aria-labelledby="reset-title">
+  <div class="dialog-heading">
+    <h2 id="reset-title">Start a fresh session?</h2>
+    <button class="icon-button" data-close-dialog aria-label="Cancel reset">
+      <Icon name="close" />
+    </button>
+  </div>
+  <p id="reset-description" class="dialog-description">
+    This resets the stopwatch and removes your lap records. Export any results
+    you want to keep first.
+  </p>
+  <div class="dialog-actions">
+    <button class="secondary-button" data-close-dialog>
+      Keep session
+    </button>
+    <button id="confirm-reset" class="primary-button">
+      Reset session
+    </button>
+  </div>
+</dialog>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<script>
+  import "../scripts/stopwatch";
+</script>

@@ -1,83 +1,73 @@
-# Wearlivo
+# online stopwatch
 
-Wearlivo is a mobile-first fashion editorial publication for affordable outfit inspiration, practical style guides, and wearable fashion trends.
+A responsive, browser-based stopwatch for **wearlivo.com**, built with Astro, TypeScript, and plain CSS. Fonts are self-hosted, open-source Geist and Geist Mono. No Tailwind setup, backend, or account is needed.
 
-The repository currently contains the Phase 7 application foundation, shared
-site layout, responsive navigation, reusable editorial components, homepage,
-validated MDX content system, publishing routes, category archives, article
-reading experience, lightweight server-rendered search, public information
-pages, metadata, structured data, sitemap, robots policy, and RSS discovery.
-It also includes refined trust/legal pages and a disabled, provider-neutral
-advertising-slot architecture for future owner-reviewed monetization.
-It also includes production response-header hardening and local-only Git,
-Vercel, Hostinger DNS, and launch documentation; no external service has been
-connected.
+## Develop
 
-## Technology
+Requires Node 22.12+ and npm.
 
-- Next.js App Router
-- React Server Components by default
-- Strict TypeScript
-- Tailwind CSS
-- Bodoni Moda and Manrope through `next/font`
-- Repository-managed MDX content
-
-## Local development
-
-Wearlivo uses Node.js 24 LTS. The repository includes `.nvmrc` and
-`.node-version` files, and npm enforces the `24.x` engine declared in
-`package.json`.
-
-With `nvm`, activate the supported runtime first:
-
-```bash
-nvm install
-nvm use
-```
-
-Install dependencies and start the development server:
-
-```bash
+```sh
 npm install
-npm run dev
+npx astro dev --background
+npx astro dev status
+npx astro dev logs
+npx astro dev stop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in a browser.
+Preview: http://localhost:4321
 
-Useful local routes include `/blog`, `/outfit-ideas`, `/style-guides`,
-`/fashion-trends`, `/search`, `/sitemap.xml`, `/robots.txt`, and `/feed.xml`.
-Published articles are available beneath `/blog/[slug]`; draft slugs return the
-branded not-found page.
+## Verify
 
-## Quality checks
-
-```bash
-npm run lint
+```sh
+npm test
 npm run typecheck
-npm run validate:content
 npm run build
+npx playwright install chromium
+npm run test:e2e
 ```
 
-The canonical production URL is `https://wearlivo.com`. No external account or deployment is connected yet.
+Start the background dev server before running browser tests. Playwright tests cover desktop and an emulated mobile viewport in Chromium; they do not constitute real iOS/Safari testing. Browser screenshots and traces are written to ignored `test-results/`.
 
-## Monetization status
+## Features
 
-Advertising remains disabled through `ads.enabled = false`. Production renders
-no advertising markup, scripts, or reserved space. `/ads.txt` is intentionally
-absent until a verified publisher ID exists, and consent requirements must be
-reviewed before any advertising, analytics, or marketing scripts are enabled.
-See `docs/monetization-readiness.md` for the readiness checklist.
+- Start, pause, resume, laps, and confirmed reset.
+- Named lap records, cumulative splits, fastest/slowest/average laps, CSV export, and copy.
+- Paginated lap records (20 per page, 10,000 per session).
+- Native fullscreen with an accessible in-page fallback.
+- Light, dark, and system themes; optional hundredths and keyboard shortcuts.
+- Browser-local recovery, storage-failure fallback, and optional screen wake lock.
+- Original responsive design based on `DESIGN.md`.
+- Canonical URLs, metadata, sitemap, robots.txt, About, Privacy, and a custom 404.
 
-## Deployment preparation
+## Timing and storage
 
-No environment variables are currently required. Before any external action,
-follow `docs/deployment.md` and complete `docs/launch-checklist.md`. The project
-has not created a GitHub remote, Vercel project, or DNS change.
+`src/lib/stopwatch.ts` contains the testable timer model. Active timing uses the browser's monotonic clock, not frame counts. Device sleep can differ across operating systems and browsers. This is an everyday timing tool, not a certified measurement instrument.
 
-## Content
+Snapshots save approximately every second and on state changes. Recovering a previously running session uses elapsed wall-clock time since the snapshot, then pauses for review. Clock changes can affect recovery. Paused sessions exclude time away. Local storage can be unavailable or cleared; CSV export is the durable user-controlled copy. No cross-device sync is implemented.
 
-Articles are local MDX files in `content/outfit-ideas`, `content/style-guides`,
-or `content/fashion-trends`. The file name, frontmatter slug, and category folder
-must agree. Run `npm run validate:content` after adding or editing an article;
-invalid frontmatter, duplicate slugs, missing cover images, unsafe remote images,
-or invalid MDX will fail validation with the relevant filename.
+Local storage keys: `rs-session-v1`, `rs-settings-v1`, and `rs-theme`. “Clear local data” removes these application records. Already-downloaded files and copied clipboard content are not deleted.
+
+## Deployment
+
+`npm run build` outputs the static site to `dist/`. Configure the host for `https://wearlivo.com`, HTTPS, consistent www redirects, and the generated `404.html`. The sitemap is `/sitemap.xml`.
+
+No production deployment has been performed. Before publishing, review the hosting provider's data handling, inventory any old Wearlivo URLs, and verify the production domain in Search Console. Redirect old URLs only when an equivalent destination exists.
+
+## Additional tools
+
+- `/tools/`: all tools with category buttons and direct page links.
+- `/stopwatches/`: digital, analog, minimal, and custom stopwatches.
+- `/timers/`: countdown, Pomodoro, and interval timers.
+- `/focus-timers/`: focus and work/rest routines.
+- `/analog-stopwatch/`: rotating second/minute hands with digital readout and laps.
+- `/minimal-stopwatch/`: simpler face with optional lap records.
+- `/custom-stopwatch/`: live title, face, color, font, size, background, and lap options; shareable setup links.
+- `/timer/`: countdown presets and custom hours/minutes/seconds.
+- `/pomodoro/`: automatic focus/short-break/long-break routines.
+- `/interval-timer/`: configurable work/rest rounds, including zero-rest routines.
+
+Stopwatch variants use separate local session keys. Timer tools use `rs-timer-{mode}-v1`; custom appearance uses `rs-custom-v1`. Clear local data in stopwatch Settings removes all known tool records. Custom setup URLs include the title and visual settings, never lap history.
+
+Countdowns use wall-clock deadlines, so delayed callbacks catch up without extending phases. Recovery includes time away and pauses for review. Device clock changes affect countdowns. Alarms are short locally generated tones, with mute and test controls; sound is not guaranteed when the device/browser suspends the page.
+
+Cloud accounts and cross-device sync remain outside scope. See `REAL-STOPWATCH-PLAN.md` for the roadmap.
