@@ -1,9 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
+// This config runs in Node; keep the optional port override locally typed.
+declare const process: { env: { PLAYWRIGHT_BASE_URL?: string } };
+
 export default defineConfig({
   testDir: "./tests",
   testMatch: "**/*.spec.ts",
   fullyParallel: true,
-  use: { baseURL: "http://localhost:4321", trace: "retain-on-failure" },
+  use: { baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://localhost:4321", trace: "retain-on-failure" },
   projects: [
     {
       name: "desktop",

@@ -9,7 +9,7 @@ interface Props {
 const {
   compact = false,
   filter = "all",
-  heading = "A clock for every moment.",
+  heading = "Un chrono pour chaque activité.",
 } = Astro.props;
 ---
 
@@ -19,12 +19,13 @@ const {
 >
   <div class="directory-heading">
     <div>
-      <span class="eyebrow">FIND YOUR RHYTHM</span>
+      <span class="eyebrow">TROUVEZ VOTRE RYTHME</span>
       <h2 id="directory-title">{heading}</h2>
     </div>
     {compact && (
-      <a href="/tools/">
-        Explore all tools <Icon name="arrow" size={16} />
+      <a href="/outils/">
+        Découvrir tous les outils
+        <Icon name="arrow" size={16} />
       </a>
     )}
   </div>
@@ -34,28 +35,30 @@ const {
         (tool) =>
           filter === "all" ||
           (filter === "focus"
-            ? ["/pomodoro/", "/interval-timer/"].includes(tool.href)
+            ? ["/pomodoro/", "/minuteur-intervalle/"].includes(tool.href)
             : tool.type === filter),
       )
       .filter(
         (tool) =>
           !compact ||
-          ["/timer/", "/analog-stopwatch/", "/custom-stopwatch/"].includes(
-            tool.href,
-          ),
+          [
+            "/minuteur/",
+            "/chronometre-analogique/",
+            "/chronometre-personnalise/",
+          ].includes(tool.href),
       )
       .map((tool) => (
         <a class="tool-link-card" href={tool.href}>
           <div class="tool-card-top">
             <Icon name={tool.icon} size={18} />
             <span class="eyebrow">
-              {tool.type === "timer" ? "COUNT DOWN" : "COUNT UP"}
+              {tool.type === "timer" ? "COMPTE À REBOURS" : "TEMPS ÉCOULÉ"}
             </span>
           </div>
           <div
             class:list={[
               "tool-preview",
-              { "preview-custom": tool.label === "Custom" },
+              { "preview-custom": tool.label === "Personnalisé" },
             ]}
             aria-hidden="true"
           >

@@ -2,26 +2,34 @@
 import Icon from "./Icon.astro";
 ---
 
-<section class="today-dashboard wrap" id="today-dashboard" aria-labelledby="today-title" hidden>
+<section
+  class="today-dashboard wrap"
+  id="today-dashboard"
+  aria-labelledby="today-title"
+  hidden
+>
   <div class="today-heading">
     <div>
-      <span class="eyebrow">YOUR SPACE</span>
-      <h2 id="today-title">Pick up where you left off.</h2>
+      <span class="eyebrow">VOTRE ESPACE</span>
+      <h2 id="today-title">Reprenez votre activité.</h2>
     </div>
-    <a href="/tools/">Browse tools <Icon name="arrow" size={15} /></a>
+    <a href="/outils/">
+      Voir les outils
+      <Icon name="arrow" size={15} />
+    </a>
   </div>
   <div class="today-grid">
     <article class="today-card">
-      <p class="today-card-label">TODAY</p>
-      <strong id="today-progress">0 completed sessions</strong>
-      <p id="today-duration">Your completed timers will appear here.</p>
+      <p class="today-card-label">AUJOURD’HUI</p>
+      <strong id="today-progress">0 séance terminée</strong>
+      <p id="today-duration">Vos séances terminées s’afficheront ici.</p>
     </article>
     <article class="today-card today-routines">
-      <p class="today-card-label">SAVED ROUTINES</p>
+      <p class="today-card-label">PROGRAMMES ENREGISTRÉS</p>
       <div id="saved-routines"></div>
     </article>
     <article class="today-card today-history">
-      <p class="today-card-label">RECENTLY FINISHED</p>
+      <p class="today-card-label">SÉANCES RÉCENTES</p>
       <div id="recent-sessions"></div>
     </article>
   </div>

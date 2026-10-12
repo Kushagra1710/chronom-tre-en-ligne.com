@@ -150,14 +150,18 @@ export function routine(
 ): Phase[] {
   const phases: Phase[] = [];
   for (let round = 1; round <= rounds; round++) {
-    phases.push({ label: pomodoro ? "Focus" : "Work", duration: work, round });
+    phases.push({
+      label: pomodoro ? "Concentration" : "Effort",
+      duration: work,
+      round,
+    });
     if (round < rounds && rest > 0)
       phases.push({
         label: pomodoro
           ? round % 4 === 0
-            ? "Long break"
-            : "Short break"
-          : "Rest",
+            ? "Pause longue"
+            : "Pause courte"
+          : "Repos",
         duration: pomodoro && round % 4 === 0 ? longBreak : rest,
         round,
       });

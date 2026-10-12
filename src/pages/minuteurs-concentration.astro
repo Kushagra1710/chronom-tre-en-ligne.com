@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolMenu from "../components/ToolMenu.astro";
+import ToolCards from "../components/ToolCards.astro";
+---
+
+<Layout
+  title="Minuteurs de concentration : Pomodoro et intervalles"
+  description="Organisez vos révisions et séances de travail avec un minuteur Pomodoro ou un programme d’intervalles personnalisé."
+>
+  <main id="main">
+    <section class="hero wrap">
+      <span class="eyebrow">CHRONOMÈTRE EN LIGNE</span>
+      <h1>Gardez votre rythme de concentration</h1>
+      <p>
+        Choisissez la durée du travail et des pauses, puis laissez le minuteur
+        enchaîner les phases.
+      </p>
+    </section>
+    <ToolCards filter="focus" heading="Choisir votre programme" />
+    <section class="tool-help wrap">
+      <h2>Comment choisir votre outil ?</h2>
+      <p>
+        Le <a href="/">chronomètre en ligne</a> mesure le temps écoulé depuis
+        zéro. Le <a href="/minuteur/">minuteur</a> décompte une durée choisie,
+        par exemple 1 minute pour une question en classe. Le{" "}
+        <a href="/pomodoro/">Pomodoro</a> alterne concentration et pauses. Le{" "}
+        <a href="/minuteur-intervalle/">minuteur à intervalles</a> convient aux
+        exercices répétés et aux entraînements.
+      </p>
+      <p>
+        Pour un affichage aesthetic, choisissez le{" "}
+        <a href="/chronometre-personnalise/">chronomètre personnalisé</a> et
+        ajustez les couleurs, le fond et la taille des chiffres. Tous les
+        chronomètres proposent le plein écran et l’enregistrement des tours.
+      </p>
+    </section>
+  </main>
+</Layout>

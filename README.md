@@ -1,10 +1,10 @@
-# online stopwatch
+# Chronomètre en ligne
 
-A responsive, browser-based stopwatch for **wearlivo.com**, built with Astro, TypeScript, and plain CSS. Fonts are self-hosted, open-source Geist and Geist Mono. No Tailwind setup, backend, or account is needed.
+Site entièrement en français pour **chronomètre-en-ligne.com**, développé avec Astro, TypeScript et CSS. Chronomètres numérique, analogique, minimaliste et personnalisé ; minuteurs, Pomodoro et intervalles. Les polices Geist sont hébergées localement.
 
-## Develop
+## Développement
 
-Requires Node 22.12+ and npm.
+Node 22.12+ et npm sont nécessaires.
 
 ```sh
 npm install
@@ -14,60 +14,45 @@ npx astro dev logs
 npx astro dev stop
 ```
 
-Preview: http://localhost:4321
+La commande de démarrage indique le port disponible. Le port par défaut est 4321.
 
-## Verify
+## Vérification
 
 ```sh
 npm test
 npm run typecheck
 npm run build
-npx playwright install chromium
 npm run test:e2e
 ```
 
-Start the background dev server before running browser tests. Playwright tests cover desktop and an emulated mobile viewport in Chromium; they do not constitute real iOS/Safari testing. Browser screenshots and traces are written to ignored `test-results/`.
+Démarrez le serveur avant les tests navigateur. Si son port diffère :
 
-## Features
+```sh
+PLAYWRIGHT_BASE_URL=http://localhost:4325 npm run test:e2e
+```
 
-- Start, pause, resume, laps, and confirmed reset.
-- Named lap records, cumulative splits, fastest/slowest/average laps, CSV export, and copy.
-- Paginated lap records (20 per page, 10,000 per session).
-- Native fullscreen with an accessible in-page fallback.
-- Light, dark, and system themes; optional hundredths and keyboard shortcuts.
-- Browser-local recovery, storage-failure fallback, and optional screen wake lock.
-- Original responsive design based on `DESIGN.md`.
-- Canonical URLs, metadata, sitemap, robots.txt, About, Privacy, and a custom 404.
+Les tests Playwright couvrent Chromium sur ordinateur et un écran mobile simulé, avec des contrôles d’accessibilité. Ils ne remplacent pas des tests sur Safari ou iOS réels.
 
-## Timing and storage
+## Référencement et routes
 
-`src/lib/stopwatch.ts` contains the testable timer model. Active timing uses the browser's monotonic clock, not frame counts. Device sleep can differ across operating systems and browsers. This is an everyday timing tool, not a certified measurement instrument.
+La page d’accueil cible « chronomètre en ligne ». Le contenu explique le plein écran, les usages en classe, la minute et la personnalisation aesthetic sans créer de pages de langue supplémentaires. Le document déclare `lang="fr"` ; chaque page indexable possède un lien `hreflang="fr"` vers elle-même pour tous les publics francophones. Les erreurs sont exclues de l’indexation.
 
-Snapshots save approximately every second and on state changes. Recovering a previously running session uses elapsed wall-clock time since the snapshot, then pauses for review. Clock changes can affect recovery. Paused sessions exclude time away. Local storage can be unavailable or cleared; CSV export is the durable user-controlled copy. No cross-device sync is implemented.
+Le domaine internationalisé est sérialisé en `https://xn--chronomtre-en-ligne-wyb.com` dans les URL techniques. Il s’agit de la représentation ASCII de **chronomètre-en-ligne.com**. La constante `src/lib/site.ts` fournit l’origine aux canoniques et au sitemap.
 
-Local storage keys: `rs-session-v1`, `rs-settings-v1`, and `rs-theme`. “Clear local data” removes these application records. Already-downloaded files and copied clipboard content are not deleted.
+Routes : `/`, `/chronometres/`, `/chronometre-analogique/`, `/chronometre-minimaliste/`, `/chronometre-personnalise/`, `/minuteur/`, `/pomodoro/`, `/minuteur-intervalle/`, `/minuteurs/`, `/minuteurs-concentration/`, `/outils/`, `/a-propos/`, `/confidentialite/`, `/conditions-utilisation/`, `/contact/`.
 
-## Deployment
+Le fichier `public/_redirects` redirige les anciennes routes anglaises sur Cloudflare ; le middleware applique les mêmes règles pendant le développement. Les redirections mènent à leurs équivalents français avec un statut HTTP 301 et conserve les paramètres de requête, notamment les liens de personnalisation et les programmes enregistrés. Le sitemap ne contient que les URL françaises canoniques.
 
-`npm run build` outputs the static site to `dist/`. Configure the host for `https://wearlivo.com`, HTTPS, consistent www redirects, and the generated `404.html`. The sitemap is `/sitemap.xml`.
+## Données et précision
 
-No production deployment has been performed. Before publishing, review the hosting provider's data handling, inventory any old Wearlivo URLs, and verify the production domain in Search Console. Redirect old URLs only when an equivalent destination exists.
+Les séances, tours, préférences et programmes restent dans le stockage local du navigateur. Les variantes ont des séances distinctes. La restauration d’une séance active inclut le temps d’absence et met la séance en pause pour vérification. Les fichiers CSV constituent une copie indépendante du stockage local.
 
-## Additional tools
+Le chronomètre utilise une horloge monotone pendant une séance active. Les minuteurs utilisent des échéances ; les changements d’horloge peuvent les affecter. La veille et la suspension du navigateur peuvent retarder les alertes. Les liens personnalisés partagent les paramètres d’apparence et le titre, pas les tours.
 
-- `/tools/`: all tools with category buttons and direct page links.
-- `/stopwatches/`: digital, analog, minimal, and custom stopwatches.
-- `/timers/`: countdown, Pomodoro, and interval timers.
-- `/focus-timers/`: focus and work/rest routines.
-- `/analog-stopwatch/`: rotating second/minute hands with digital readout and laps.
-- `/minimal-stopwatch/`: simpler face with optional lap records.
-- `/custom-stopwatch/`: live title, face, color, font, size, background, and lap options; shareable setup links.
-- `/timer/`: countdown presets and custom hours/minutes/seconds.
-- `/pomodoro/`: automatic focus/short-break/long-break routines.
-- `/interval-timer/`: configurable work/rest rounds, including zero-rest routines.
+Le site conserve la configuration Google Analytics existante. La page Confidentialité décrit ce service séparément des données de séance locales.
 
-Stopwatch variants use separate local session keys. Timer tools use `rs-timer-{mode}-v1`; custom appearance uses `rs-custom-v1`. Clear local data in stopwatch Settings removes all known tool records. Custom setup URLs include the title and visual settings, never lap history.
+## Déploiement
 
-Countdowns use wall-clock deadlines, so delayed callbacks catch up without extending phases. Recovery includes time away and pauses for review. Device clock changes affect countdowns. Alarms are short locally generated tones, with mute and test controls; sound is not guaranteed when the device/browser suspends the page.
+Le projet utilise l’adaptateur Cloudflare et `wrangler.jsonc`. `npm run build` produit les ressources dans `dist/`. `npm run deploy` compile puis déploie le Worker. Configurez le domaine personnalisé, le HTTPS et les redirections du domaine chez l’hébergeur. Les redirections depuis un autre domaine doivent être configurées sur cet ancien domaine.
 
-Cloud accounts and cross-device sync remain outside scope. See `REAL-STOPWATCH-PLAN.md` for the roadmap.
+Cette modification ne configure pas le DNS et ne publie pas le site. Après déploiement, vérifiez le domaine et soumettez `/sitemap.xml` dans Google Search Console.

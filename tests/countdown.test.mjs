@@ -54,9 +54,9 @@ test("late callback catches up across phases without stretching them", () => {
 test("Pomodoro has long breaks every fourth session, but no final break", () => {
   const phases = routine(25000, 5000, 5, 15000, true);
   assert.equal(phases.length, 9);
-  assert.equal(phases[7].label, "Long break");
+  assert.equal(phases[7].label, "Pause longue");
   assert.equal(phases[7].duration, 15000);
-  assert.equal(phases.at(-1).label, "Focus");
+  assert.equal(phases.at(-1).label, "Concentration");
   assert.equal(routine(2000, 0, 4).length, 4);
 });
 test("running restoration includes time away and pauses for review", () => {

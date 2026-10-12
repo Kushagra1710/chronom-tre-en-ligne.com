@@ -18,23 +18,23 @@ test("start, lap, pause, label, export, reset, and recover", async ({
   await page.waitForTimeout(150);
   expect(await page.locator("#timer-display").innerText()).toBe(stopped);
   await page
-    .getByRole("textbox", { name: "Label for lap 2", exact: true })
+    .getByRole("textbox", { name: "Nom du tour 2", exact: true })
     .fill("Practice");
   const downloaded = page.waitForEvent("download");
   await page.locator("#export").click();
   expect((await downloaded).suggestedFilename()).toMatch(
-    /online-stopwatch.*\.csv/,
+    /chronometre-en-ligne.*\.csv/,
   );
   await page.reload();
   await expect(page.locator("#recovery")).toBeVisible();
   await page.locator("#restore").click();
   await expect(page.locator("#lap-count")).toHaveText("2");
   await expect(
-    page.getByRole("textbox", { name: "Label for lap 2", exact: true }),
+    page.getByRole("textbox", { name: "Nom du tour 2", exact: true }),
   ).toHaveValue("Practice");
-  await expect(page.locator("#toggle-label")).toHaveText("Resume");
+  await expect(page.locator("#toggle-label")).toHaveText("Reprendre");
   await page.locator("#reset").click();
-  await page.getByRole("button", { name: "Keep session" }).click();
+  await page.getByRole("button", { name: "Conserver la séance" }).click();
   await expect(page.locator("#lap-count")).toHaveText("2");
   await page.locator("#reset").click();
   await page.locator("#confirm-reset").click();
@@ -50,7 +50,7 @@ test("shortcuts work after clicking Start, but not while typing", async ({
   await page.keyboard.press("l");
   await expect(page.locator("#lap-count")).toHaveText("1");
   await page
-    .getByRole("textbox", { name: "Label for lap 1", exact: true })
+    .getByRole("textbox", { name: "Nom du tour 1", exact: true })
     .fill("RLLF");
   await expect(page.locator("#lap-count")).toHaveText("1");
   await expect(page.locator("#reset-dialog")).not.toBeVisible();
@@ -64,7 +64,7 @@ test("theme and settings persist; local data can be cleared", async ({
   await page.locator("#theme-choice").selectOption("dark");
   await page.locator("#show-fractions").uncheck();
   await page.locator("#enable-shortcuts").uncheck();
-  await page.getByRole("button", { name: "Close settings" }).click();
+  await page.getByRole("button", { name: "Fermer les réglages" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(page.locator("#time-fraction")).not.toBeVisible();
   await page.reload();
@@ -87,7 +87,7 @@ test("works without local storage", async ({ page }) => {
   await page.goto("/");
   await page.locator("#toggle").click();
   await expect(page.locator("#save-status")).toContainText(
-    "Storage unavailable",
+    "Stockage indisponible",
   );
   await page.locator("#lap").click();
   await expect(page.locator("#lap-count")).toHaveText("1");
@@ -102,7 +102,9 @@ test("fullscreen fallback stays keyboard accessible", async ({ page }) => {
   });
   await page.locator("#fullscreen").click();
   await expect(page.locator("#stopwatch")).toHaveClass(/focus-mode/);
-  await expect(page.locator("#fullscreen-label")).toHaveText("Exit fullscreen");
+  await expect(page.locator("#fullscreen-label")).toHaveText(
+    "Quitter le plein écran",
+  );
   await page.keyboard.press("Escape");
   await expect(page.locator("#stopwatch")).not.toHaveClass(/focus-mode/);
 });
@@ -115,7 +117,7 @@ test("accessible light/dark states, responsive layout, and metadata", async ({
   await page.goto("/");
   await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
     "href",
-    "https://wearlivo.com/",
+    "https://xn--chronomtre-en-ligne-wyb.com/",
   );
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > window.innerWidth,
@@ -135,7 +137,7 @@ test("accessible light/dark states, responsive layout, and metadata", async ({
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
   expect(report.violations).toEqual([]);
-  await page.getByRole("button", { name: "Close settings" }).click();
+  await page.getByRole("button", { name: "Fermer les réglages" }).click();
   report = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();

@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolMenu from "../components/ToolMenu.astro";
+import ToolCards from "../components/ToolCards.astro";
+---
+
+<Layout
+  title="Minuteurs en ligne gratuits : compte à rebours et Pomodoro"
+  description="Réglez un minuteur gratuit de 1 minute ou plus. Choisissez un compte à rebours, des séances Pomodoro ou des intervalles effort et repos."
+>
+  <main id="main">
+    <section class="hero wrap">
+      <span class="eyebrow">CHRONOMÈTRE EN LIGNE</span>
+      <h1>Un minuteur pour chaque activité</h1>
+      <p>
+        Décomptez une durée ou programmez des phases qui s’enchaînent
+        automatiquement.
+      </p>
+    </section>
+    <ToolCards filter="timer" heading="Choisir un minuteur en ligne" />
+    <section class="tool-help wrap">
+      <h2>Comment choisir votre outil ?</h2>
+      <p>
+        Le <a href="/">chronomètre en ligne</a> mesure le temps écoulé depuis
+        zéro. Le <a href="/minuteur/">minuteur</a> décompte une durée choisie,
+        par exemple 1 minute pour une question en classe. Le{" "}
+        <a href="/pomodoro/">Pomodoro</a> alterne concentration et pauses. Le{" "}
+        <a href="/minuteur-intervalle/">minuteur à intervalles</a> convient aux
+        exercices répétés et aux entraînements.
+      </p>
+      <p>
+        Pour un affichage aesthetic, choisissez le{" "}
+        <a href="/chronometre-personnalise/">chronomètre personnalisé</a> et
+        ajustez les couleurs, le fond et la taille des chiffres. Tous les
+        chronomètres proposent le plein écran et l’enregistrement des tours.
+      </p>
+    </section>
+  </main>
+</Layout>

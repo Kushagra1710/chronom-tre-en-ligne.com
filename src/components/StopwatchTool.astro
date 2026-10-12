@@ -7,16 +7,24 @@ interface Props {
 }
 const { variant = "digital" } = Astro.props;
 const label = {
-  digital: "Stopwatch",
-  analog: "Analog stopwatch",
-  minimal: "Minimal stopwatch",
-  custom: "Custom stopwatch",
+  digital: "Chronomètre",
+  analog: "Chronomètre analogique",
+  minimal: "Chronomètre minimaliste",
+  custom: "Chronomètre personnalisé",
 }[variant];
 const stopwatchTypes = [
-  { variant: "digital", label: "Digital", href: "/" },
-  { variant: "analog", label: "Analog", href: "/analog-stopwatch/" },
-  { variant: "minimal", label: "Minimal", href: "/minimal-stopwatch/" },
-  { variant: "custom", label: "Custom", href: "/custom-stopwatch/" },
+  { variant: "digital", label: "Numérique", href: "/" },
+  { variant: "analog", label: "Analogique", href: "/chronometre-analogique/" },
+  {
+    variant: "minimal",
+    label: "Minimaliste",
+    href: "/chronometre-minimaliste/",
+  },
+  {
+    variant: "custom",
+    label: "Personnalisé",
+    href: "/chronometre-personnalise/",
+  },
 ] as const;
 ---
 
@@ -27,52 +35,60 @@ const stopwatchTypes = [
     class="stopwatch-card"
     data-variant={variant}
     data-face={variant === "analog" ? "analog" : "digital"}
-    aria-label="Online stopwatch"
+    aria-label="Chronomètre en ligne"
   >
     <div class="tool-topbar">
       <div class="tool-label">
         <Icon name="watch" size={18} />
         <h2>{label}</h2>
-        <span class="tool-badge">FREE</span>
+        <span class="tool-badge">GRATUIT</span>
       </div>
       <div class="tool-topbar-actions">
-        <nav class="stopwatch-switcher" aria-label="Stopwatch types">
+        <nav class="stopwatch-switcher" aria-label="Types de chronomètres">
           {stopwatchTypes.map((type) => (
-            <a href={type.href} aria-current={type.variant === variant ? "page" : undefined}>
+            <a
+              href={type.href}
+              aria-current={type.variant === variant ? "page" : undefined}
+            >
               {type.label}
             </a>
           ))}
         </nav>
-        <button id="settings-open" class="quiet-button" aria-haspopup="dialog">
+        <button
+          aria-label="Réglages du chronomètre"
+          id="settings-open"
+          class="quiet-button"
+          aria-haspopup="dialog"
+        >
           <Icon name="settings" size={17} />
-          <span>Settings</span>
+          <span>Réglages</span>
         </button>
       </div>
     </div>
     <noscript>
       <p class="notice">
-        Enable JavaScript to use the stopwatch. The instructions below remain
-        available.
+        Activez JavaScript pour utiliser le chronomètre. Les instructions
+        restent accessibles ci-dessous.
       </p>
     </noscript>
     <div id="recovery" class="recovery notice" hidden>
       <div>
-        <strong>Your time is still here.</strong>
-        <p id="recovery-detail">A previous session is ready to restore.</p>
+        <strong>Votre séance est enregistrée.</strong>
+        <p id="recovery-detail">Une séance précédente peut être restaurée.</p>
       </div>
       <div class="recovery-actions">
         <button id="restore" class="small-button">
-          Restore session
+          Restaurer la séance
         </button>
         <button id="discard" class="quiet-button">
-          Discard
+          Supprimer
         </button>
       </div>
     </div>
     <div class="timer-stage">
       <div class="session-status">
         <span id="run-dot" class="status-dot neutral"></span>
-        <span id="run-status">Ready when you are</span>
+        <span id="run-status">Prêt à démarrer</span>
       </div>
       <h3 id="custom-session-title" class="custom-session-title" hidden></h3>
       <div class="analog-face" aria-hidden="true">
@@ -123,7 +139,7 @@ const stopwatchTypes = [
         id="timer-display"
         class="timer-display"
         role="timer"
-        aria-label="Elapsed time"
+        aria-label="Temps écoulé"
         aria-live="off"
       >
         <span id="time-hours">00</span>
@@ -136,9 +152,9 @@ const stopwatchTypes = [
         </span>
       </div>
       <div class="time-labels" aria-hidden="true">
-        <span>HOURS</span>
+        <span>HEURES</span>
         <span>MINUTES</span>
-        <span>SECONDS</span>
+        <span>SECONDES</span>
       </div>
       <div class="timer-actions">
         <button id="toggle" class="primary-button" disabled>
@@ -148,48 +164,49 @@ const stopwatchTypes = [
           <span id="pause-icon" hidden>
             <Icon name="pause" size={18} />
           </span>
-          <span id="toggle-label">Start</span>
+          <span id="toggle-label">Démarrer</span>
           <kbd aria-hidden="true">↵</kbd>
         </button>
         <button id="lap" class="secondary-button" disabled>
           <Icon name="flag" size={18} />
-          <span>Lap</span>
+          <span>Tour</span>
           <kbd aria-hidden="true">L</kbd>
         </button>
         <button
           id="reset"
           class="reset-button icon-button"
-          aria-label="Reset stopwatch"
-          title="Reset stopwatch"
+          aria-label="Réinitialiser le chronomètre"
+          title="Réinitialiser le chronomètre"
           disabled
         >
           <Icon name="reset" size={19} />
         </button>
       </div>
       <p id="current-lap" class="current-lap">
-        One task. One moment. Your pace.
+        Une activité. Un chrono. Votre rythme.
       </p>
     </div>
     <div class="tool-bottom">
       <span class="local-note">
         <Icon name="shield" size={14} />
-        <span id="save-status">Your session stays on this device</span>
+        <span id="save-status">Votre séance reste sur cet appareil</span>
       </span>
       <button id="fullscreen" class="quiet-button">
         <Icon name="expand" size={15} />
-        <span id="fullscreen-label">Fullscreen</span>
+        <span id="fullscreen-label">Plein écran</span>
         <kbd aria-hidden="true">F</kbd>
       </button>
     </div>
   </section>
   <div class="under-tool">
     <span>
-      <Icon name="keyboard" size={15} /> <kbd>Space</kbd> start / pause{" "}
-      <span class="shortcut-separator">·</span> <kbd>L</kbd> lap{" "}
-      <span class="shortcut-separator">·</span> <kbd>R</kbd> reset
+      <Icon name="keyboard" size={15} /> <kbd>Espace</kbd>
+      démarrer / pause <span class="shortcut-separator">·</span> <kbd>L</kbd>
+      tour <span class="shortcut-separator">·</span> <kbd>R</kbd>
+      réinitialiser
     </span>
     <span class="under-tool-right">
-      A clear mind starts with a little space.
+      Gardez le temps en vue, l’esprit libre.
     </span>
   </div>
   {variant === "minimal" && (
@@ -198,14 +215,14 @@ const stopwatchTypes = [
       class="quiet-button minimal-records"
       aria-expanded="false"
     >
-      Show lap records
+      Afficher les tours
     </button>
   )}
   <div class="session-grid" hidden={variant === "minimal"}>
     <section class="laps-card panel" aria-labelledby="laps-title">
       <div class="panel-heading">
         <h2 id="laps-title">
-          Lap times{" "}
+          Temps par tour{" "}
           <span id="lap-count" class="count-badge">
             0
           </span>
@@ -214,15 +231,15 @@ const stopwatchTypes = [
           <button
             id="copy"
             class="quiet-button icon-button"
-            aria-label="Copy lap times"
-            title="Copy lap times"
+            aria-label="Copier les temps par tour"
+            title="Copier les temps par tour"
             disabled
           >
             <Icon name="copy" size={16} />
           </button>
           <button id="export" class="quiet-button" disabled>
             <Icon name="download" size={16} />
-            <span>Export CSV</span>
+            <span>Exporter en CSV</span>
           </button>
         </div>
       </div>
@@ -230,22 +247,24 @@ const stopwatchTypes = [
         <span class="empty-icon">
           <Icon name="flag" size={23} />
         </span>
-        <h3>Every lap tells a story.</h3>
+        <h3>Enregistrez votre premier tour.</h3>
         <p>
-          Start your stopwatch and hit <kbd>L</kbd> to mark your first lap.
+          Lancez le chronomètre et appuyez sur
+          <kbd>L</kbd>
+          pour enregistrer votre premier tour.
         </p>
       </div>
       <div id="lap-records" hidden>
         <div class="table-scroll">
           <table>
             <caption class="sr-only">
-              Recorded laps, durations, and cumulative split times
+              Tours enregistrés, durées et temps cumulés
             </caption>
             <thead>
               <tr>
-                <th scope="col">Lap / label</th>
-                <th scope="col">Lap time</th>
-                <th scope="col">Split time</th>
+                <th scope="col">Tour / nom</th>
+                <th scope="col">Durée du tour</th>
+                <th scope="col">Temps cumulé</th>
               </tr>
             </thead>
             <tbody id="lap-body"></tbody>
@@ -254,42 +273,45 @@ const stopwatchTypes = [
         <div class="pagination">
           <span id="lap-page-status"></span>
           <button id="previous-laps" class="quiet-button">
-            Previous
+            Précédent
           </button>
           <button id="next-laps" class="quiet-button">
-            Next
+            Suivant
           </button>
         </div>
       </div>
     </section>
     <section class="summary-card panel" aria-labelledby="summary-title">
       <div class="panel-heading">
-        <h2 id="summary-title">At a glance</h2>
+        <h2 id="summary-title">Résumé de la séance</h2>
         <Icon name="chart" size={17} />
       </div>
       <dl>
         <div>
           <dt>
-            <span class="stat-dot best"></span>Fastest lap
+            <span class="stat-dot best"></span>
+            Tour le plus rapide
           </dt>
           <dd id="fastest">—</dd>
         </div>
         <div>
           <dt>
-            <span class="stat-dot slow"></span>Slowest lap
+            <span class="stat-dot slow"></span>
+            Tour le plus lent
           </dt>
           <dd id="slowest">—</dd>
         </div>
         <div>
           <dt>
-            <span class="stat-dot"></span>Average lap
+            <span class="stat-dot"></span>
+            Durée moyenne
           </dt>
           <dd id="average">—</dd>
         </div>
       </dl>
       <div class="summary-foot">
         <span class="status-dot neutral"></span>
-        <span id="summary-note">Small moments. Meaningful progress.</span>
+        <span id="summary-note">Suivez vos progrès, tour après tour.</span>
       </div>
     </section>
   </div>
@@ -298,70 +320,83 @@ const stopwatchTypes = [
 <dialog id="settings-dialog" aria-labelledby="settings-title">
   <div class="dialog-heading">
     <div>
-      <span class="eyebrow">MAKE IT YOURS</span>
-      <h2 id="settings-title">Stopwatch settings</h2>
+      <span class="eyebrow">VOTRE CHRONOMÈTRE</span>
+      <h2 id="settings-title">Réglages du chronomètre</h2>
     </div>
-    <button class="icon-button" data-close-dialog aria-label="Close settings">
+    <button
+      class="icon-button"
+      data-close-dialog
+      aria-label="Fermer les réglages"
+    >
       <Icon name="close" />
     </button>
   </div>
   <div class="setting-row">
     <label for="theme-choice">
-      Appearance<span>A comfortable space, day or night.</span>
+      Apparence
+      <span>Un affichage agréable, de jour comme de nuit.</span>
     </label>
     <select id="theme-choice" name="theme">
-      <option value="system">System</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
+      <option value="system">Système</option>
+      <option value="light">Clair</option>
+      <option value="dark">Sombre</option>
     </select>
   </div>
   <div class="setting-row">
     <label for="show-fractions">
-      Show hundredths<span>A little more detail on the clock.</span>
+      Afficher les centièmes
+      <span>Affichez les fractions de seconde.</span>
     </label>
     <input id="show-fractions" type="checkbox" name="fractions" checked />
   </div>
   <div class="setting-row">
     <label for="enable-shortcuts">
-      Keyboard shortcuts<span>Space / Enter, L, R, and F.</span>
+      Raccourcis clavier
+      <span>Espace / Entrée, L, R et F.</span>
     </label>
     <input id="enable-shortcuts" type="checkbox" name="shortcuts" checked />
   </div>
   <div class="setting-row">
     <label for="keep-awake">
-      Keep screen awake
-      <span id="wake-description">While the stopwatch is running.</span>
+      Garder l’écran allumé
+      <span id="wake-description">
+        Pendant le fonctionnement du chronomètre.
+      </span>
     </label>
     <input id="keep-awake" type="checkbox" name="wake" />
   </div>
   <div class="settings-privacy">
     <Icon name="shield" size={19} />
     <p>
-      Session data is saved only in this browser. Clearing it removes all saved
-      stopwatch and timer sessions and resets your preferences.
+      Les données restent dans ce navigateur. Leur suppression efface les
+      séances des chronomètres et minuteurs ainsi que vos préférences.
     </p>
   </div>
   <button id="clear-data" class="danger-button">
-    Clear local data…
+    Effacer les données locales…
   </button>
 </dialog>
 <dialog id="reset-dialog" aria-labelledby="reset-title">
   <div class="dialog-heading">
-    <h2 id="reset-title">Start a fresh session?</h2>
-    <button class="icon-button" data-close-dialog aria-label="Cancel reset">
+    <h2 id="reset-title">Commencer une nouvelle séance ?</h2>
+    <button
+      class="icon-button"
+      data-close-dialog
+      aria-label="Annuler la réinitialisation"
+    >
       <Icon name="close" />
     </button>
   </div>
   <p id="reset-description" class="dialog-description">
-    This resets the stopwatch and removes your lap records. Export any results
-    you want to keep first.
+    Le chronomètre et les tours seront effacés. Exportez d’abord les résultats
+    que vous souhaitez conserver.
   </p>
   <div class="dialog-actions">
     <button class="secondary-button" data-close-dialog>
-      Keep session
+      Conserver la séance
     </button>
     <button id="confirm-reset" class="primary-button">
-      Reset session
+      Réinitialiser la séance
     </button>
   </div>
 </dialog>

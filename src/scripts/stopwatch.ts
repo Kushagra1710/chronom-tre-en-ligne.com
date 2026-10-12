@@ -88,9 +88,9 @@ function applyCustom() {
 function saveCustom() {
   try {
     localStorage.setItem(customKey, JSON.stringify(custom));
-    byId("custom-save-note").textContent = "Saved on this device";
+    byId("custom-save-note").textContent = "Enregistré sur cet appareil";
   } catch {
-    byId("custom-save-note").textContent = "Storage unavailable";
+    byId("custom-save-note").textContent = "Stockage indisponible";
   }
   // Remove an imported setup once edited so reload uses the latest local choices.
   if (location.search) history.replaceState(null, "", location.pathname);
@@ -110,14 +110,14 @@ function toast(text: string) {
 function storageFailed() {
   storageAvailable = false;
   byId("save-status").textContent =
-    "Storage unavailable — export to keep your laps";
+    "Stockage indisponible — exportez vos tours pour les conserver";
 }
 function save() {
   if (pending) return;
   try {
     localStorage.setItem(key, JSON.stringify(watch.snapshot()));
     storageAvailable = true;
-    byId("save-status").textContent = "Your session stays on this device";
+    byId("save-status").textContent = "Votre séance reste sur cet appareil";
   } catch {
     storageFailed();
   }
@@ -166,13 +166,13 @@ function paint() {
   byId("time-fraction").textContent = `.${time.fraction}`;
   if (watch.laps.length)
     byId("current-lap").textContent =
-      `Current lap  ${formatTime(value - watch.laps[watch.laps.length - 1].split)}`;
+      `Tour en cours  ${formatTime(value - watch.laps[watch.laps.length - 1].split)}`;
   else
     byId("current-lap").textContent = watch.running
-      ? "Find your rhythm. You’re right on time."
+      ? "Le chronomètre est lancé. Suivez votre rythme."
       : value
-        ? "Take a breath. Continue when you’re ready."
-        : "One task. One moment. Your pace.";
+        ? "Prenez une pause. Reprenez quand vous le souhaitez."
+        : "Une activité. Un chrono. Votre rythme.";
 }
 function tick(now: number) {
   if (!watch.running) return;
@@ -187,17 +187,17 @@ function renderState() {
   byId("toggle-label").textContent = watch.running
     ? "Pause"
     : watch.elapsed > 0
-      ? "Resume"
-      : "Start";
+      ? "Reprendre"
+      : "Démarrer";
   byId("play-icon").hidden = watch.running;
   byId("pause-icon").hidden = !watch.running;
   byId("run-status").textContent = pending
-    ? "Restore your previous moment"
+    ? "Restaurez votre séance précédente"
     : watch.running
-      ? "A moment in motion"
+      ? "Chronométrage en cours"
       : watch.elapsed > 0
-        ? "Paused. Take your time."
-        : "Ready when you are";
+        ? "En pause. Prenez votre temps."
+        : "Prêt à démarrer";
   byId("run-dot").classList.toggle("neutral", !watch.running);
   button("toggle").disabled = Boolean(pending);
   button("lap").disabled = !watch.running || watch.laps.length >= MAX_LAPS;
@@ -206,7 +206,7 @@ function renderState() {
   cancelAnimationFrame(animation);
   if (watch.running) animation = requestAnimationFrame(tick);
   document.title = watch.running
-    ? `${formatTime(watch.elapsed).split(".")[0]} · Online Stopwatch`
+    ? `${formatTime(watch.elapsed).split(".")[0]} · Chronomètre en ligne`
     : originalTitle;
   void updateWakeLock();
 }
@@ -217,15 +217,17 @@ function renderLaps() {
   const slow = laps.length ? Math.max(...durations) : 0;
   byId("empty-laps").hidden = laps.length > 0;
   byId("lap-records").hidden = laps.length === 0;
-  byId("lap-count").textContent = new Intl.NumberFormat().format(laps.length);
+  byId("lap-count").textContent = new Intl.NumberFormat("fr-FR").format(
+    laps.length,
+  );
   byId("fastest").textContent = laps.length ? formatTime(best) : "—";
   byId("slowest").textContent = laps.length ? formatTime(slow) : "—";
   byId("average").textContent = laps.length
     ? formatTime(laps[laps.length - 1].split / laps.length)
     : "—";
   byId("summary-note").textContent = laps.length
-    ? `${laps.length.toLocaleString()} ${laps.length === 1 ? "moment" : "moments"} captured. Keep going.`
-    : "Small moments. Meaningful progress.";
+    ? `${laps.length.toLocaleString("fr-FR")} ${laps.length === 1 ? "tour enregistré" : "tours enregistrés"}. Continuez.`
+    : "Suivez vos progrès, tour après tour.";
   const body = byId("lap-body");
   body.replaceChildren();
   page = Math.min(page, Math.max(0, Math.ceil(laps.length / pageSize) - 1));
@@ -243,8 +245,8 @@ function renderLaps() {
     input.maxLength = 80;
     input.name = `lap-${i + 1}`;
     input.autocomplete = "off";
-    input.placeholder = "Add a label…";
-    input.setAttribute("aria-label", `Label for lap ${i + 1}`);
+    input.placeholder = "Ajouter un nom…";
+    input.setAttribute("aria-label", `Nom du tour ${i + 1}`);
     input.addEventListener("input", () => {
       laps[i].label = input.value;
       save();
@@ -259,7 +261,7 @@ function renderLaps() {
     body.append(tr);
   }
   byId("lap-page-status").textContent = laps.length
-    ? `${begin + 1}–${end} of ${laps.length}`
+    ? `${begin + 1}–${end} sur ${laps.length}`
     : "";
   button("previous-laps").disabled = page === 0;
   button("next-laps").disabled = begin === 0;
@@ -270,8 +272,8 @@ function toggle() {
   else watch.start();
   announce(
     watch.running
-      ? "Stopwatch started."
-      : `Stopwatch paused at ${formatTime(watch.elapsed)}.`,
+      ? "Chronomètre démarré."
+      : `Chronomètre en pause à ${formatTime(watch.elapsed)}.`,
   );
   save();
   renderState();
@@ -284,25 +286,25 @@ function recordLap() {
   renderLaps();
   renderState();
   announce(
-    `Lap ${watch.laps.length} recorded, ${formatTime(lapDurations(watch.laps).at(-1)!)}.`,
+    `Tour ${watch.laps.length} enregistré, ${formatTime(lapDurations(watch.laps).at(-1)!)}.`,
   );
   if (watch.laps.length === MAX_LAPS)
     toast(
-      "Lap limit reached. Export your results before starting a new session.",
+      "Limite de tours atteinte. Exportez vos résultats avant de recommencer.",
     );
 }
 function requestReset(all = false) {
   if (!all && !watch.elapsed && !pending) return;
   clearAll = all;
   byId("reset-title").textContent = all
-    ? "Clear this device’s data?"
-    : "Start a fresh session?";
+    ? "Effacer les données de cet appareil ?"
+    : "Commencer une nouvelle séance ?";
   byId("reset-description").textContent = all
-    ? "This removes all saved stopwatch and timer sessions, lap records, and preferences from this browser. Export any results you want to keep first."
-    : "This resets the stopwatch and removes your lap records. Export any results you want to keep first.";
+    ? "Toutes les séances, tous les tours et toutes les préférences seront effacés de ce navigateur. Exportez d’abord les résultats à conserver."
+    : "Le chronomètre et les tours seront effacés. Exportez d’abord les résultats que vous souhaitez conserver.";
   byId("confirm-reset").textContent = all
-    ? "Clear local data"
-    : "Reset session";
+    ? "Effacer les données locales"
+    : "Réinitialiser la séance";
   resetDialog.showModal();
   resetDialog.querySelector<HTMLButtonElement>("[data-close-dialog]")?.focus();
 }
@@ -343,7 +345,9 @@ function confirmReset() {
   renderLaps();
   renderState();
   toast(
-    clearAll ? "Local data cleared." : "A fresh start. Ready when you are.",
+    clearAll
+      ? "Données locales effacées."
+      : "Nouvelle séance prête à démarrer.",
   );
   button("toggle").focus();
 }
@@ -355,7 +359,7 @@ function restore() {
   save();
   renderLaps();
   renderState();
-  toast("Session restored and paused. Resume when you’re ready.");
+  toast("Séance restaurée et mise en pause. Reprenez quand vous le souhaitez.");
 }
 function setFocusMode(enabled: boolean) {
   card.classList.toggle("focus-mode", enabled);
@@ -386,8 +390,8 @@ function setFocusMode(enabled: boolean) {
 function updateFullscreenLabel() {
   byId("fullscreen-label").textContent =
     document.fullscreenElement || card.classList.contains("focus-mode")
-      ? "Exit fullscreen"
-      : "Fullscreen";
+      ? "Quitter le plein écran"
+      : "Plein écran";
 }
 async function fullscreen() {
   if (document.fullscreenElement) {
@@ -425,14 +429,15 @@ async function updateWakeLock() {
     }
     wakeLock = lock;
     byId("wake-description").textContent =
-      "Screen awake while this tab is visible.";
+      "L’écran reste allumé tant que cet onglet est visible.";
     lock.addEventListener("release", () => {
       if (wakeLock === lock) wakeLock = null;
-      byId("wake-description").textContent = "While the stopwatch is running.";
+      byId("wake-description").textContent =
+        "Pendant le fonctionnement du chronomètre.";
     });
   } catch {
     byId("wake-description").textContent =
-      "Unavailable right now. Your timer still works.";
+      "Indisponible pour le moment. Le chronomètre fonctionne toujours.";
   } finally {
     wakeRequested = false;
   }
@@ -464,19 +469,21 @@ button("export").addEventListener("click", () => {
   );
   const link = document.createElement("a");
   link.href = url;
-  link.download = `online-stopwatch-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.download = `chronometre-en-ligne-${new Date().toISOString().slice(0, 10)}.csv`;
   document.body.append(link);
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 10000);
-  toast("Your lap export is ready.");
+  toast("Votre export des tours est prêt.");
 });
 button("copy").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(csv(watch.laps).replace(/^\uFEFF/, ""));
-    toast("Lap times copied.");
+    toast("Temps par tour copiés.");
   } catch {
-    toast("Clipboard unavailable. Use Export CSV to save your laps.");
+    toast(
+      "Presse-papiers indisponible. Utilisez l’export CSV pour conserver vos tours.",
+    );
   }
 });
 document
@@ -553,18 +560,19 @@ window.addEventListener("pagehide", () => {
 setInterval(() => {
   if (watch.running) {
     save();
-    document.title = `${formatTime(watch.elapsed).split(".")[0]} · Online Stopwatch`;
+    document.title = `${formatTime(watch.elapsed).split(".")[0]} · Chronomètre en ligne`;
   }
 }, 1000);
 if (pending && (pending.elapsed || pending.laps.length)) {
   byId("recovery").hidden = false;
   byId("recovery-detail").textContent = pending.running
-    ? "A running session was saved. Restore includes time away, then pauses it for review."
-    : `Your paused session at ${formatTime(pending.elapsed)} is ready to restore.`;
+    ? "Une séance en cours a été enregistrée. La restauration inclut le temps d’absence puis met la séance en pause."
+    : `Votre séance en pause à ${formatTime(pending.elapsed)} peut être restaurée.`;
 } else pending = null;
 if (!("wakeLock" in navigator)) {
   byId<HTMLInputElement>("keep-awake").disabled = true;
-  byId("wake-description").textContent = "Not supported in this browser.";
+  byId("wake-description").textContent =
+    "Non pris en charge par ce navigateur.";
   settings.wake = false;
 }
 if (!storageAvailable) storageFailed();
@@ -575,8 +583,8 @@ if (variant === "minimal") {
     records.hidden = !records.hidden;
     control.setAttribute("aria-expanded", String(!records.hidden));
     control.textContent = records.hidden
-      ? "Show lap records"
-      : "Hide lap records";
+      ? "Afficher les tours"
+      : "Masquer les tours";
   });
 }
 if (variant === "custom") {
@@ -607,10 +615,10 @@ if (variant === "custom") {
     const url = `${location.origin}${location.pathname}?${params}`;
     try {
       await navigator.clipboard.writeText(url);
-      toast("Setup link copied. Lap records stay private.");
+      toast("Lien de personnalisation copié. Vos tours restent privés.");
     } catch {
       toast(
-        "Clipboard unavailable. Copy the setup link from your address bar.",
+        "Presse-papiers indisponible. Copiez le lien dans la barre d’adresse.",
       );
       history.replaceState(null, "", url);
     }

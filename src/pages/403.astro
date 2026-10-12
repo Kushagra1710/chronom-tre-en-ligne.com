@@ -1,18 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="Access Restricted | Wearlivo" noindex>
+<Layout title="Accès restreint | Chronomètre en ligne" noindex>
   <main id="main" class="wrap prose-page">
-    <p class="error-brand"><Icon name="watch" size={19} /> Online Stopwatch by Wearlivo</p>
-    <span class="eyebrow">403 · ACCESS RESTRICTED</span>
-    <h1>This page is not available.</h1>
+    <span class="eyebrow">ERREUR 403</span>
+    <h1>Accès restreint</h1>
     <p>
-      You do not have permission to view this page. Return to the homepage or
-      choose another timing tool.
+      Vous ne disposez pas de l’autorisation nécessaire pour consulter cette
+      page.
     </p>
-    <p><a href="/">Open your stopwatch →</a></p>
-    <p><a href="/tools/">Browse all tools →</a></p>
+    <p>
+      <a href="/">Ouvrir le chronomètre →</a>
+    </p>
+    <p>
+      <a href="/outils/">Voir tous les outils →</a>
+    </p>
   </main>
 </Layout>

@@ -1,89 +1,55 @@
 ---
+import { SITE_URL } from "../lib/site";
 import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 import StopwatchTool from "../components/StopwatchTool.astro";
 import TodayPanel from "../components/TodayPanel.astro";
 const questions = [
   [
-    "Can I have a stopwatch please?",
-    "Yes. This free online stopwatch is ready to use above. Press Start to begin timing immediately; no account, download, or payment is needed.",
+    "Comment utiliser le chronomètre en ligne ?",
+    "Appuyez sur Démarrer pour lancer le chrono, sur Pause pour l’arrêter et sur Reprendre pour continuer. Le bouton Tour enregistre un temps intermédiaire sans interrompre la mesure. Réinitialiser permet de repartir de zéro.",
   ],
   [
-    "Is there an easy-to-use online stopwatch?",
-    "Yes. Online Stopwatch uses clear Start, Pause, Lap, and Reset controls. It opens directly to the stopwatch so you can begin without working through a setup screen.",
+    "Ce chronomètre en ligne est-il gratuit ?",
+    "Oui, le chronomètre et les minuteurs sont gratuits et accessibles sans inscription ni téléchargement. Ils fonctionnent dans votre navigateur sur ordinateur, tablette et téléphone.",
   ],
   [
-    "What is the best online timer?",
-    "The best online timer is the one that fits the task. Use a countdown timer for one deadline, a Pomodoro timer for focused study periods, and an interval timer for repeating work and rest.",
+    "Comment mettre le chronomètre en ligne en plein écran ?",
+    "Cliquez sur Plein écran sous l’affichage du temps, ou utilisez la touche F si les raccourcis sont activés. Pour revenir à la page, cliquez sur Quitter le plein écran ou appuyez sur Échap. Si votre navigateur ne prend pas en charge le plein écran natif, un affichage agrandi prend le relais.",
   ],
   [
-    "How long is 999 hours in stopwatches?",
-    "999 hours equals 41 days and 15 hours. A stopwatch display may show that total as 999:00:00, depending on its format.",
+    "Comment créer un chronomètre en ligne aesthetic ?",
+    "Ouvrez le chronomètre personnalisé pour choisir les couleurs, la police, le fond et la taille des chiffres. Ajoutez un titre, choisissez un affichage numérique ou analogique, puis passez en plein écran pour obtenir un chronomètre aesthetic adapté à votre espace de travail.",
   ],
   [
-    "Can you provide me with a 1-hour stopwatch?",
-    "For a one-hour session, open the countdown timer, enter 1 hour, apply the duration, and press Start. The regular stopwatch counts upward from zero, while the countdown timer counts down to the finish.",
+    "Comment utiliser un chronomètre en ligne en classe ?",
+    "Projetez le chronomètre en plein écran pour afficher le temps écoulé pendant un exercice, une lecture ou un exposé. Utilisez le minuteur si vous souhaitez fixer une durée, par exemple 1 minute pour une question ou 10 minutes pour un travail en groupe.",
   ],
   [
-    "How long can a stopwatch go?",
-    "This stopwatch continues counting while the page and browser remain active. It is designed for everyday timing; keep the page open and avoid device sleep when the timing needs your attention.",
+    "Comment régler un chronomètre en ligne sur 1 minute ?",
+    "Le chronomètre mesure le temps écoulé à partir de zéro : arrêtez-le à 00:01:00 pour mesurer une minute. Pour un compte à rebours de 1 minute avec un signal de fin, ouvrez le minuteur, choisissez le bouton 1 min puis Démarrer.",
   ],
   [
-    "What is a good stopwatch?",
-    "A good stopwatch is easy to read, starts quickly, has reliable pause and reset controls, and includes lap timing when you need it. This one also offers fullscreen mode, session recovery, and CSV export.",
+    "Quelle est la différence entre chronomètre et minuteur ?",
+    "Un chronomètre compte le temps écoulé depuis zéro. Un minuteur part d’une durée choisie et descend jusqu’à zéro. Choisissez le chrono pour mesurer une activité et le minuteur pour respecter un temps limité.",
   ],
   [
-    "How to make a 20 minute timer?",
-    "Open the countdown timer, set the minutes field to 20 and the other fields to zero, then select Apply duration and Start. You can pause, resume, or reset the timer at any time.",
+    "Comment enregistrer les tours et exporter les résultats ?",
+    "Pendant le chronométrage, cliquez sur Tour ou appuyez sur L. Le tableau affiche la durée de chaque tour et le temps cumulé. Vous pouvez nommer les tours, copier les résultats ou les télécharger avec Exporter en CSV.",
   ],
   [
-    "Is it possible to get 0.01 on stopwatch?",
-    "Yes. Enable Show hundredths in Settings to display time in hundredths of a second, including 0.01. Screen updates and input timing mean it is intended for everyday use, not certified measurement.",
+    "Puis-je retrouver ma séance après avoir fermé la page ?",
+    "Le site enregistre régulièrement la séance dans ce navigateur lorsque le stockage local est disponible. À votre retour, choisissez Restaurer la séance. Une séance qui était en cours inclut le temps d’absence, puis se met en pause pour vérification. Les données ne sont pas synchronisées entre appareils.",
   ],
   [
-    "What is the best online timer for studying?",
-    "A Pomodoro timer is a useful option for studying because it alternates focused work periods with planned breaks. Choose your own focus length, break length, and number of sessions.",
-  ],
-  [
-    "What is the best online stopwatch?",
-    "The best online stopwatch is simple enough to start immediately and flexible enough for your activity. Online Stopwatch provides upward timing, laps, fullscreen mode, saved local sessions, and alternate stopwatch styles.",
-  ],
-  [
-    "How to use a stopwatch?",
-    "Press Start to begin. Press Pause when you need to stop temporarily, Resume to continue the same session, Lap to mark a time without stopping, and Reset to begin again.",
-  ],
-  [
-    "How to read a stopwatch?",
-    "Read the display from left to right: hours, minutes, and seconds. When hundredths are enabled, the digits after the decimal point show fractions of a second.",
-  ],
-  [
-    "What is a stopwatch?",
-    "A stopwatch is a clock that measures elapsed time from the moment it starts until it is paused or stopped. Unlike a countdown timer, it counts upward from zero.",
-  ],
-  [
-    "Does stopwatch really work?",
-    "Yes. This stopwatch calculates elapsed time from your device clock instead of simply counting screen updates. Browser suspension, device sleep, and changes to the device clock can affect an active session.",
-  ],
-  [
-    "How to start stopwatch?",
-    "Use the Start button in the stopwatch above. You can also use the Space key when keyboard shortcuts are enabled in Settings.",
-  ],
-  [
-    "What is a stopwatch used for?",
-    "A stopwatch is used to measure how long an activity takes. Common uses include exercise, laps, study sessions, cooking steps, presentations, games, and classroom activities.",
-  ],
-  [
-    "How to set stopwatch?",
-    "A regular stopwatch begins at zero and counts upward, so it does not need a duration set first. To set a target time such as 20 minutes or 1 hour, use the countdown timer.",
-  ],
-  [
-    "How does stopwatch work?",
-    "When you press Start, the stopwatch records a starting time and shows the elapsed difference from the current time. Pause stores the elapsed result, and Resume continues adding to it.",
+    "Le chronomètre fonctionne-t-il lorsque l’appareil se met en veille ?",
+    "La mise en veille et la suspension d’un onglet peuvent perturber l’affichage ou les alertes. Gardez la page ouverte et l’appareil actif pour les séances importantes. L’affichage des centièmes ne constitue pas une certification de précision.",
   ],
 ];
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  inLanguage: "fr",
   mainEntity: questions.map(([name, text]) => ({
     "@type": "Question",
     name,
@@ -93,68 +59,118 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Online Stopwatch"
-  description="Use a free online stopwatch with lap times, fullscreen mode, CSV export, and session recovery. Start this online stopwatch instantly with no sign-up."
+  title="Chronomètre en ligne gratuit avec tours et plein écran"
+  description="Lancez votre chronomètre en ligne gratuit : tours, centièmes, export CSV et plein écran. Un chrono simple pour la classe, le sport et les études, sans inscription."
 >
   <main id="main">
     <StopwatchTool />
     <TodayPanel />
-
     <section class="home-intro wrap" aria-labelledby="hero-title">
       <div class="eyebrow">
-        <span class="status-dot"></span> LESS DISTRACTION. MORE INTENTION.
+        <span class="status-dot"></span> GRATUIT · SIMPLE · SANS INSCRIPTION
       </div>
       <h1 id="hero-title">
-        Online Stopwatch. <span>Well spent.</span>
+        Chronomètre en ligne. <span>À votre rythme.</span>
       </h1>
-      <p>A simple online stopwatch for whatever deserves your focus.</p>
+      <p>
+        Mesurez le temps, enregistrez vos tours et gardez le cap sur votre
+        activité.
+      </p>
       <div class="hero-note">
-        <span>No sign-up</span>
+        <span>Sans téléchargement</span>
         <i aria-hidden="true"></i>
-        <span>No distractions</span>
+        <span>Tours et centièmes</span>
         <i aria-hidden="true"></i>
-        <span>Just start</span>
+        <span>Plein écran</span>
       </div>
     </section>
-
     <section class="seo-guide wrap" aria-labelledby="seo-guide-title">
-      <span class="eyebrow">ONLINE STOPWATCH GUIDE</span>
-      <h2 id="seo-guide-title">A free online stopwatch for moments that matter.</h2>
+      <span class="eyebrow">BIEN UTILISER VOTRE CHRONO</span>
+      <h2 id="seo-guide-title">
+        Un chronomètre en ligne gratuit, prêt à démarrer
+      </h2>
       <p>
-        This online stopwatch is built for the simple job of measuring time without adding distractions. Open the page, press Start, and the clock begins immediately in your browser. There is no account to create, no download to install, and no complicated setup before you can begin. Use it to time a workout, a reading session, a presentation, a game, a classroom activity, or the small task you have been putting off. When you need a clear online stopwatch timer, the most useful design is one that lets you focus on the activity instead of the tool.
+        Besoin de mesurer une séance de sport, le temps d’un exposé ou la durée
+        d’un exercice ? Ce chronomètre fonctionne directement dans votre
+        navigateur. Cliquez sur <strong>Démarrer</strong> : les heures, minutes,
+        secondes et centièmes s’affichent aussitôt. Mettez en pause puis
+        reprenez la même séance, sans perdre le temps déjà mesuré. Aucun compte
+        n’est nécessaire.
+      </p>
+      <h2>Chronomètre en ligne plein écran : un temps lisible à distance</h2>
+      <p>
+        Le bouton <strong>Plein écran</strong> agrandit le chrono pour une salle
+        de classe, un entraînement collectif ou une présentation. Vous pouvez
+        aussi appuyer sur <kbd>F</kbd> lorsque les raccourcis sont activés. Le
+        thème clair ou sombre s’adapte à votre environnement. Pour revenir à la
+        page, appuyez sur Échap ou utilisez le bouton de sortie.
+      </p>
+      <h2>Un chronomètre en ligne pour la classe</h2>
+      <p>
+        Affichez le temps écoulé au tableau pour une lecture, un calcul mental
+        ou un travail de groupe. Les élèves suivent un repère commun et
+        l’enseignant peut marquer les étapes avec le bouton{" "}
+        <strong>Tour</strong>. Pour limiter un exercice à une durée précise,
+        choisissez plutôt le <a href="/minuteur/">minuteur en ligne</a>. Il
+        décompte le temps restant et propose un signal sonore facultatif à la
+        fin.
+      </p>
+      <h2>Votre chronomètre en ligne aesthetic, même en plein écran</h2>
+      <p>
+        Le <a href="/chronometre-personnalise/">chronomètre personnalisé</a>{" "}
+        vous permet de choisir un fond discret, des couleurs et une police.
+        Ajoutez le titre de votre séance et ajustez la taille des chiffres. Pour
+        un chronomètre en ligne plein écran aesthetic, personnalisez l’affichage
+        puis activez le plein écran. Vous préférez un écran épuré ? Essayez le{" "}
+        <a href="/chronometre-minimaliste/">chronomètre minimaliste</a>. Le{" "}
+        <a href="/chronometre-analogique/">chronomètre analogique</a> propose un
+        cadran à aiguilles accompagné du temps numérique.
+      </p>
+      <h2>Chronomètre en ligne 1 minute : mesurer ou décompter ?</h2>
+      <p>
+        Pour mesurer une minute, démarrez le chronomètre et arrêtez-le à{" "}
+        <strong>00:01:00</strong>. Pour recevoir une alerte au bout de 60
+        secondes, ouvrez le <a href="/minuteur/">minuteur</a>, choisissez{" "}
+        <strong>1 min</strong>, puis démarrez le compte à rebours. Les boutons
+        de durée rapide proposent aussi 5, 10, 15 et 30 minutes ainsi qu’une
+        heure.
+      </p>
+      <h2>Comparez vos tours et conservez vos résultats</h2>
+      <p>
+        Chaque tour indique le temps depuis le repère précédent ; le temps
+        cumulé indique la durée totale depuis le départ. Consultez le tour le
+        plus rapide, le plus lent et la moyenne pour comparer vos essais. Donnez
+        un nom à chaque tour, puis copiez les résultats ou exportez un fichier
+        CSV avant de réinitialiser la séance. Vos séances et préférences restent
+        dans le stockage local de votre navigateur.
+      </p>
+      <h2>Un chrono en ligne pour travailler et s’entraîner</h2>
+      <p>
+        Pour organiser vos révisions, le{" "}
+        <a href="/pomodoro/">minuteur Pomodoro</a> alterne concentration et
+        pauses. Pour répéter des exercices, le{" "}
+        <a href="/minuteur-intervalle/">minuteur à intervalles</a> enchaîne
+        effort et repos selon les durées choisies. Retrouvez tous les{" "}
+        <a href="/outils/">outils de chronométrage</a> en français, en France
+        comme dans les autres pays francophones.
       </p>
       <p>
-        Because the controls remain in one consistent place, you can begin with confidence even when time is short. The digital display shows hours, minutes, seconds, and optional hundredths, giving you an easy way to follow both quick tasks and longer sessions. Keyboard shortcuts are available for people who prefer to start, pause, record a lap, or reset without reaching for the mouse. The result is a straightforward timer space that works well on a desktop, tablet, or phone.
-      </p>
-      <p>
-        The main stopwatch includes laps and split times. Press Lap whenever you want to mark a point without stopping the clock. Each lap shows the time since the previous marker, while the split shows total elapsed time. That makes this an online stopwatch with laps for practice drills, running intervals, cooking steps, team exercises, and personal challenges. You can review the record as you go, copy it, or export it as a CSV file after your session. Pause and resume preserve the same running total, so an interruption does not force you to start over.
-      </p>
-      <p>
-        Need more room to see the numbers? Use the fullscreen control for a large online stopwatch that can be read from across a room. A full screen online stopwatch is useful for group workouts, classrooms, meetings, rehearsals, and any situation where the timer needs to be visible to more than one person. The display uses a clock-based calculation instead of relying on each screen refresh, which helps it remain useful when your browser tab is not in front. Keep the page open for timing that needs your attention, since device sleep and browser suspension can affect what you see.
-      </p>
-      <p>
-        This is also an online stopwatch free from sign-up prompts and advertising clutter. Your active session, preferences, and saved routines stay in your own browser storage. They are not shared across devices, and you can clear them from Settings whenever you wish. If you refresh the page, the site can offer to restore a saved stopwatch session. For regular focus or training, save a named timer routine and return to it from the home page. This makes the free online stopwatch timer practical for a daily study block, a recurring exercise set, or a predictable break schedule.
-      </p>
-      <p>
-        Beyond the main clock, Online Stopwatch includes a countdown timer, Pomodoro timer, interval timer, and four stopwatch styles. Choose the analog stopwatch when you prefer a familiar dial, the minimal stopwatch for a quieter screen, or the custom stopwatch to adjust the title, face, colors, number style, and lap display. The countdown option works as an online stopwatch countdown for a single deadline, while the interval tool alternates work and rest. These choices make one site useful for focused work, fitness, cooking, learning, and everyday timing.
-      </p>
-      <p>
-        An online stopwatch for kids can be especially helpful for short reading goals, tidy-up races, simple games, and classroom transitions. Adults should choose suitable activities and supervise where needed, but the controls are intentionally direct: Start, Pause, Lap, and Reset. Whether you need an online stopwatch clock for yourself or a visible timer for a group, begin with the digital display and select the tool that fits the moment. Time is easier to use well when the clock stays out of the way.
+        Vous avez recherché « chronometre en ligne » ou simplement « chronometre
+        » sans accent ? Vous êtes au bon endroit : choisissez votre affichage et
+        lancez votre séance.
       </p>
     </section>
-
     <section
       class="faq-section wrap"
       id="questions"
       aria-labelledby="faq-title"
     >
       <div>
-        <span class="eyebrow">ONLINE STOPWATCH FAQ</span>
-        <h2 id="faq-title">Questions, answered.</h2>
+        <span class="eyebrow">AIDE ET QUESTIONS FRÉQUENTES</span>
+        <h2 id="faq-title">Tout savoir sur le chronomètre en ligne</h2>
         <p>
-          Less figuring things out.
-          <br />
-          More getting into your flow.
+          Les réponses utiles pour démarrer, personnaliser et enregistrer votre
+          séance.
         </p>
       </div>
       <div class="faq-list">
@@ -171,23 +187,32 @@ const faqSchema = {
     </section>
     <div class="closing-note wrap">
       <Icon name="watch" size={18} />
-      <span>Be here. Make it count.</span>
+      <span>Votre activité, votre rythme.</span>
       <a href="#stopwatch">
-        Back to your stopwatch <Icon name="arrow" size={16} />
+        Revenir au chronomètre <Icon name="arrow" size={16} />
       </a>
     </div>
   </main>
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Online Stopwatch by Wearlivo",
-    url: "https://wearlivo.com/",
-    provider: { "@type": "Organization", name: "Wearlivo", url: "https://wearlivo.com/" },
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "Any",
-    isAccessibleForFree: true,
-    description: "A free online stopwatch with laps, fullscreen mode, session recovery, countdown, Pomodoro, and interval timers.",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  })}></script>
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Chronomètre en ligne",
+      url: `${SITE_URL}/`,
+      inLanguage: "fr",
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Tous les systèmes avec un navigateur web",
+      isAccessibleForFree: true,
+      description:
+        "Chronomètre en ligne gratuit avec tours, centièmes, plein écran, personnalisation, minuteur, Pomodoro et intervalles.",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    })}
+  ></script>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(faqSchema)}
+  ></script>
 </Layout>

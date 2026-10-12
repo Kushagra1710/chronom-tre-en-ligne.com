@@ -6,9 +6,9 @@ interface Props {
 }
 const { mode } = Astro.props;
 const title = {
-  countdown: "Countdown timer",
-  pomodoro: "Pomodoro timer",
-  interval: "Interval timer",
+  countdown: "Minuteur en ligne",
+  pomodoro: "Minuteur Pomodoro",
+  interval: "Minuteur à intervalles",
 }[mode];
 ---
 
@@ -17,20 +17,20 @@ const title = {
     <div class="panel-heading">
       <h2 id="setup-title">
         <Icon name="settings" size={17} />{" "}
-        {mode === "countdown" ? "Set your time" : "Build your rhythm"}
+        {mode === "countdown" ? "Réglez la durée" : "Programmez votre séance"}
       </h2>
       <span class="settings-save-note" id="timer-storage-note">
-        Saved on this device
+        Enregistré sur cet appareil
       </span>
     </div>
     <form id="timer-form">
       <fieldset id="timer-fields">
-        <legend class="sr-only">{title} configuration</legend>
+        <legend class="sr-only">Configuration : {title}</legend>
         {mode === "countdown" ? (
           <>
             <div class="duration-inputs">
               <label for="duration-hours">
-                Hours
+                Heures
                 <input
                   type="number"
                   id="duration-hours"
@@ -60,7 +60,7 @@ const title = {
               </label>
               <span aria-hidden="true">:</span>
               <label for="duration-seconds">
-                Seconds
+                Secondes
                 <input
                   type="number"
                   id="duration-seconds"
@@ -75,10 +75,10 @@ const title = {
               </label>
             </div>
             <div class="preset-row">
-              <span>Presets</span>
+              <span>Durées rapides</span>
               {[1, 5, 10, 15, 30, 60].map((minutes) => (
                 <button type="button" data-preset={minutes}>
-                  {minutes === 60 ? "1 hour" : `${minutes} min`}
+                  {minutes === 60 ? "1 heure" : `${minutes} min`}
                 </button>
               ))}
             </div>
@@ -86,7 +86,7 @@ const title = {
         ) : mode === "pomodoro" ? (
           <div class="routine-inputs">
             <label for="focus-minutes">
-              Focus · minutes
+              Concentration · minutes
               <input
                 id="focus-minutes"
                 name="focus"
@@ -99,7 +99,7 @@ const title = {
               />
             </label>
             <label for="break-minutes">
-              Short break · minutes
+              Pause courte · minutes
               <input
                 id="break-minutes"
                 name="break"
@@ -112,7 +112,7 @@ const title = {
               />
             </label>
             <label for="long-minutes">
-              Long break · minutes
+              Pause longue · minutes
               <input
                 id="long-minutes"
                 name="long-break"
@@ -125,7 +125,7 @@ const title = {
               />
             </label>
             <label for="timer-rounds">
-              Focus sessions
+              Séances de concentration
               <input
                 id="timer-rounds"
                 name="rounds"
@@ -141,7 +141,7 @@ const title = {
         ) : (
           <div class="routine-inputs">
             <label for="work-seconds">
-              Work · seconds
+              Effort · secondes
               <input
                 id="work-seconds"
                 name="work"
@@ -154,7 +154,7 @@ const title = {
               />
             </label>
             <label for="rest-seconds">
-              Rest · seconds
+              Repos · secondes
               <input
                 id="rest-seconds"
                 name="rest"
@@ -167,7 +167,7 @@ const title = {
               />
             </label>
             <label for="timer-rounds">
-              Rounds
+              Cycles
               <input
                 id="timer-rounds"
                 name="rounds"
@@ -184,15 +184,17 @@ const title = {
         <div class="setup-bottom">
           <p id="setup-hint">
             {mode === "countdown"
-              ? "A little boundary for your next task."
-              : "Phases advance automatically. Reset to edit a session."}
+              ? "Choisissez le temps consacré à votre prochaine activité."
+              : "Les phases s’enchaînent automatiquement. Réinitialisez pour modifier la séance."}
           </p>
           <div class="setup-actions">
             <button type="button" id="save-routine" class="quiet-button">
-              Save routine
+              Enregistrer le programme
             </button>
             <button type="submit" class="secondary-button">
-              {mode === "countdown" ? "Apply duration" : "Apply routine"}
+              {mode === "countdown"
+                ? "Appliquer la durée"
+                : "Appliquer le programme"}
             </button>
           </div>
         </div>
@@ -209,49 +211,49 @@ const title = {
       <div class="tool-label">
         <Icon name={mode === "interval" ? "reset" : "watch"} size={18} />
         <h2>{title}</h2>
-        <span class="tool-badge">FREE</span>
+        <span class="tool-badge">GRATUIT</span>
       </div>
       <span class="timer-phase-badge" id="phase-counter">
-        {mode === "countdown" ? "YOUR NEXT MOMENT" : "ROUND 1"}
+        {mode === "countdown" ? "VOTRE COMPTE À REBOURS" : "CYCLE 1"}
       </span>
     </div>
     <noscript>
-      <p class="notice">Enable JavaScript to use this timer.</p>
+      <p class="notice">Activez JavaScript pour utiliser ce minuteur.</p>
     </noscript>
     <div id="timer-recovery" class="recovery notice" hidden>
       <div>
-        <strong>Your timer is still here.</strong>
+        <strong>Votre minuteur est enregistré.</strong>
         <p>
-          Restore your last session, including time away, then review it while
-          paused.
+          Restaurez la dernière séance, en incluant le temps d’absence, puis
+          vérifiez-la en pause.
         </p>
       </div>
       <div class="recovery-actions">
         <button id="timer-restore" class="small-button">
-          Restore timer
+          Restaurer le minuteur
         </button>
         <button id="timer-discard" class="quiet-button">
-          Discard
+          Supprimer
         </button>
       </div>
     </div>
     <div class="timer-stage">
       <div class="session-status">
         <span id="countdown-dot" class="status-dot neutral"></span>
-        <span id="countdown-state">Ready when you are</span>
+        <span id="countdown-state">Prêt à démarrer</span>
       </div>
       <p id="phase-label" class="phase-label">
         {mode === "countdown"
-          ? "Your countdown"
+          ? "Votre compte à rebours"
           : mode === "pomodoro"
-            ? "Focus"
-            : "Work"}
+            ? "Concentration"
+            : "Effort"}
       </p>
       <div
         class="countdown-display"
         role="timer"
         aria-live="off"
-        aria-label="Time remaining"
+        aria-label="Temps restant"
       >
         <span id="countdown-hours">00</span>
         <span class="countdown-colon">:</span>
@@ -264,7 +266,7 @@ const title = {
       <div
         class="countdown-progress"
         role="progressbar"
-        aria-label="Session progress"
+        aria-label="Progression de la séance"
         aria-valuemin="0"
         aria-valuemax="100"
         aria-valuenow="0"
@@ -274,41 +276,41 @@ const title = {
       <div class="timer-actions">
         <button id="countdown-toggle" class="primary-button" disabled>
           <Icon name="play" size={17} />
-          <span id="countdown-toggle-label">Start</span>
+          <span id="countdown-toggle-label">Démarrer</span>
         </button>
         <button id="countdown-reset" class="secondary-button" disabled>
           <Icon name="reset" size={17} />
-          Reset
+          Réinitialiser
         </button>
       </div>
       <p id="next-phase" class="current-lap">
-        Your time, at your pace.
+        Votre temps, à votre rythme.
       </p>
     </div>
     <div class="tool-bottom">
       <label class="sound-label">
-        <input id="timer-sound" name="sound" type="checkbox" checked /> Sound on
-        completion
+        <input id="timer-sound" name="sound" type="checkbox" checked />
+        Son à la fin
       </label>
       <div class="timer-footer-actions">
         <button id="test-sound" class="quiet-button">
-          Test sound
+          Tester le son
         </button>
         <button id="timer-fullscreen" class="quiet-button">
           <Icon name="expand" size={15} />
-          <span id="timer-fullscreen-label">Fullscreen</span>
+          <span id="timer-fullscreen-label">Plein écran</span>
         </button>
       </div>
     </div>
   </section>
   <p class="timer-browser-note">
-    Keep this page open. Sound may be delayed or blocked when your device sleeps
-    or the browser suspends this tab.
+    Gardez cette page ouverte. Le son peut être retardé ou bloqué si l’appareil
+    se met en veille ou si le navigateur suspend cet onglet.
   </p>
   {mode !== "countdown" && (
     <section class="routine-summary panel" aria-labelledby="routine-title">
       <div class="panel-heading">
-        <h2 id="routine-title">Your session at a glance</h2>
+        <h2 id="routine-title">Votre programme en un coup d’œil</h2>
         <span id="routine-total" class="settings-save-note"></span>
       </div>
       <ol id="routine-preview"></ol>
@@ -323,36 +325,45 @@ const title = {
 </div>
 <dialog id="timer-reset-dialog" aria-labelledby="timer-reset-title">
   <div class="dialog-heading">
-    <h2 id="timer-reset-title">Reset this session?</h2>
+    <h2 id="timer-reset-title">Réinitialiser cette séance ?</h2>
   </div>
   <p class="dialog-description">
-    This clears your timer’s progress and returns to the beginning of the
-    routine.
+    La progression sera effacée et le programme reprendra au début.
   </p>
   <div class="dialog-actions">
     <button id="timer-reset-cancel" class="secondary-button">
-      Keep session
+      Conserver la séance
     </button>
     <button id="timer-reset-confirm" class="primary-button">
-      Reset timer
+      Réinitialiser le minuteur
     </button>
   </div>
 </dialog>
 <dialog id="routine-dialog" aria-labelledby="routine-dialog-title">
   <form id="routine-form" method="dialog">
     <div class="dialog-heading">
-      <h2 id="routine-dialog-title">Save this routine</h2>
+      <h2 id="routine-dialog-title">Enregistrer ce programme</h2>
     </div>
     <p class="dialog-description">
-      Give this setup a short name. It stays only in this browser.
+      Donnez un nom à ce programme. Il restera dans ce navigateur.
     </p>
     <label class="routine-name-label" for="routine-name">
-      Routine name
-      <input id="routine-name" name="name" maxlength="60" required placeholder="e.g. Afternoon focus" />
+      Nom du programme
+      <input
+        id="routine-name"
+        name="name"
+        maxlength="60"
+        required
+        placeholder="Ex. : Révisions de l’après-midi"
+      />
     </label>
     <div class="dialog-actions">
-      <button id="routine-cancel" type="button" class="secondary-button">Cancel</button>
-      <button id="routine-save-confirm" value="default" class="primary-button">Save routine</button>
+      <button id="routine-cancel" type="button" class="secondary-button">
+        Annuler
+      </button>
+      <button id="routine-save-confirm" value="default" class="primary-button">
+        Enregistrer le programme
+      </button>
     </div>
   </form>
 </dialog>

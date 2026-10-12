@@ -5,80 +5,82 @@ import Icon from "./Icon.astro";
 <section class="custom-controls panel" aria-labelledby="customize-title">
   <div class="panel-heading">
     <h2 id="customize-title">
-      <Icon name="settings" size={17} /> Make it yours
+      <Icon name="settings" size={17} />
+      Personnalisez votre chrono
     </h2>
     <span class="settings-save-note" id="custom-save-note">
-      Saved on this device
+      Enregistré sur cet appareil
     </span>
   </div>
   <div class="custom-fields">
     <label class="wide-field" for="custom-title">
-      Session title
+      Titre de la séance
       <input
         id="custom-title"
         name="session-title"
         type="text"
         maxlength="60"
-        placeholder="e.g. Morning focus…"
+        placeholder="Ex. : Révisions du matin…"
         autocomplete="off"
       />
     </label>
     <label for="custom-face">
-      Clock face
+      Affichage
       <select id="custom-face" name="clock-face">
-        <option value="digital">Digital</option>
-        <option value="analog">Analog</option>
+        <option value="digital">Numérique</option>
+        <option value="analog">Analogique</option>
       </select>
     </label>
     <label for="custom-palette">
-      Color
+      Couleur
       <select id="custom-palette" name="palette">
-        <option value="ink">Ink</option>
-        <option value="ocean">Ocean blue</option>
-        <option value="forest">Forest green</option>
-        <option value="plum">Plum</option>
+        <option value="ink">Encre</option>
+        <option value="ocean">Bleu océan</option>
+        <option value="forest">Vert forêt</option>
+        <option value="plum">Prune</option>
       </select>
     </label>
     <label for="custom-font">
-      Numbers
+      Chiffres
       <select id="custom-font" name="font">
-        <option value="mono">Monospace</option>
-        <option value="sans">Clean sans</option>
+        <option value="mono">Chasse fixe</option>
+        <option value="sans">Sans empattement</option>
       </select>
     </label>
     <label for="custom-size">
-      Display size
+      Taille d’affichage
       <select id="custom-size" name="size">
         <option value="standard">Standard</option>
-        <option value="large">Large</option>
+        <option value="large">Grand</option>
       </select>
     </label>
     <label for="custom-background">
-      Background
+      Fond
       <select id="custom-background" name="background">
-        <option value="dots">Subtle dots</option>
-        <option value="plain">Plain</option>
-        <option value="glow">Soft glow</option>
+        <option value="dots">Points discrets</option>
+        <option value="plain">Uni</option>
+        <option value="glow">Halo doux</option>
       </select>
     </label>
     <div class="custom-switches">
       <label class="custom-check">
         <input id="custom-fractions" name="fractions" type="checkbox" checked />{" "}
-        Show hundredths
+        Afficher les centièmes
       </label>
       <label class="custom-check">
-        <input id="custom-laps" name="laps" type="checkbox" checked /> Show lap
-        records
+        <input id="custom-laps" name="laps" type="checkbox" checked />
+        Afficher les tours
       </label>
     </div>
   </div>
   <div class="custom-footer">
     <p>
-      A setup link shares your title and appearance, never your lap records.
+      Le lien partage votre titre et votre apparence. Vos temps restent sur cet
+      appareil.
     </p>
     <button id="share-custom" class="quiet-button">
       <Icon name="copy" size={15} />
-      Copy setup link
+      Copier le lien de personnalisation
     </button>
   </div>
 </section>

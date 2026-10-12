@@ -119,7 +119,7 @@ export function csv(laps: Lap[]) {
     `"${(/^[\s]*[=+@\-\t\r\n]/.test(label) ? "'" + label : label).replaceAll('"', '""')}"`;
   const durations = lapDurations(laps);
   return (
-    "\uFEFFLap,Label,Lap time,Split time\r\n" +
+    "\uFEFFTour,Nom,Durée du tour,Temps cumulé\r\n" +
     laps
       .map(
         (lap, index) =>

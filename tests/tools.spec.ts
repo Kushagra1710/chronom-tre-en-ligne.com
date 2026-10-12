@@ -3,11 +3,13 @@ import AxeBuilder from "@axe-core/playwright";
 
 test("countdown validates input, pauses, and completes", async ({ page }) => {
   await page.clock.install();
-  await page.goto("/timer/");
+  await page.goto("/minuteur/");
   await page.locator("#duration-minutes").fill("0");
   await page.locator("#duration-seconds").fill("0");
   await page.locator("#countdown-toggle").click();
-  await expect(page.locator("#timer-error")).toContainText("at least 1 second");
+  await expect(page.locator("#timer-error")).toContainText(
+    "au moins 1 seconde",
+  );
   await page.locator("#duration-seconds").fill("3");
   await page.locator("#timer-sound").uncheck();
   await page.locator("#countdown-toggle").click();
@@ -19,7 +21,7 @@ test("countdown validates input, pauses, and completes", async ({ page }) => {
   expect(await page.locator("#countdown-seconds").textContent()).toBe(paused);
   await page.locator("#countdown-toggle").click();
   await page.clock.runFor(3000);
-  await expect(page.locator("#countdown-state")).toHaveText("Session complete");
+  await expect(page.locator("#countdown-state")).toHaveText("Séance terminée");
   await expect(page.locator("#countdown-seconds")).toHaveText("00");
   await page.locator("#countdown-reset").click();
   await page.locator("#timer-reset-confirm").click();
@@ -30,22 +32,22 @@ test("intervals transition through work and rest and restore paused", async ({
   page,
 }) => {
   await page.clock.install();
-  await page.goto("/interval-timer/");
+  await page.goto("/minuteur-intervalle/");
   await page.locator("#work-seconds").fill("2");
   await page.locator("#rest-seconds").fill("1");
   await page.locator("#timer-rounds").fill("2");
   await page.locator("#timer-sound").uncheck();
   await page.locator("#countdown-toggle").click();
   await page.clock.runFor(2100);
-  await expect(page.locator("#phase-label")).toHaveText("Rest");
+  await expect(page.locator("#phase-label")).toHaveText("Repos");
   await page.clock.runFor(1000);
-  await expect(page.locator("#phase-counter")).toHaveText("ROUND 2 OF 2");
+  await expect(page.locator("#phase-counter")).toHaveText("CYCLE 2 SUR 2");
   await page.locator("#countdown-toggle").click();
   await page.reload();
   await expect(page.locator("#timer-recovery")).toBeVisible();
   await page.locator("#timer-restore").click();
-  await expect(page.locator("#countdown-toggle-label")).toHaveText("Resume");
-  await expect(page.locator("#phase-counter")).toHaveText("ROUND 2 OF 2");
+  await expect(page.locator("#countdown-toggle-label")).toHaveText("Reprendre");
+  await expect(page.locator("#phase-counter")).toHaveText("CYCLE 2 SUR 2");
 });
 
 test("Pomodoro uses configured focus and break phases", async ({ page }) => {
@@ -57,18 +59,18 @@ test("Pomodoro uses configured focus and break phases", async ({ page }) => {
   await page.locator("#timer-sound").uncheck();
   await page.locator("#countdown-toggle").click();
   await page.clock.fastForward(61000);
-  await expect(page.locator("#phase-label")).toHaveText("Short break");
+  await expect(page.locator("#phase-label")).toHaveText("Pause courte");
   await page.clock.fastForward(60000);
-  await expect(page.locator("#phase-label")).toHaveText("Focus");
-  await expect(page.locator("#phase-counter")).toHaveText("ROUND 2 OF 2");
+  await expect(page.locator("#phase-label")).toHaveText("Concentration");
+  await expect(page.locator("#phase-counter")).toHaveText("CYCLE 2 SUR 2");
   await page.clock.fastForward(60000);
-  await expect(page.locator("#countdown-state")).toHaveText("Session complete");
+  await expect(page.locator("#countdown-state")).toHaveText("Séance terminée");
 });
 
 test("custom stopwatch updates live, persists, and accepts setup links", async ({
   page,
 }) => {
-  await page.goto("/custom-stopwatch/");
+  await page.goto("/chronometre-personnalise/");
   await page.locator("#custom-title").fill("Morning focus");
   await page.locator("#custom-palette").selectOption("ocean");
   await page.locator("#custom-face").selectOption("analog");
@@ -89,7 +91,7 @@ test("custom stopwatch updates live, persists, and accepts setup links", async (
     "ocean",
   );
   await page.goto(
-    "/custom-stopwatch/?setup=1&face=analog&palette=plum&title=Shared+setup&laps=false&fractions=false",
+    "/chronometre-personnalise/?setup=1&face=analog&palette=plum&title=Shared+setup&laps=false&fractions=false",
   );
   await expect(page.locator("#custom-title")).toHaveValue("Shared setup");
   await expect(page.locator("#stopwatch")).toHaveAttribute(
@@ -102,31 +104,31 @@ test("custom stopwatch updates live, persists, and accepts setup links", async (
 test("analog and minimal modes preserve separate sessions", async ({
   page,
 }) => {
-  await page.goto("/analog-stopwatch/");
+  await page.goto("/chronometre-analogique/");
   await page.locator("#toggle").click();
   await page.locator("#lap").click();
   await expect(page.locator("#second-hand")).not.toHaveAttribute(
     "transform",
     "rotate(0 120 120)",
   );
-  await page.goto("/minimal-stopwatch/");
+  await page.goto("/chronometre-minimaliste/");
   await expect(page.locator("#recovery")).toBeHidden();
   await expect(page.locator(".session-grid")).toBeHidden();
   await page.locator("#minimal-records").click();
   await expect(page.locator(".session-grid")).toBeVisible();
-  await page.goto("/analog-stopwatch/");
+  await page.goto("/chronometre-analogique/");
   await page.locator("#restore").click();
   await expect(page.locator("#lap-count")).toHaveText("1");
 });
 
 for (const route of [
-  "/stopwatches/",
-  "/timer/",
+  "/chronometres/",
+  "/minuteur/",
   "/pomodoro/",
-  "/interval-timer/",
-  "/custom-stopwatch/",
-  "/analog-stopwatch/",
-  "/minimal-stopwatch/",
+  "/minuteur-intervalle/",
+  "/chronometre-personnalise/",
+  "/chronometre-analogique/",
+  "/chronometre-minimaliste/",
 ]) {
   test(`new page ${route} has working scripts, metadata, and accessible layout`, async ({
     page,
@@ -137,7 +139,7 @@ for (const route of [
     expect(response?.status()).toBe(200);
     await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
       "href",
-      `https://wearlivo.com${route}`,
+      `https://xn--chronomtre-en-ligne-wyb.com${route}`,
     );
     expect(
       await page.evaluate(
@@ -149,7 +151,11 @@ for (const route of [
       .analyze();
     expect(report.violations).toEqual([]);
     expect(errors).toEqual([]);
-    if (["/timer/", "/custom-stopwatch/", "/stopwatches/"].includes(route))
+    if (
+      ["/minuteur/", "/chronometre-personnalise/", "/chronometres/"].includes(
+        route,
+      )
+    )
       await page.screenshot({
         path: `test-results/${info.project.name}-${route.replaceAll("/", "")}.png`,
         fullPage: true,
@@ -160,7 +166,7 @@ for (const route of [
 test("clearing local data removes all tool records but keeps unrelated storage", async ({
   page,
 }) => {
-  await page.goto("/custom-stopwatch/?setup=1&title=Shared");
+  await page.goto("/chronometre-personnalise/?setup=1&title=Shared");
   await page.evaluate(() => {
     localStorage.setItem("rs-timer-pomodoro-v1", "saved");
     localStorage.setItem("rs-session-analog-v1", "saved");
@@ -185,10 +191,10 @@ test("clearing local data removes all tool records but keeps unrelated storage",
 test("custom colors stay readable in dark mode and mobile directory navigation works", async ({
   page,
 }, info) => {
-  await page.goto("/custom-stopwatch/");
+  await page.goto("/chronometre-personnalise/");
   await page.locator("#settings-open").click();
   await page.locator("#theme-choice").selectOption("dark");
-  await page.getByRole("button", { name: "Close settings" }).click();
+  await page.getByRole("button", { name: "Fermer les réglages" }).click();
   await page.locator("#custom-palette").selectOption("plum");
   await page.locator("#custom-title").fill("A quiet moment");
   const report = await new AxeBuilder({ page })
@@ -196,10 +202,11 @@ test("custom colors stay readable in dark mode and mobile directory navigation w
     .analyze();
   expect(report.violations).toEqual([]);
   if (info.project.name === "mobile") {
+    await page.locator(".tools-dropdown > summary").click();
     await page
-      .getByRole("navigation", { name: "Main navigation" })
-      .getByRole("link", { name: "All tools" })
+      .getByRole("navigation", { name: "Navigation principale" })
+      .getByRole("link", { name: "Tous les outils" })
       .click();
-    await expect(page).toHaveURL(/\/tools\/$/);
+    await expect(page).toHaveURL(/\/outils\/$/);
   }
 });

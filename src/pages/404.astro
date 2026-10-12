@@ -3,37 +3,44 @@ import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="Page Not Found | Online Stopwatch" noindex>
+<Layout title="Page introuvable | Chronomètre en ligne" noindex>
   <main id="main" class="wrap error-page">
     <section class="error-card" aria-labelledby="error-title">
       <div class="error-card-top">
         <a href="/" class="error-brand">
-          <span class="error-brand-icon"><Icon name="watch" size={19} /></span>
-          <span>Online Stopwatch <em>by Wearlivo</em></span>
+          <span class="error-brand-icon">
+            <Icon name="watch" size={19} />
+          </span>
+          <span>
+            Chronomètre <em>en ligne</em>
+          </span>
         </a>
-        <span class="error-status">404 · NOT FOUND</span>
+        <span class="error-status">404 · PAGE INTROUVABLE</span>
       </div>
       <div class="error-card-body">
-        <div class="error-code" aria-hidden="true">404</div>
+        <div class="error-code" aria-hidden="true">
+          404
+        </div>
         <div class="error-copy">
-          <span class="eyebrow">A SMALL DETOUR</span>
-          <h1 id="error-title">This moment isn’t on the clock.</h1>
+          <span class="eyebrow">UNE PAGE À RETROUVER</span>
+          <h1 id="error-title">Cette page est introuvable.</h1>
           <p>
-            The page you requested does not exist or may have moved. Choose a
-            tool below and get back to what matters.
+            La page demandée n’existe pas ou a changé d’adresse. Choisissez un
+            outil ci-dessous pour reprendre votre activité.
           </p>
           <div class="error-actions">
             <a href="/" class="primary-button">
-              <Icon name="watch" size={17} /> Open stopwatch
+              <Icon name="watch" size={17} /> Ouvrir le chronomètre
             </a>
-            <a href="/tools/" class="secondary-button">
-              Browse all tools <Icon name="arrow" size={16} />
+            <a href="/outils/" class="secondary-button">
+              Voir tous les outils <Icon name="arrow" size={16} />
             </a>
           </div>
         </div>
       </div>
       <p class="error-note">
-        <Icon name="shield" size={15} /> Your saved sessions stay in this browser.
+        <Icon name="shield" size={15} /> Vos séances enregistrées restent dans
+        ce navigateur.
       </p>
     </section>
   </main>

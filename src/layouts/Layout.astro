@@ -3,6 +3,7 @@ import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
 import "../styles/tools.css";
+import { SITE_URL } from "../lib/site";
 import Icon from "../components/Icon.astro";
 interface Props {
   title?: string;
@@ -11,8 +12,8 @@ interface Props {
   noindex?: boolean;
 }
 const {
-  title = "Online Stopwatch by Wearlivo | Free Laps & Fullscreen",
-  description = "Use this free online stopwatch with laps, fullscreen mode, and session recovery. Start instantly in your browser with no sign-up needed.",
+  title = "Chronomètre en ligne gratuit avec tours et plein écran",
+  description = "Chronomètre en ligne gratuit : mesurez le temps, enregistrez vos tours et passez en plein écran. Pour la classe, le sport et les études, sans inscription.",
   image = "/web-app-manifest-512x512.png",
   noindex = false,
 } = Astro.props;
@@ -20,12 +21,12 @@ const canonicalPath =
   Astro.url.pathname === "/"
     ? "/"
     : `${Astro.url.pathname.replace(/\/+$/, "")}/`;
-const canonical = new URL(canonicalPath, "https://wearlivo.com");
+const canonical = new URL(canonicalPath, SITE_URL);
 const socialImage = new URL(image, canonical).toString();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <!-- Google tag (gtag.js) -->
     <script
@@ -35,9 +36,11 @@ const socialImage = new URL(image, canonical).toString();
     ></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ELDE46CSSG');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-ELDE46CSSG");
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,25 +48,32 @@ const socialImage = new URL(image, canonical).toString();
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="alternate" hreflang="fr" href={canonical} />}
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="StopWatch" />
+    <meta name="apple-mobile-web-app-title" content="Chronomètre" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Wearlivo" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Chronomètre en ligne" />
+    <meta property="og:locale" content="fr_FR" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content="Online Stopwatch timer display" />
+    <meta
+      property="og:image:alt"
+      content="Chronomètre en ligne gratuit avec affichage du temps"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    <meta name="twitter:image:alt" content="Online Stopwatch timer display" />
+    <meta
+      name="twitter:image:alt"
+      content="Chronomètre en ligne gratuit avec affichage du temps"
+    />
     <title>{title}</title>
     <script is:inline>
       try {
@@ -81,56 +91,80 @@ const socialImage = new URL(image, canonical).toString();
   </head>
   <body>
     <a class="skip-link" href="#main">
-      Skip to content
+      Aller au contenu
     </a>
     <header class="site-header">
       <div class="header-inner">
-        <a href="/" class="wordmark" aria-label="Online Stopwatch home">
+        <a
+          href="/"
+          class="wordmark"
+          aria-label="Accueil du chronomètre en ligne"
+        >
           <span class="brand-icon">
             <Icon name="watch" size={22} />
           </span>
           <span translate="no">
-            online<span class="wordmark-secondary">stopwatch</span>
+            chrono<span class="wordmark-secondary">mètre en ligne</span>
             <span class="brand-period">.</span>
           </span>
         </a>
-        <nav aria-label="Main navigation" class="desktop-navigation">
+        <nav aria-label="Navigation principale" class="desktop-navigation">
           <details class="tools-dropdown">
             <summary>
-              All tools <Icon name="arrow" size={14} />
+              Tous les outils
+              <Icon name="arrow" size={14} />
             </summary>
             <div class="tools-dropdown-panel">
+              <a href="/outils/">Tous les outils</a>
               <details>
-                <summary>Stopwatches <Icon name="arrow" size={13} /></summary>
+                <summary>
+                  Chronomètres
+                  <Icon name="arrow" size={13} />
+                </summary>
                 <div class="tools-submenu">
-                  <a href="/">Digital stopwatch</a>
-                  <a href="/analog-stopwatch/">Analog stopwatch</a>
-                  <a href="/minimal-stopwatch/">Minimal stopwatch</a>
-                  <a href="/custom-stopwatch/">Custom stopwatch</a>
+                  <a href="/">Chronomètre numérique</a>
+                  <a href="/chronometre-analogique/">Chronomètre analogique</a>
+                  <a href="/chronometre-minimaliste/">
+                    Chronomètre minimaliste
+                  </a>
+                  <a href="/chronometre-personnalise/">
+                    Chronomètre personnalisé
+                  </a>
                 </div>
               </details>
               <details>
-                <summary>Timers <Icon name="arrow" size={13} /></summary>
+                <summary>
+                  Minuteurs
+                  <Icon name="arrow" size={13} />
+                </summary>
                 <div class="tools-submenu">
-                  <a href="/timer/">Countdown timer</a>
-                  <a href="/pomodoro/">Pomodoro timer</a>
-                  <a href="/interval-timer/">Interval timer</a>
+                  <a href="/minuteur/">Minuteur en ligne</a>
+                  <a href="/pomodoro/">Minuteur Pomodoro</a>
+                  <a href="/minuteur-intervalle/">Minuteur à intervalles</a>
                 </div>
               </details>
             </div>
           </details>
-          <a href="/about/" class="header-page-link">About</a>
-          <a href="/privacy/" class="header-page-link">Privacy</a>
-          <a href="/terms/" class="header-page-link">Terms</a>
-          <a href="/contact/" class="header-page-link">Contact</a>
+          <a href="/a-propos/" class="header-page-link">
+            À propos
+          </a>
+          <a href="/confidentialite/" class="header-page-link">
+            Confidentialité
+          </a>
+          <a href="/conditions-utilisation/" class="header-page-link">
+            Conditions d’utilisation
+          </a>
+          <a href="/contact/" class="header-page-link">
+            Contact
+          </a>
         </nav>
         <button
           class="icon-button theme-toggle"
-          aria-label="Switch color theme"
-          title="Switch color theme"
+          aria-label="Changer de thème"
+          title="Changer de thème"
         >
           <Icon name="sun" />
-          <span class="sr-only">Switch color theme</span>
+          <span class="sr-only">Changer de thème</span>
         </button>
       </div>
     </header>
@@ -139,19 +173,21 @@ const socialImage = new URL(image, canonical).toString();
       <div>
         <a href="/" class="wordmark footer-brand">
           <Icon name="watch" size={20} />
-          <span translate="no">online stopwatch <span class="wordmark-secondary">by Wearlivo</span>.</span>
+          <span translate="no">
+            chronomètre <span class="wordmark-secondary">en ligne</span>.
+          </span>
         </a>
-        <p>A little space for your time.</p>
+        <p>Un espace pour mesurer votre temps.</p>
       </div>
-      <nav aria-label="Footer navigation">
-        <a href="/about/">About</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
+      <nav aria-label="Navigation de pied de page">
+        <a href="/a-propos/">À propos</a>
+        <a href="/confidentialite/">Confidentialité</a>
+        <a href="/conditions-utilisation/">Conditions d’utilisation</a>
         <a href="/contact/">Contact</a>
-        <a href="/#questions">Help</a>
+        <a href="/#questions">Aide</a>
       </nav>
       <span class="footer-domain">
-        wearlivo.com <span aria-hidden="true">↗</span>
+        chronomètre-en-ligne.com <span aria-hidden="true">↗</span>
       </span>
     </footer>
     <script>
@@ -167,7 +203,7 @@ const socialImage = new URL(image, canonical).toString();
           .querySelector(".theme-toggle")
           ?.setAttribute(
             "aria-label",
-            `Switch to ${dark ? "light" : "dark"} theme`,
+            `Passer au thème ${dark ? "clair" : "sombre"}`,
           );
         const select =
           document.querySelector<HTMLSelectElement>("#theme-choice");

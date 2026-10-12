@@ -11,10 +11,13 @@ import {
 const panel = document.getElementById("today-dashboard")!;
 const formatDuration = (milliseconds: number) => {
   const minutes = Math.round(milliseconds / 60000);
-  return minutes < 1 ? "less than a minute" : `${minutes} min`;
+  return minutes < 1 ? "moins d’une minute" : `${minutes} min`;
 };
 const formatWhen = (timestamp: number) =>
-  new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(timestamp);
+  new Intl.DateTimeFormat("fr-FR", {
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(timestamp);
 
 function routineLine(routine: SavedRoutine) {
   const anchor = document.createElement("a");
@@ -23,7 +26,12 @@ function routineLine(routine: SavedRoutine) {
   const name = document.createElement("strong");
   name.textContent = routine.name;
   const meta = document.createElement("span");
-  meta.textContent = routine.mode === "countdown" ? "Countdown" : routine.mode === "pomodoro" ? "Pomodoro" : "Interval timer";
+  meta.textContent =
+    routine.mode === "countdown"
+      ? "Compte à rebours"
+      : routine.mode === "pomodoro"
+        ? "Pomodoro"
+        : "Minuteur à intervalles";
   anchor.append(name, meta);
   return anchor;
 }
@@ -33,10 +41,15 @@ function render() {
   const summary = todaySummary(history);
   const routinesNode = document.getElementById("saved-routines")!;
   const historyNode = document.getElementById("recent-sessions")!;
-  document.getElementById("today-progress")!.textContent = `${summary.count} completed ${summary.count === 1 ? "session" : "sessions"}`;
-  document.getElementById("today-duration")!.textContent = summary.count ? `${formatDuration(summary.duration)} of intentional time today.` : "Finish a timer to begin your daily record.";
+  document.getElementById("today-progress")!.textContent =
+    `${summary.count} ${summary.count === 1 ? "séance terminée" : "séances terminées"}`;
+  document.getElementById("today-duration")!.textContent = summary.count
+    ? `${formatDuration(summary.duration)} de séances terminées aujourd’hui.`
+    : "Terminez une séance pour commencer votre suivi quotidien.";
   routinesNode.replaceChildren(...routines.slice(0, 3).map(routineLine));
-  if (!routines.length) routinesNode.textContent = "Save any timer setup as a routine to start it again in one click.";
+  if (!routines.length)
+    routinesNode.textContent =
+      "Enregistrez un programme pour le relancer en un clic.";
   historyNode.replaceChildren();
   history.slice(0, 3).forEach((session) => {
     const row = document.createElement("div");
@@ -48,7 +61,8 @@ function render() {
     row.append(name, meta);
     historyNode.append(row);
   });
-  if (!history.length) historyNode.textContent = "Completed timer sessions stay on this device.";
+  if (!history.length)
+    historyNode.textContent = "Les séances terminées restent sur cet appareil.";
   panel.hidden = false;
 }
 try {

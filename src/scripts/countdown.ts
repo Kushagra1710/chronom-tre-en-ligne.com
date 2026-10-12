@@ -59,13 +59,13 @@ try {
         });
   }
 } catch {
-  el("timer-storage-note").textContent = "Storage unavailable";
+  el("timer-storage-note").textContent = "Stockage indisponible";
 }
 function inputValues() {
   return Object.fromEntries(
-    Array.from(form.querySelectorAll<HTMLInputElement>("input[type=number]")).map(
-      (node) => [node.id, node.valueAsNumber],
-    ),
+    Array.from(
+      form.querySelectorAll<HTMLInputElement>("input[type=number]"),
+    ).map((node) => [node.id, node.valueAsNumber]),
   );
 }
 try {
@@ -76,11 +76,17 @@ try {
   if (savedRoutine) {
     Object.entries(savedRoutine.inputs).forEach(([id, next]) => {
       const node = document.getElementById(id) as HTMLInputElement | null;
-      if (node && Number.isInteger(next) && next >= Number(node.min) && next <= Number(node.max)) node.value = String(next);
+      if (
+        node &&
+        Number.isInteger(next) &&
+        next >= Number(node.min) &&
+        next <= Number(node.max)
+      )
+        node.value = String(next);
     });
     // Choosing a named routine is an intentional fresh start, not a recovery.
     pending = null;
-    el("timer-storage-note").textContent = `Routine: ${savedRoutine.name}`;
+    el("timer-storage-note").textContent = `Programme : ${savedRoutine.name}`;
   }
 } catch {}
 function phases(): Phase[] | null {
@@ -92,11 +98,11 @@ function phases(): Phase[] | null {
         value("duration-seconds")) *
       1000;
     if (!duration) {
-      error("Set a duration of at least 1 second.");
+      error("Choisissez une durée d’au moins 1 seconde.");
       input("duration-seconds").focus();
       return null;
     }
-    return [{ label: "Countdown", duration, round: 1 }];
+    return [{ label: "Compte à rebours", duration, round: 1 }];
   }
   return mode === "pomodoro"
     ? routine(
@@ -113,7 +119,7 @@ function phases(): Phase[] | null {
       );
 }
 let timer = new Countdown(
-  phases() || [{ label: "Countdown", duration: 300000, round: 1 }],
+  phases() || [{ label: "Compte à rebours", duration: 300000, round: 1 }],
 );
 function save() {
   if (pending) return;
@@ -123,9 +129,9 @@ function save() {
       key,
       JSON.stringify({ ...timer.snapshot(), inputs, sound: sound.checked }),
     );
-    el("timer-storage-note").textContent = "Saved on this device";
+    el("timer-storage-note").textContent = "Enregistré sur cet appareil";
   } catch {
-    el("timer-storage-note").textContent = "Storage unavailable";
+    el("timer-storage-note").textContent = "Stockage indisponible";
   }
 }
 function updatePreview() {
@@ -145,7 +151,7 @@ function updatePreview() {
   }
   if (timer.phases.length > 6) {
     const item = document.createElement("li");
-    item.textContent = `+ ${timer.phases.length - 6} more phases`;
+    item.textContent = `+ ${timer.phases.length - 6} phases supplémentaires`;
     list.append(item);
   }
   el("routine-total").textContent =
@@ -157,26 +163,26 @@ function render() {
   el("countdown-minutes").textContent = time.minutes;
   el("countdown-seconds").textContent = time.seconds;
   el("phase-label").textContent = timer.finished
-    ? "A moment well spent."
+    ? "Votre séance est terminée."
     : mode === "countdown"
-      ? "Your countdown"
+      ? "Votre compte à rebours"
       : timer.phase.label;
   el("countdown-state").textContent = pending
-    ? "Your saved session is ready"
+    ? "Votre séance enregistrée est prête"
     : timer.finished
-      ? "Session complete"
+      ? "Séance terminée"
       : timer.running
-        ? "A moment in motion"
+        ? "Chronométrage en cours"
         : touched
-          ? "Paused. Take your time."
-          : "Ready when you are";
+          ? "En pause. Prenez votre temps."
+          : "Prêt à démarrer";
   el("countdown-toggle-label").textContent = timer.finished
-    ? "Start again"
+    ? "Recommencer"
     : timer.running
       ? "Pause"
       : touched
-        ? "Resume"
-        : "Start";
+        ? "Reprendre"
+        : "Démarrer";
   el<HTMLButtonElement>("countdown-toggle").disabled = !!pending;
   el<HTMLButtonElement>("countdown-reset").disabled = !touched && !pending;
   el("countdown-dot").classList.toggle(
@@ -187,23 +193,23 @@ function render() {
   el("phase-counter").textContent =
     mode === "countdown"
       ? timer.finished
-        ? "COMPLETE"
-        : "YOUR NEXT MOMENT"
-      : `ROUND ${timer.phase.round} OF ${Math.max(...timer.phases.map((phase) => phase.round))}`;
+        ? "TERMINÉ"
+        : "VOTRE COMPTE À REBOURS"
+      : `CYCLE ${timer.phase.round} SUR ${Math.max(...timer.phases.map((phase) => phase.round))}`;
   el("next-phase").textContent = timer.finished
-    ? "Take a breath. You made time for it."
+    ? "La séance est terminée. Prenez une pause."
     : timer.phases[timer.index + 1]
-      ? `Up next: ${timer.phases[timer.index + 1].label} · ${formatTime(timer.phases[timer.index + 1].duration).split(".")[0]}`
-      : "One moment at a time.";
+      ? `Ensuite : ${timer.phases[timer.index + 1].label} · ${formatTime(timer.phases[timer.index + 1].duration).split(".")[0]}`
+      : "Une activité à la fois.";
   const progress = Math.min(100, Math.max(0, timer.progress * 100));
   el("countdown-progress-fill").style.width = `${progress}%`;
   document
     .querySelector("[role=progressbar]")!
     .setAttribute("aria-valuenow", String(Math.round(progress)));
   document.title = timer.running
-    ? `${time.hours}:${time.minutes}:${time.seconds} · ${timer.phase.label} · Online Stopwatch`
+    ? `${time.hours}:${time.minutes}:${time.seconds} · ${timer.phase.label} · Chronomètre en ligne`
     : timer.finished
-      ? `Time’s up · Online Stopwatch`
+      ? `Temps écoulé · Chronomètre en ligne`
       : title;
 }
 async function unlockSound() {
@@ -213,7 +219,7 @@ async function unlockSound() {
     await audio.resume();
   } catch {
     message(
-      "Sound is unavailable in this browser. The visual timer still works.",
+      "Le son est indisponible dans ce navigateur. L’affichage du minuteur fonctionne toujours.",
     );
   }
 }
@@ -237,7 +243,9 @@ function chime() {
       gain.disconnect();
     };
   } catch {
-    message("Sound could not play. Check your browser’s audio settings.");
+    message(
+      "Le son n’a pas pu être joué. Vérifiez les réglages audio du navigateur.",
+    );
   }
 }
 function apply() {
@@ -263,20 +271,33 @@ el<HTMLFormElement>("routine-form").addEventListener("submit", (event) => {
   const name = el<HTMLInputElement>("routine-name").value.trim();
   if (!name || !form.reportValidity()) return;
   try {
-    const item = { id: crypto.randomUUID(), name, mode: mode as RoutineMode, inputs: inputValues(), createdAt: Date.now() };
-    localStorage.setItem(ROUTINES_KEY, JSON.stringify(addRoutine(parseRoutines(localStorage.getItem(ROUTINES_KEY)), item)));
+    const item = {
+      id: crypto.randomUUID(),
+      name,
+      mode: mode as RoutineMode,
+      inputs: inputValues(),
+      createdAt: Date.now(),
+    };
+    localStorage.setItem(
+      ROUTINES_KEY,
+      JSON.stringify(
+        addRoutine(parseRoutines(localStorage.getItem(ROUTINES_KEY)), item),
+      ),
+    );
     routineDialog.close();
     el<HTMLInputElement>("routine-name").value = "";
-    message(`“${name}” saved. Find it on the stopwatch home page.`);
+    message(
+      `« ${name} » enregistré. Retrouvez ce programme sur la page d’accueil.`,
+    );
   } catch {
-    message("This browser could not save the routine.");
+    message("Ce navigateur n’a pas pu enregistrer le programme.");
   }
 });
 el("routine-cancel").addEventListener("click", () => routineDialog.close());
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!touched && !pending && apply())
-    message("Your timer is ready. Press Start when you are.");
+    message("Votre minuteur est prêt. Appuyez sur Démarrer.");
 });
 form.addEventListener("input", () => {
   error();
@@ -290,21 +311,21 @@ document
       input("duration-minutes").value = String(minutes % 60);
       input("duration-seconds").value = "0";
       apply();
-      message(`${minutes} minute timer ready.`);
+      message(`Minuteur de ${minutes} min prêt.`);
     }),
   );
 el("countdown-toggle").addEventListener("click", () => {
   if (pending) return;
   if (timer.running) {
     timer.pause();
-    message(timer.finished ? "Session complete." : "Timer paused.");
+    message(timer.finished ? "Séance terminée." : "Minuteur en pause.");
   } else {
     if (!touched && !apply()) return;
     if (timer.finished) timer.reset();
     void unlockSound();
     timer.start();
     touched = true;
-    message(`${timer.phase.label} started.`);
+    message(`${timer.phase.label} : démarrage.`);
   }
   save();
   render();
@@ -328,8 +349,8 @@ el("timer-reset-confirm").addEventListener("click", () => {
   apply();
   message(
     discardPending
-      ? "Saved session discarded. Ready for a new moment."
-      : "Timer reset. You can edit your routine.",
+      ? "Séance enregistrée supprimée. Vous pouvez recommencer."
+      : "Minuteur réinitialisé. Vous pouvez modifier le programme.",
   );
   el("countdown-toggle").focus();
 });
@@ -345,19 +366,19 @@ el("timer-restore").addEventListener("click", () => {
   render();
   message(
     timer.finished
-      ? "Your saved timer completed while you were away."
-      : "Session restored and paused. Resume when you’re ready.",
+      ? "Votre minuteur s’est terminé pendant votre absence."
+      : "Séance restaurée et mise en pause. Reprenez quand vous le souhaitez.",
   );
 });
 el("test-sound").addEventListener("click", async () => {
   if (!sound.checked) {
-    message("Turn on “Sound on completion” to test the alert.");
+    message("Activez « Son à la fin » pour tester l’alerte.");
     return;
   }
   await unlockSound();
   chime();
   if (audio?.state === "running")
-    message("Test tone played. Check your device volume.");
+    message("Son de test joué. Vérifiez le volume de votre appareil.");
 });
 sound.addEventListener("change", () => {
   if (sound.checked) void unlockSound();
@@ -371,8 +392,8 @@ function tick() {
     chime();
     message(
       timer.finished
-        ? "Session complete. Well done."
-        : `${timer.phase.label} started. Round ${timer.phase.round}.`,
+        ? "Séance terminée. Bravo !"
+        : `${timer.phase.label} : début du cycle ${timer.phase.round}.`,
     );
   }
   if (timer.finished && !completedRecorded) {
@@ -380,10 +401,10 @@ function tick() {
     try {
       const label =
         mode === "countdown"
-          ? "Countdown"
+          ? "Compte à rebours"
           : mode === "pomodoro"
-            ? "Pomodoro session"
-            : "Interval session";
+            ? "Séance Pomodoro"
+            : "Séance d’intervalles";
       const session = {
         id: crypto.randomUUID(),
         mode: mode as RoutineMode,
@@ -393,7 +414,9 @@ function tick() {
       };
       localStorage.setItem(
         HISTORY_KEY,
-        JSON.stringify(addSession(parseHistory(localStorage.getItem(HISTORY_KEY)), session)),
+        JSON.stringify(
+          addSession(parseHistory(localStorage.getItem(HISTORY_KEY)), session),
+        ),
       );
     } catch {}
   }
@@ -429,8 +452,8 @@ function setFocus(enabled: boolean) {
     if (node) node.inert = enabled;
   }
   el("timer-fullscreen-label").textContent = enabled
-    ? "Exit fullscreen"
-    : "Fullscreen";
+    ? "Quitter le plein écran"
+    : "Plein écran";
 }
 el("timer-fullscreen").addEventListener("click", async () => {
   if (document.fullscreenElement) {
@@ -450,8 +473,8 @@ el("timer-fullscreen").addEventListener("click", async () => {
 });
 document.addEventListener("fullscreenchange", () => {
   el("timer-fullscreen-label").textContent = document.fullscreenElement
-    ? "Exit fullscreen"
-    : "Fullscreen";
+    ? "Quitter le plein écran"
+    : "Plein écran";
 });
 document.addEventListener("keydown", (event) => {
   if (

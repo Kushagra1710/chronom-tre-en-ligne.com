@@ -8,7 +8,9 @@ const { type } = Astro.props;
 
 <nav
   class="tool-nav wrap"
-  aria-label={type === "stopwatch" ? "Stopwatch types" : "Timer types"}
+  aria-label={
+    type === "stopwatch" ? "Types de chronomètres" : "Types de minuteurs"
+  }
 >
   <div>
     {tools

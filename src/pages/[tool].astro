@@ -7,76 +7,76 @@ import type { StopwatchVariant, TimerMode } from "../lib/tools";
 export function getStaticPaths() {
   return [
     {
-      slug: "analog-stopwatch",
+      slug: "chronometre-analogique",
       variant: "analog",
-      title: "Analog Stopwatch",
-      lead: "A classic face.",
-      accent: "A fresh perspective.",
+      title: "Chronomètre analogique en ligne gratuit",
+      lead: "Chronomètre analogique.",
+      accent: "Suivez les aiguilles.",
       description:
-        "Follow time on a classic analog dial, with a digital readout, lap records, and fullscreen mode.",
-      help: "Read the rhythm of your time.",
+        "Un chronomètre analogique en ligne gratuit avec cadran à aiguilles, temps numérique, tours et mode plein écran.",
+      help: "Lire votre chronomètre analogique",
       details:
-        "The long hand completes one turn every minute. The short hand completes one turn every hour. The digital readout below shows total elapsed time, including hours, so a full turn never loses your place.",
+        "La grande aiguille effectue un tour par minute et la petite un tour par heure. L’affichage numérique indique le temps total, y compris les heures. Lancez le chrono, enregistrez des tours et activez le plein écran pour suivre le cadran à distance.",
     },
     {
-      slug: "minimal-stopwatch",
+      slug: "chronometre-minimaliste",
       variant: "minimal",
-      title: "Minimal Stopwatch",
-      lead: "Just you.",
-      accent: "And this moment.",
+      title: "Chronomètre en ligne minimaliste et plein écran",
+      lead: "Chronomètre minimaliste.",
+      accent: "L’essentiel à l’écran.",
       description:
-        "An uncluttered stopwatch for deep work. Big numbers, simple controls, and lap records when you want them.",
-      help: "Less on screen. More room to focus.",
+        "Un chronomètre en ligne minimaliste avec de grands chiffres, un mode plein écran et des tours masqués à la demande. Gratuit et sans inscription.",
+      help: "Un affichage épuré pour se concentrer",
       details:
-        "The minimal stopwatch keeps lap records tucked away until you need them. Press Lap to mark your progress, then choose Show lap records to review or export your results. Fullscreen gives your clock the whole screen.",
+        "Le chronomètre minimaliste garde les tours masqués jusqu’à ce que vous en ayez besoin. Cliquez sur Tour pour enregistrer un temps, puis sur Afficher les tours pour consulter ou exporter vos résultats. Le plein écran agrandit le chrono pour les révisions et les activités en classe.",
     },
     {
-      slug: "custom-stopwatch",
+      slug: "chronometre-personnalise",
       variant: "custom",
-      title: "Custom Stopwatch",
-      lead: "Your time.",
-      accent: "Your way.",
+      title: "Chronomètre en ligne aesthetic et plein écran personnalisé",
+      lead: "Chronomètre en ligne aesthetic.",
+      accent: "Votre style, votre rythme.",
       description:
-        "Create your own stopwatch with a session title, digital or analog face, colors, fonts, display size, and lap options.",
-      help: "Make a space that feels like yours.",
+        "Personnalisez votre chronomètre en ligne aesthetic : couleurs, police, fond et titre. Affichage numérique ou analogique et plein écran, gratuitement.",
+      help: "Créer votre chronomètre en ligne plein écran aesthetic",
       details:
-        "Customize your clock above; changes appear immediately without interrupting a running session. Your setup stays in this browser. Copy a setup link to share the appearance and session title without sharing your recorded times.",
+        "Choisissez un fond uni, des points discrets ou un halo doux. Ajustez les couleurs, la police et la taille des chiffres, puis ajoutez un titre. Vos changements s’appliquent immédiatement pendant la séance. Activez Plein écran pour obtenir un chrono aesthetic lisible en classe ou sur votre bureau. Le lien de personnalisation partage votre apparence et votre titre ; vos tours restent sur votre appareil.",
     },
     {
-      slug: "timer",
+      slug: "minuteur",
       mode: "countdown",
-      title: "Online Countdown Timer",
-      lead: "Make a little time.",
-      accent: "For what matters.",
+      title: "Minuteur en ligne gratuit : 1 minute et durées au choix",
+      lead: "Minuteur en ligne.",
+      accent: "Choisissez votre durée.",
       description:
-        "A free countdown timer with quick presets, custom durations, sound alerts, and fullscreen mode.",
-      heading: "One task. A little time. A clear finish.",
+        "Lancez un minuteur en ligne gratuit de 1 minute, 5 minutes ou de la durée de votre choix, avec alerte sonore et plein écran.",
+      heading: "Un compte à rebours pour votre prochaine activité",
       instructions:
-        "Choose a quick preset or enter hours, minutes, and seconds. Apply your duration, then press Start. Pause whenever you need to; Resume continues from the time remaining. At zero, the display shows completion and plays a short tone if sound is enabled.",
+        "Choisissez une durée rapide ou renseignez les heures, minutes et secondes. Cliquez sur Appliquer la durée puis Démarrer. Pour un compte à rebours de 1 minute, utilisez le bouton 1 min. Pause et Reprendre conservent le temps restant. À zéro, le minuteur affiche la fin et joue un son si cette option est activée.",
     },
     {
       slug: "pomodoro",
       mode: "pomodoro",
-      title: "Pomodoro Timer",
-      lead: "Find your focus.",
-      accent: "Then find your pause.",
+      title: "Minuteur Pomodoro gratuit pour la concentration",
+      lead: "Minuteur Pomodoro.",
+      accent: "Concentrez-vous, puis soufflez.",
       description:
-        "Set your own focus sessions, short breaks, and long breaks with a free, automatic Pomodoro timer.",
-      heading: "A rhythm with room to breathe.",
+        "Organisez vos révisions avec un minuteur Pomodoro gratuit en français. Réglez vos séances de concentration, pauses courtes et pauses longues.",
+      heading: "Alterner concentration et pauses",
       instructions:
-        "Choose the length of your focus periods and breaks, then set how many focus sessions you want to complete. The timer advances automatically between phases. Every fourth completed focus session is followed by a long break if another session remains. The routine ends after the final focus session, without an extra break.",
+        "Choisissez la durée de concentration, des pauses et le nombre de séances. Les phases s’enchaînent automatiquement. Après chaque quatrième séance, une pause longue est proposée si une autre séance reste à effectuer. Le programme se termine après la dernière phase de concentration, sans pause supplémentaire.",
     },
     {
-      slug: "interval-timer",
+      slug: "minuteur-intervalle",
       mode: "interval",
-      title: "Interval Timer",
-      lead: "A little effort.",
-      accent: "A little recovery.",
+      title: "Minuteur à intervalles gratuit : effort et repos",
+      lead: "Minuteur à intervalles.",
+      accent: "Effort, repos, recommencez.",
       description:
-        "Build a custom interval timer with work, rest, and repeated rounds for practice, exercise, or daily routines.",
-      heading: "Your routine. One round at a time.",
+        "Programmez un minuteur à intervalles gratuit : durées d’effort et de repos, nombre de cycles, alerte sonore et plein écran pour vos entraînements.",
+      heading: "Votre entraînement, cycle après cycle",
       instructions:
-        "Set work and rest durations in seconds, choose your number of rounds, and apply the routine. Work and rest alternate automatically, with no rest period after the final round. Set rest to zero for continuous work rounds. Pause or reset whenever you need to.",
+        "Réglez les durées d’effort et de repos en secondes, choisissez le nombre de cycles puis appliquez le programme. Les phases alternent automatiquement, sans repos après le dernier cycle. Réglez le repos à zéro pour des cycles continus. Vous pouvez mettre en pause ou réinitialiser la séance à tout moment.",
     },
   ].map((config) => ({ params: { tool: config.slug }, props: config }));
 }
@@ -106,7 +106,7 @@ const {
 } = Astro.props;
 ---
 
-<Layout title={`${title} | Online Stopwatch`} description={description}>
+<Layout title={`${title} | Chronomètre en ligne`} description={description}>
   <main id="main">
     {mode ? (
       <>
@@ -124,27 +124,30 @@ const {
           <p>{instructions}</p>
           <div class="help-grid">
             <article>
-              <h3>Your setup, saved</h3>
+              <h3>Votre programme est enregistré</h3>
               <p>
-                Your routine and progress stay in this browser. After a refresh,
-                choose Restore timer. Time away is included for a previously
-                running timer; it then pauses for review.
+                Votre programme et votre progression restent dans ce navigateur.
+                Après un rechargement, choisissez Restaurer le minuteur. Si le
+                minuteur était en cours, le temps d’absence est inclus, puis la
+                séance se met en pause.
               </p>
             </article>
             <article>
-              <h3>Sound that respects your space</h3>
+              <h3>Une alerte sonore facultative</h3>
               <p>
-                Use Test sound to check your volume before starting, or turn
-                alerts off for a silent session. Sounds require browser support
-                and may not play in a suspended tab.
+                Utilisez Tester le son pour vérifier le volume avant de
+                commencer, ou désactivez les alertes pour une séance
+                silencieuse. Les sons peuvent être bloqués si le navigateur
+                suspend l’onglet.
               </p>
             </article>
             <article>
-              <h3>A clock you can trust</h3>
+              <h3>Comprendre le compte à rebours</h3>
               <p>
-                Countdowns use a deadline, so delayed screen updates do not
-                extend a phase. Changing your device clock can affect time
-                remaining. Keep your browser active for important alerts.
+                Le compte à rebours utilise une échéance : un retard d’affichage
+                ne prolonge pas une phase. Modifier l’horloge de l’appareil peut
+                affecter le temps restant. Gardez le navigateur actif pour
+                recevoir les alertes.
               </p>
             </article>
           </div>
@@ -165,25 +168,28 @@ const {
           <p>{details}</p>
           <div class="help-grid">
             <article>
-              <h3>Keep your place</h3>
+              <h3>Reprendre votre séance</h3>
               <p>
-                Start, pause, and resume at your pace. Each stopwatch type saves
-                its own session locally; return to that type to restore it.
+                Démarrez, mettez en pause et reprenez à votre rythme. Chaque
+                type de chronomètre enregistre sa propre séance localement.
+                Revenez au même outil pour la restaurer.
               </p>
             </article>
             <article>
-              <h3>Capture a moment</h3>
+              <h3>Enregistrer les tours</h3>
               <p>
-                Laps record the time since your last lap. Splits show total
-                elapsed time. Export your results before resetting a session.
+                Chaque tour mesure le temps depuis le repère précédent. Le temps
+                cumulé indique le total depuis le départ. Exportez vos résultats
+                avant de réinitialiser la séance.
               </p>
             </article>
             <article>
-              <h3>Know the limits</h3>
+              <h3>Connaître les limites</h3>
               <p>
-                Device sleep can affect timing. Restoring a running session uses
-                your device clock, then pauses it for review. No sign-up is
-                needed.
+                La veille de l’appareil peut affecter la mesure. La restauration
+                d’une séance en cours utilise l’horloge de l’appareil, puis met
+                le chronomètre en pause pour vérification. Aucun compte n’est
+                nécessaire.
               </p>
             </article>
           </div>

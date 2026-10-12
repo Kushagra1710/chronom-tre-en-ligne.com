@@ -1,6 +1,6 @@
 # online stopwatch — product, design, and search plan
 
-Domain: https://wearlivo.com
+Domain: https://xn--chronomtre-en-ligne-wyb.com
 Research date: October 9, 2026
 Status: Digital, analog, minimal, and custom stopwatches are implemented, together with countdown, Pomodoro, and interval timers. Classroom and presentation modes remain roadmap items. The user waived the Tailwind skill; this release uses plain CSS and free, self-hosted Geist fonts. The original planning prerequisite below is retained as historical context and no longer blocks this release.
 
@@ -10,7 +10,7 @@ Build a calm, immediately usable stopwatch with strong lap analysis and session 
 
 Proposed promise: **A clear stopwatch. Every session in view.**
 
-Use `online stopwatch` consistently in the wordmark and site identity; use Wearlivo as the domain. No account required for core timing. Recommend an ad-free timing surface at launch; monetization can be reconsidered after evidence of repeat use.
+Use `online stopwatch` consistently in the wordmark and site identity; use Chronomètre en ligne as the domain. No account required for core timing. Recommend an ad-free timing surface at launch; monetization can be reconsidered after evidence of repeat use.
 
 ## Evidence and limits
 
@@ -118,11 +118,11 @@ Suggested homepage title: `Online Stopwatch with Laps & Fullscreen | Online Stop
 
 Suggested description, only after these features work: `Start a free online stopwatch with lap times, fullscreen mode, CSV export, and session recovery. Simple timing for study, work, and everyday tasks.`
 
-Technical delivery: canonical HTTPS origin `https://wearlivo.com`; consistent www/slash redirects; unique titles and descriptions; crawlable internal links; sitemap and robots.txt; meaningful HTML; real 404s; social preview metadata. Astro's [sitemap integration](https://docs.astro.build/en/guides/integrations-guide/sitemap/) supports the configured site origin. Keep configuration variants out of the sitemap and consolidate duplicate views appropriately.
+Technical delivery: canonical HTTPS origin `https://xn--chronomtre-en-ligne-wyb.com`; consistent www/slash redirects; unique titles and descriptions; crawlable internal links; sitemap and robots.txt; meaningful HTML; real 404s; social preview metadata. Astro's [sitemap integration](https://docs.astro.build/en/guides/integrations-guide/sitemap/) supports the configured site origin. Keep configuration variants out of the sitemap and consolidate duplicate views appropriately.
 
 Write concise original help beside each tool. Explain lap versus split time with a worked example and document actual recovery behavior. The useful interactive tool is itself main content; Google includes functional tools in its [people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content). Avoid filler written to meet an arbitrary word count, invented reviews, or unsupported claims of precision. Structured data must describe real visible content and does not guarantee a rich result.
 
-Launch with accurate About, Contact, Privacy, and Terms pages. Inventory previously published Wearlivo URLs before deployment because the working tree indicates an older fashion project. Redirect only genuinely equivalent resources; do not send unrelated deleted articles to the stopwatch homepage.
+Launch with accurate About, Contact, Privacy, and Terms pages. Inventory previously published Chronomètre en ligne URLs before deployment because the working tree indicates an older fashion project. Redirect only genuinely equivalent resources; do not send unrelated deleted articles to the stopwatch homepage.
 
 Build awareness through useful teacher resources, timing guides, and a later embed. Outreach is a proposed activity, not authorized messaging. Validate search demand with Search Console after launch and external keyword data when available.
 

@@ -1,0 +1,25 @@
+# Redirections permanentes des anciennes adresses vers le site français.
+/analog-stopwatch /chronometre-analogique/ 301
+/analog-stopwatch/ /chronometre-analogique/ 301
+/minimal-stopwatch /chronometre-minimaliste/ 301
+/minimal-stopwatch/ /chronometre-minimaliste/ 301
+/custom-stopwatch /chronometre-personnalise/ 301
+/custom-stopwatch/ /chronometre-personnalise/ 301
+/interval-timer /minuteur-intervalle/ 301
+/interval-timer/ /minuteur-intervalle/ 301
+/focus-timers /minuteurs-concentration/ 301
+/focus-timers/ /minuteurs-concentration/ 301
+/stopwatches /chronometres/ 301
+/stopwatches/ /chronometres/ 301
+/timers /minuteurs/ 301
+/timers/ /minuteurs/ 301
+/timer /minuteur/ 301
+/timer/ /minuteur/ 301
+/tools /outils/ 301
+/tools/ /outils/ 301
+/about /a-propos/ 301
+/about/ /a-propos/ 301
+/privacy /confidentialite/ 301
+/privacy/ /confidentialite/ 301
+/terms /conditions-utilisation/ 301
+/terms/ /conditions-utilisation/ 301

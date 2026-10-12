@@ -11,11 +11,11 @@ const current = Astro.url.pathname;
 >
   <div class="toolbox-heading">
     <div>
-      <span class="eyebrow">THE TOOLBOX</span>
-      <h2 id="toolbox-title">Find your next tool.</h2>
+      <span class="eyebrow">LES OUTILS</span>
+      <h2 id="toolbox-title">Choisissez votre outil.</h2>
     </div>
   </div>
-  <nav class="category-buttons" aria-label="Tool categories">
+  <nav class="category-buttons" aria-label="Catégories d’outils">
     {toolCategories.map((category) => (
       <a
         href={category.href}
@@ -32,7 +32,7 @@ const current = Astro.url.pathname;
       </a>
     ))}
   </nav>
-  <nav class="tool-quick-links" aria-label="All timing tools">
+  <nav class="tool-quick-links" aria-label="Tous les outils de mesure du temps">
     {tools.map((tool) => (
       <a
         href={tool.href}

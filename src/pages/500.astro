@@ -1,18 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="Something Went Wrong | Wearlivo" noindex>
+<Layout title="Erreur temporaire | Chronomètre en ligne" noindex>
   <main id="main" class="wrap prose-page">
-    <p class="error-brand"><Icon name="watch" size={19} /> Online Stopwatch by Wearlivo</p>
-    <span class="eyebrow">500 · TEMPORARY PROBLEM</span>
-    <h1>We could not load that page.</h1>
+    <span class="eyebrow">ERREUR 500</span>
+    <h1>Erreur temporaire</h1>
     <p>
-      Something went wrong while loading this page. Please try again in a
-      moment, or return to the stopwatch and continue your session.
+      Cette page n’a pas pu être chargée. Réessayez dans un instant ou revenez
+      au chronomètre.
     </p>
-    <p><a href="/">Open your stopwatch →</a></p>
-    <p><a href="/contact/">Report a problem →</a></p>
+    <p>
+      <a href="/">Ouvrir le chronomètre →</a>
+    </p>
+    <p>
+      <a href="/outils/">Voir tous les outils →</a>
+    </p>
   </main>
 </Layout>
