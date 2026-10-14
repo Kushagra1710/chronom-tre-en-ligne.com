@@ -46,7 +46,7 @@ fragments ; Google Signals et la personnalisation publicitaire sont désactivés
 
 Les deux exploitants confirmés sont Kushagra Sharma et Rashmeet Chhabra, établis
 en Inde. Ces informations figurent dans les pages de confidentialité et de
-conditions. Le contact confirmé est `ks487013@gmail.com`. La répartition écrite
+conditions. Le contact confirmé est `s4717901@gmail.com`. La répartition écrite
 de leurs responsabilités en matière de données reste à définir entre eux.
 
 Vérifications à effectuer dans le compte Google Analytics (non accessibles depuis

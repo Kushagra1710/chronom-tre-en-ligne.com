@@ -124,6 +124,6 @@ test("French structured data matches the visible homepage and contact details", 
   }
   await page.goto("/contact/");
   await expect(
-    page.locator('a[href="mailto:ks487013@gmail.com"]'),
+    page.locator('a[href="mailto:s4717901@gmail.com"]'),
   ).toBeVisible();
 });
