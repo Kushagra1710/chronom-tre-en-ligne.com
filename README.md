@@ -44,9 +44,10 @@ le script Google. Les refus et retraits sont synchronisés entre les onglets.
 Les URL de page et de provenance transmises sont dépourvues de paramètres et
 fragments ; Google Signals et la personnalisation publicitaire sont désactivés.
 
-Avant de considérer les mentions légales comme complètes, renseigner l’identité
-légale et le pays de l’éditeur dans les pages de confidentialité et de conditions.
-Le contact confirmé est `ks487013@gmail.com`.
+Les deux exploitants confirmés sont Kushagra Sharma et Rashmeet Chhabra, établis
+en Inde. Ces informations figurent dans les pages de confidentialité et de
+conditions. Le contact confirmé est `ks487013@gmail.com`. La répartition écrite
+de leurs responsabilités en matière de données reste à définir entre eux.
 
 Vérifications à effectuer dans le compte Google Analytics (non accessibles depuis
 le code du site) : vérifier la durée de conservation des données utilisateur et
