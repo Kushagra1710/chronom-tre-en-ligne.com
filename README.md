@@ -33,6 +33,31 @@ PLAYWRIGHT_BASE_URL=http://localhost:4325 npm run test:e2e
 
 Les tests Playwright couvrent Chromium sur ordinateur et un écran mobile simulé, avec des contrôles d’accessibilité. Ils ne remplacent pas des tests sur Safari ou iOS réels.
 
+## Confidentialité et mesure d’audience
+
+Google Analytics `G-40ZNFZXB6W` est chargé uniquement après acceptation explicite.
+La bannière propose « Refuser » et « Accepter » avec la même présentation. Le
+bouton « Gérer les cookies » est disponible dans le pied de page de chaque page.
+Le choix daté et versionné est conservé pendant 180 jours. Le retrait désactive
+Analytics, supprime ses cookies accessibles et recharge la page pour décharger
+le script Google. Les refus et retraits sont synchronisés entre les onglets.
+Les URL de page et de provenance transmises sont dépourvues de paramètres et
+fragments ; Google Signals et la personnalisation publicitaire sont désactivés.
+
+Avant de considérer les mentions légales comme complètes, renseigner l’identité
+légale et le pays de l’éditeur dans les pages de confidentialité et de conditions.
+Le contact confirmé est `ks487013@gmail.com`.
+
+Vérifications à effectuer dans le compte Google Analytics (non accessibles depuis
+le code du site) : vérifier la durée de conservation des données utilisateur et
+événement, les mesures améliorées activées, les paramètres de partage des données,
+les liens publicitaires éventuels et les accords de traitement des données.
+Désactiver les mesures améliorées non nécessaires, notamment les interactions de
+formulaire, et activer la suppression du paramètre d’URL `title` comme protection
+supplémentaire. Vérifier également la conservation des journaux Cloudflare et les
+accords de transfert applicables. Mettre la politique à jour avec ces choix réels.
+Ne pas annoncer une conformité juridique totale sans ces vérifications.
+
 ## Référencement et routes
 
 La page d’accueil cible « chronomètre en ligne ». Le contenu explique le plein écran, les usages en classe, la minute et la personnalisation aesthetic sans créer de pages de langue supplémentaires. Le document déclare `lang="fr"` ; chaque page indexable possède un lien `hreflang="fr"` vers elle-même pour tous les publics francophones. Les erreurs sont exclues de l’indexation.

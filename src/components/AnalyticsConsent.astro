@@ -1,0 +1,22 @@
+<section id="analytics-consent" class="consent-panel wrap" aria-labelledby="consent-title" hidden>
+  <h2 id="consent-title">Votre choix concernant les cookies</h2>
+  <p>Avec votre accord, Google Analytics utilise des cookies pour mesurer les visites et améliorer ce site. Sans votre accord, Google Analytics reste désactivé. Les outils fonctionnent dans les deux cas.</p>
+  <p>Votre choix est conservé pendant 6 mois. Vous pouvez le modifier à tout moment avec « Gérer les cookies » en bas de chaque page. <a href="/confidentialite/">Lire la politique de confidentialité</a>.</p>
+  <p id="consent-status" role="status"></p>
+  <div class="consent-actions">
+    <button type="button" id="consent-reject">Refuser</button>
+    <button type="button" id="consent-accept">Accepter</button>
+  </div>
+</section>
+<script>
+  import "../scripts/analytics-consent";
+</script>
+<style is:global>
+  .consent-panel { margin-block: 24px; padding: 24px; border: 1px solid var(--border, #777); border-radius: 12px; }
+  .consent-panel[hidden] { display: none; }
+  .consent-panel h2 { font-size: 20px; margin-bottom: 12px; }
+  .consent-panel p { line-height: 1.6; margin-block: 10px; }
+  .consent-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .consent-actions button { min-height: 44px; min-width: 120px; padding: 10px 20px; border: 1px solid currentColor; border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+  .cookie-preferences { background: transparent; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; text-decoration: underline; min-height: 44px; }
+</style>
