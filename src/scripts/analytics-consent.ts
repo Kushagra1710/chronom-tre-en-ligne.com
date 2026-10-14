@@ -121,7 +121,6 @@ document.querySelectorAll("[data-cookie-preferences]").forEach((button) => {
   button.addEventListener("click", () => {
     consentStatus.textContent = choice ? `Choix actuel : ${choice.accepted ? "accepté" : "refusé"}.` : "Aucun choix enregistré.";
     panel.hidden = false;
-    panel.scrollIntoView({ block: "center" });
     document.querySelector<HTMLButtonElement>("#consent-reject")!.focus({ preventScroll: true });
   });
 });
