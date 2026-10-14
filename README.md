@@ -49,10 +49,15 @@ en Inde. Ces informations figurent dans les pages de confidentialité et de
 conditions. Le contact confirmé est `s4717901@gmail.com`. La répartition écrite
 de leurs responsabilités en matière de données reste à définir entre eux.
 
-Vérifications à effectuer dans le compte Google Analytics (non accessibles depuis
-le code du site) : vérifier la durée de conservation des données utilisateur et
-événement, les mesures améliorées activées, les paramètres de partage des données,
-les liens publicitaires éventuels et les accords de traitement des données.
+Réglages du compte Analytics confirmés par le propriétaire le 15 octobre 2026 :
+conservation utilisateur et événement de 2 mois, réinitialisation à chaque nouvelle
+activité désactivée, quatre options facultatives de partage des données
+désactivées. Cette confirmation provient du propriétaire, sans accès direct au
+compte Analytics. La politique reflète ces réglages.
+
+Vérifications restantes dans le compte Google Analytics (non accessibles depuis
+le code du site) : les mesures améliorées activées, les liens publicitaires
+éventuels et les accords de traitement des données.
 Désactiver les mesures améliorées non nécessaires, notamment les interactions de
 formulaire, et activer la suppression du paramètre d’URL `title` comme protection
 supplémentaire. Vérifier également la conservation des journaux Cloudflare et les
