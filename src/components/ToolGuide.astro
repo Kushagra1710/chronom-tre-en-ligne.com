@@ -1,0 +1,118 @@
+---
+interface Props { tool: string }
+const guides: Record<string, {
+  title: string;
+  steps: string[];
+  example: string;
+  tip: string;
+  questions: { question: string; answer: string }[];
+}> = {
+  analog: {
+    title: "Lire les aiguilles sans perdre le temps total",
+    steps: [
+      "Démarrez le chronomètre au début de l’activité : l’aiguille des secondes parcourt le cadran en une minute.",
+      "Utilisez Tour à chaque passage pour garder un repère sans arrêter les aiguilles. Le tableau conserve les intervalles et leur cumul.",
+      "Mettez en pause à la fin et comparez le cadran avec les chiffres : les aiguilles seules ne représentent pas toutes les heures écoulées.",
+    ],
+    example: "Pour trois exercices successifs de 40 secondes, marquez un tour après chacun. À la fin, le total est de 2 minutes, tandis que chaque intervalle est proche de 40 secondes. Le cadran revient plusieurs fois sur les mêmes positions : utilisez le temps numérique pour éviter de confondre un tour d’aiguille avec la fin de la séance.",
+    tip: "Pour une activité de groupe, ouvrez le plein écran et vérifiez la lisibilité depuis le fond de la salle. Le cadran aide à visualiser la progression, mais cet outil mesure le temps écoulé : il n’affiche pas l’heure du jour et ne déclenche pas une alarme à une durée choisie.",
+    questions: [
+      { question: "À quoi sert la petite aiguille ?", answer: "Elle effectue un tour par heure. La grande aiguille effectue un tour par minute ; les chiffres restent la référence pour le total exact affiché." },
+      { question: "Puis-je changer d’affichage en gardant ma séance ?", answer: "Chaque variante conserve sa propre séance. Revenez à la page analogique pour restaurer ses résultats ; exportez-les avant d’effacer les données du navigateur." },
+    ],
+  },
+  minimal: {
+    title: "Une séance de concentration avec moins d’éléments à l’écran",
+    steps: [
+      "Choisissez un objectif concret, puis démarrez le chronomètre au moment où vous commencez à travailler.",
+      "Laissez les tours masqués pour garder uniquement le temps et les commandes essentielles. Vous pouvez quand même enregistrer un tour au changement de tâche.",
+      "À la fin, mettez en pause puis affichez les tours si vous souhaitez examiner les étapes et exporter le résultat.",
+    ],
+    example: "Pour répéter un exposé, marquez un tour après l’introduction, le développement et la conclusion. Le tableau vous permet ensuite de repérer une introduction trop longue sans afficher une liste de résultats pendant la répétition. Recommencez une nouvelle séance après avoir exporté celle que vous voulez garder.",
+    tip: "Le plein écran peut rendre les chiffres plus confortables à distance. Il ne bloque pas les notifications de l’appareil : utilisez les réglages de votre téléphone ou ordinateur si vous souhaitez limiter les interruptions. Pour une limite stricte de cinq minutes avec une alerte finale, choisissez plutôt le minuteur.",
+    questions: [
+      { question: "Masquer les tours les supprime-t-il ?", answer: "Non. Le bouton d’affichage change leur visibilité. Une réinitialisation confirmée ou l’effacement des données peut en revanche supprimer les résultats." },
+      { question: "Pourquoi le chronomètre ne sonne-t-il pas à la fin ?", answer: "Il compte à partir de zéro sans durée finale programmée. Il vous appartient de l’arrêter ; le compte à rebours est l’outil adapté à une échéance." },
+    ],
+  },
+  custom: {
+    title: "Préparer un affichage aesthetic qui reste lisible",
+    steps: [
+      "Ajoutez un titre court pour identifier l’activité, puis choisissez un affichage numérique ou analogique.",
+      "Réglez la palette, la police et le fond. Vérifiez le contraste des chiffres et des commandes dans le thème clair comme dans le thème sombre.",
+      "Testez la taille sur l’écran qui sera réellement utilisé, puis passez en plein écran. Vous pouvez ajuster l’apparence pendant la séance.",
+    ],
+    example: "Pour un exercice en classe, un titre comme « Lecture » et un fond uni évitent de surcharger la projection. Sur un bureau, un halo discret peut convenir à une séance individuelle. La présentation ne change pas le calcul du temps : choisissez le style en fonction de la distance de lecture et de la lumière ambiante.",
+    tip: "Un lien de personnalisation partage le titre et l’apparence, pas vos tours ni une séance synchronisée. Évitez les noms d’élèves, adresses électroniques ou informations confidentielles dans le titre : les destinataires du lien peuvent les lire. Un fichier CSV est plus adapté au partage de résultats.",
+    questions: [
+      { question: "Le destinataire voit-il mon chronomètre tourner en direct ?", answer: "Non. Le lien transmet une configuration d’affichage ; les séances restent propres à chaque navigateur. Ce n’est pas un outil de synchronisation entre appareils." },
+      { question: "Les couleurs changent-elles la précision ?", answer: "Non. La palette et la police modifient l’apparence. La veille ou la suspension du navigateur restent les limites techniques à prendre en compte." },
+    ],
+  },
+  countdown: {
+    title: "Préparer un compte à rebours de 1 minute",
+    steps: [
+      "Choisissez le raccourci 1 min, ou renseignez 0 heure, 1 minute et 0 seconde. Vérifiez la durée avant de démarrer.",
+      "Activez l’alerte si vous en avez besoin et utilisez Tester le son. Le volume du navigateur et de l’appareil doit être audible.",
+      "Démarrez au signal prévu. Pause suspend le décompte ; Reprendre utilise le temps restant, sans recommencer la minute entière.",
+    ],
+    example: "Pour laisser une minute de réflexion à un groupe, préparez la durée avant d’afficher la question. Démarrez lorsque tout le monde est prêt. Si une interruption dure dix secondes et que vous souhaitez la neutraliser, mettez en pause ; sinon, laissez le décompte continuer. À zéro, l’affichage indique que la séance est terminée.",
+    tip: "Faites un essai avant une présentation : certains navigateurs limitent les sons ou suspendent les onglets en arrière-plan. Le calcul du compte à rebours repose sur une échéance, mais cela ne garantit pas que le navigateur pourra jouer une alerte au moment exact. Gardez la page visible pour les activités où le signal doit être remarqué immédiatement.",
+    questions: [
+      { question: "Comment mesurer une minute sans compte à rebours ?", answer: "Le chronomètre numérique compte depuis zéro. Arrêtez-le lorsque l’affichage atteint une minute. Pour être averti à l’échéance, utilisez ce minuteur." },
+      { question: "Pourquoi une durée de zéro est-elle refusée ?", answer: "Le minuteur demande au moins une seconde pour lancer un décompte. Corrigez la durée avant de démarrer ; aucune alerte différée ne peut être programmée avec une durée nulle." },
+    ],
+  },
+  pomodoro: {
+    title: "Construire un programme de travail adapté à votre tâche",
+    steps: [
+      "Choisissez une tâche précise et réglez la durée de concentration, par exemple 25 minutes pour une première séance.",
+      "Choisissez une pause courte, par exemple 5 minutes, puis le nombre de séances. Vérifiez aussi la pause longue si le programme dépasse quatre phases de concentration.",
+      "Testez le son, démarrez et laissez les phases s’enchaîner. Utilisez Pause en cas d’interruption que vous ne souhaitez pas compter.",
+    ],
+    example: "Avec deux séances de concentration de 25 minutes et une pause courte de 5 minutes, le programme dure 55 minutes : travail, pause, puis travail. Il s’arrête après la deuxième concentration. Une pause supplémentaire n’est pas ajoutée à la fin. Si vous programmez une cinquième séance, une pause longue remplace la pause courte après la quatrième.",
+    tip: "Les durées proposées sont un point de départ, pas une obligation. Pour corriger quelques exercices, essayez une durée courte ; pour une lecture approfondie, adaptez le programme à votre attention. Préparez vos documents avant de démarrer et notez les interruptions pour distinguer le temps programmé du travail effectivement accompli.",
+    questions: [
+      { question: "Le minuteur garantit-il une meilleure concentration ?", answer: "Non. Il structure des périodes de travail et de repos. L’intérêt dépend de la tâche, des interruptions et de votre rythme ; ajustez les durées selon votre expérience." },
+      { question: "Puis-je fermer le navigateur pendant la séance ?", answer: "La restauration peut retrouver un état enregistré, mais un navigateur fermé ne joue pas l’alerte. Gardez l’appareil actif si vous comptez sur les transitions sonores." },
+    ],
+  },
+  interval: {
+    title: "Calculer la durée d’un programme d’intervalles",
+    steps: [
+      "Réglez la durée d’effort et la durée de repos en secondes. Choisissez ensuite le nombre de cycles, puis appliquez le programme.",
+      "Vérifiez la première phase et testez le son avant de commencer. Démarrez lorsque vous êtes prêt à suivre le premier intervalle.",
+      "Suivez les indications Effort, Repos et le numéro du cycle. Après le dernier effort, le programme se termine sans ajouter de repos final.",
+    ],
+    example: "Pour 8 cycles de 30 secondes d’effort et 15 secondes de repos, comptez 8 efforts mais seulement 7 repos : 8 × 30 + 7 × 15 = 345 secondes, soit 5 minutes 45 secondes. Cette différence est utile si vous devez réserver un créneau précis. Avec un repos de zéro seconde, les efforts se suivent sans phase de récupération intermédiaire.",
+    tip: "Vous pouvez également utiliser les intervalles pour alterner lecture et prise de notes, ou deux activités en classe. Pour un entraînement sportif, choisissez les durées selon vos capacités et les consignes de votre encadrement ; le minuteur fournit un rythme, pas un programme médical ou une recommandation d’intensité.",
+    questions: [
+      { question: "La pause conserve-t-elle le numéro du cycle ?", answer: "Oui. Mettre en pause conserve la phase et le temps restant. Reprendre continue cette phase ; réinitialiser et confirmer recommence le programme." },
+      { question: "Pourquoi le programme est-il plus court que cycles × effort et repos ?", answer: "Le dernier cycle comprend uniquement l’effort. La durée totale est cycles × effort + (cycles − 1) × repos." },
+    ],
+  },
+};
+const guide = guides[Astro.props.tool];
+---
+{guide && <section class="tool-help tool-guide wrap">
+  <h2>{guide.title}</h2>
+  <ol>{guide.steps.map(step => <li>{step}</li>)}</ol>
+  <h3>Un exemple concret</h3>
+  <p>{guide.example}</p>
+  <h3>Avant de commencer</h3>
+  <p>{guide.tip}</p>
+  <h3>Questions sur cet outil</h3>
+  {guide.questions.map(item => <details>
+    <summary>{item.question}</summary>
+    <p>{item.answer}</p>
+  </details>)}
+</section>}
+<style>
+  .tool-guide { padding-top: 0; }
+  ol { padding-left: 24px; margin-block: 16px 28px; color: var(--body); line-height: 1.8; }
+  li + li { margin-top: 10px; }
+  h3 { margin-block: 24px 12px; }
+  details { border-top: 1px solid var(--line); padding-block: 16px; }
+  summary { cursor: pointer; font-weight: 500; line-height: 1.6; }
+  details p { margin-top: 12px; }
+</style>

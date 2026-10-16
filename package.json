@@ -7,11 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/security-headers.mjs",
     "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "test": "node --test tests/*.test.mjs",
     "test:e2e": "playwright test",
+    "test:security": "node scripts/check-security.mjs",
     "typecheck": "tsc --noEmit",
     "generate-types": "wrangler types",
     "deploy": "npm run build && wrangler deploy"

@@ -22,6 +22,7 @@ La commande de démarrage indique le port disponible. Le port par défaut est 43
 npm test
 npm run typecheck
 npm run build
+npm run test:security
 npm run test:e2e
 ```
 
@@ -32,6 +33,20 @@ PLAYWRIGHT_BASE_URL=http://localhost:4325 npm run test:e2e
 ```
 
 Les tests Playwright couvrent Chromium sur ordinateur et un écran mobile simulé, avec des contrôles d’accessibilité. Ils ne remplacent pas des tests sur Safari ou iOS réels.
+
+Le build ajoute les en-têtes de sécurité de `public/_headers`, puis calcule les
+empreintes SHA-256 des scripts inline du HTML généré avec
+`scripts/security-headers.mjs`. Utiliser `npm run build` / `npm run deploy` pour
+inclure cette étape. La CSP n’autorise ni `unsafe-inline` ni `unsafe-eval` pour
+les scripts. Elle permet les scripts locaux et Google Analytics après consentement.
+Les styles inline restent autorisés pour les réglages d’apparence et les barres
+de progression. Toute future intégration publicitaire doit réévaluer la CSP et
+la gestion du consentement avant déploiement.
+
+`npm run test:security` teste les fichiers de production avec leurs vrais en-têtes
+dans Chromium, sans serveur local et sans envoyer de visites de test à Analytics.
+Il vérifie les pages françaises, le consentement, un export et le blocage d’un
+script inline non autorisé sur ordinateur et mobile.
 
 ## Confidentialité et mesure d’audience
 

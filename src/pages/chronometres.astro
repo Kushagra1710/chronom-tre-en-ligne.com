@@ -19,14 +19,36 @@ import ToolCards from "../components/ToolCards.astro";
     </section>
     <ToolCards filter="stopwatch" heading="Choisir un chronomètre en ligne" />
     <section class="tool-help wrap">
-      <h2>Comment choisir votre outil ?</h2>
+      <h2>Quel affichage choisir pour mesurer une durée ?</h2>
       <p>
-        Le <a href="/">chronomètre en ligne</a> mesure le temps écoulé depuis
-        zéro. Le <a href="/minuteur/">minuteur</a> décompte une durée choisie,
-        par exemple 1 minute pour une question en classe. Le{" "}
-        <a href="/pomodoro/">Pomodoro</a> alterne concentration et pauses. Le{" "}
-        <a href="/minuteur-intervalle/">minuteur à intervalles</a> convient aux
-        exercices répétés et aux entraînements.
+        Le <a href="/">chronomètre numérique</a> convient pour lire rapidement
+        le total et comparer plusieurs tours. Le
+        <a href="/chronometre-analogique/">cadran analogique</a> permet de
+        visualiser le passage des secondes : les chiffres complètent les
+        aiguilles lorsqu’une activité dure plusieurs minutes ou plusieurs heures.
+        Les deux mesurent une durée écoulée à partir de zéro.
+      </p>
+      <h2>Comparer les tours d’une même activité</h2>
+      <p>
+        Sur une série de trois passages, appuyez sur Tour à chaque arrivée sans
+        arrêter le chronomètre. Un temps cumulé de 30, 65 puis 100 secondes
+        correspond à des intervalles de 30, 35 et 35 secondes. Le temps du tour
+        aide à comparer les passages ; le cumul décrit l’ensemble de la séance.
+        Donnez des noms aux tours pour comprendre votre export plus tard.
+      </p>
+      <p>
+        Les variantes gardent des séances distinctes dans votre navigateur.
+        Passer de l’analogique au minimaliste ne transfère pas automatiquement
+        les résultats. Pour conserver une trace durable, exportez le CSV avant
+        une remise à zéro ou un nettoyage des données du navigateur.
+      </p>
+      <h2>Compter vers le haut ou vers le bas ?</h2>
+      <p>
+        Choisissez un chronomètre pour découvrir combien de temps prend une
+        tâche. Si vous disposez déjà d’une limite, comme une minute pour une
+        réponse, utilisez le <a href="/minuteur/">minuteur</a> : il affiche le
+        temps restant et propose une alerte à zéro. Un chronomètre ne s’arrête
+        pas automatiquement à une durée que vous avez en tête.
       </p>
       <p>
         Pour un affichage aesthetic, choisissez le{" "}

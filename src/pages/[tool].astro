@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import StopwatchTool from "../components/StopwatchTool.astro";
 import ToolNav from "../components/ToolNav.astro";
 import TimerTool from "../components/TimerTool.astro";
+import ToolGuide from "../components/ToolGuide.astro";
 import type { StopwatchVariant, TimerMode } from "../lib/tools";
 export function getStaticPaths() {
   return [
@@ -196,5 +197,6 @@ const {
         </section>{" "}
       </>
     )}
+    <ToolGuide tool={mode || variant || ""} />
   </main>
 </Layout>
